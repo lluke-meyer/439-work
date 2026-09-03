@@ -37,22 +37,6 @@ This means initiating valuation procedures and further investment research on Ca
 
 - Operating-value driver: Total revenue was $5,296.759 million for fiscal 2025. Product and maintenance revenue was $4,821.589 million, and services revenue was $475.170 million. Source: Consolidated Income Statements.
 
-## Synthetic enterprise-to-equity bridge check
-
-The class synthetic check uses hypothetical values:
-
-- Enterprise value: $1,000 million
-- Add: non-operating assets: $100 million
-- Less: debt: $(250) million
-- Less: debt-like claims: $(20) million
-- Less: non-common claims: $(10) million
-- Equity value: $820 million
-
-Calculation:
-
-Equity value = $1,000M + $100M − $250M − $20M − $10M = $820M
-
-Per-share value = $820M / 100M diluted shares = $8.20 per share
 
 ## Cadence filing-based bridge
 
