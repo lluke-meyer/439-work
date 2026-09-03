@@ -96,18 +96,6 @@ Per-share value = (EV − $1,499.502M) / 273.725M diluted shares
 
 This updated bridge is more conservative because the Hexagon acquisition used substantial cash and was partly financed with new revolver borrowings. Using December 2025 cash and debt after March 2026 would overstate the equity bridge.
 
-## Synthetic enterprise-to-equity bridge check
-
-- Enterprise value: $1,000 million
-- Add: non-operating assets: $100 million
-- Less: debt: $(250) million
-- Less: debt-like claims: $(20) million
-- Less: non-common claims: $(10) million
-- Equity value: $820 million
-
-Equity value = $1,000M + $100M − $250M − $20M − $10M = $820M
-
-Per-share value = $820M / 100M diluted shares = $8.20 per share
 
 ## Consequential assumptions
 
