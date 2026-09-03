@@ -1,3 +1,5 @@
+***This is for Lab 04 where we used AI to rewrite our inital report. See Brightspace Lab 03 submission for non-AI Edition A report.
+
 # Project 1 Edition A
 
 ## Decision and intended user
