@@ -39,3 +39,11 @@ deep on**: **fixed income** ([lessons/week-13](lessons/week-13/) and
 **robo-advisory** ([tracks/robo-advisory](tracks/robo-advisory/)) — projected slides: [Session 25](https://cinderzhang.github.io/FIN43900-Fall2026/tracks/robo-advisory/week-13/slides-session-25.html) · [Session 26](https://cinderzhang.github.io/FIN43900-Fall2026/tracks/robo-advisory/week-14/slides-session-26.html).
 Either track counts, and either can seed your capstone. Both replicate real
 open-source research with AI — the equipment, not the fish.
+
+
+
+***This report was written for FIN 43900 (AI Finance Applications, Purdue) as a learning exercise. It is not investment research and it is not financial advice.
+
+***AI assistance: drafted with [Codex], resumed from my Lab 03 session; sources gathered and verified by me; the judgments are mine.
+
+***Any remaining errors are my own.
