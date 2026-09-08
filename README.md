@@ -1,4 +1,4 @@
-# FIN 43900 — AI in Finance (Fall 2026)
+***STUDENT # FIN 43900 — AI in Finance (Fall 2026)
 
 Course content home. All readings, handouts, prework, starters, and data
 files live in this repository; videos are linked from the week pages.
