@@ -1,49 +1,66 @@
-***STUDENT # FIN 43900 — AI in Finance (Fall 2026)
+# CDNS Valuation Workbench - FIN 43900 Project 1
 
-Course content home. All readings, handouts, prework, starters, and data
-files live in this repository; videos are linked from the week pages.
-**Everything graded — lab checkouts, projects, checkpoints, and all
-deadlines — lives in Brightspace**, which is the authoritative source for
-dates, points, and submissions. If this repo and Brightspace ever seem to
-disagree about a requirement, Brightspace governs and the difference is a
-bug worth reporting.
+## Decision and intended user
 
-## Weeks
+This project supports a buy-side investment committee that currently holds no position in Cadence Design Systems (NASDAQ: CDNS). The decision is whether to initiate a position, watch/defer, or not initiate as of September 1, 2026. The current base judgment is **watch/defer - no position at the current market price**, subject to the conditions and reversal triggers documented in the final decision memo.
 
-- [Start Here](lessons/week-00/)
-- [Week 1 — Technology Readiness, DRIVER & Company Screening](lessons/week-01/) — projected slides: [Session 01](https://cinderzhang.github.io/FIN43900-Fall2026/lessons/week-01/slides-session-01.html) · [Session 02](https://cinderzhang.github.io/FIN43900-Fall2026/lessons/week-01/slides-session-02.html)
-- [Week 2 — Valuation Foundations](lessons/week-02/) — projected slides: [Session 03](https://cinderzhang.github.io/FIN43900-Fall2026/lessons/week-02/slides-session-03.html) · [Session 04](https://cinderzhang.github.io/FIN43900-Fall2026/lessons/week-02/slides-session-04.html)
-- [Week 3 — DCF & Sensitivity Analysis](lessons/week-03/) — projected slides: [Session 05](https://cinderzhang.github.io/FIN43900-Fall2026/lessons/week-03/slides-session-05.html) · [Session 06](https://cinderzhang.github.io/FIN43900-Fall2026/lessons/week-03/slides-session-06.html)
-- [Week 4 — Comparable Companies & Deal Analysis](lessons/week-04/) — projected slides: [Session 07](https://cinderzhang.github.io/FIN43900-Fall2026/lessons/week-04/slides-session-07.html) · [Session 08](https://cinderzhang.github.io/FIN43900-Fall2026/lessons/week-04/slides-session-08.html)
-- [Week 5 — Pro-Forma Financial Modeling I](lessons/week-05/)
-- [Week 6 — Pro-Forma Financial Modeling II](lessons/week-06/)
-- [Week 7 — Project 1 Studio](lessons/week-07/)
-- [Week 8 — Project 1 Due & Portfolio Construction Opens](lessons/week-08/)
-- [Week 9 — Portfolio Construction & Optimization](lessons/week-09/)
-- [Week 10 — Alternative Data & Market Analysis](lessons/week-10/)
-- [Week 11 — Alternative Data & Market Analysis](lessons/week-11/)
-- [Week 12 — Project 2 Studio](lessons/week-12/)
-- [Week 13 — Project 2 Due & Applied Decision Systems](lessons/week-13/) — projected slides: [Session 25](https://cinderzhang.github.io/FIN43900-Fall2026/lessons/week-13/slides-session-25.html)
-- [Week 14 — Applied Financial Decision Systems](lessons/week-14/) — projected slides: [Session 26](https://cinderzhang.github.io/FIN43900-Fall2026/lessons/week-14/slides-session-26.html)
-- [Week 15 — Integrated Capstone Development](lessons/week-15/)
-- [Week 16 — Capstone Submission & Consultation](lessons/week-16/)
+## What the product does
 
-The `.html` slide files do not render inside the GitHub file browser —
-use the projected-slides links above (arrow keys or click to advance).
+The Streamlit workbench connects a five-year three-statement pro-forma to FCFF and a DCF. It provides:
 
-## Weeks 13–14 — two complete tracks, your decision
+- bounded base, downside, and upside scenarios;
+- a driver panel for revenue growth, gross margin, operating expenses, WACC, and terminal growth;
+- five-year financial statements and FCFF;
+- an enterprise-to-equity/per-share bridge;
+- WACC-terminal growth sensitivity and reverse DCF;
+- visible balance-sheet, cash-flow, cash-floor, and terminal-growth checks;
+- a deliberate fail-loud demonstration for an incoherent terminal-growth input; and
+- the current comparable-company evidence and clearly labeled open evidence gaps.
 
-Two complete two-week builds are published, and **you choose which one you dig
-deep on**: **fixed income** ([lessons/week-13](lessons/week-13/) and
-[lessons/week-14](lessons/week-14/) — class sessions walk this one) or
-**robo-advisory** ([tracks/robo-advisory](tracks/robo-advisory/)) — projected slides: [Session 25](https://cinderzhang.github.io/FIN43900-Fall2026/tracks/robo-advisory/week-13/slides-session-25.html) · [Session 26](https://cinderzhang.github.io/FIN43900-Fall2026/tracks/robo-advisory/week-14/slides-session-26.html).
-Either track counts, and either can seed your capstone. Both replicate real
-open-source research with AI — the equipment, not the fish.
+## Setup and run
 
+Python 3.11 or newer is recommended.
 
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+streamlit run app.py
+```
 
-***This report was written for FIN 43900 (AI Finance Applications, Purdue) as a learning exercise. It is not investment research and it is not financial advice.
+The terminal will print a local URL, normally `http://localhost:8501`.
 
-***AI assistance: drafted with [Codex], resumed from my Lab 03 session; sources gathered and verified by me; the judgments are mine.
+## Reproduce the visible output without the interface
 
-***Any remaining errors are my own.
+```bash
+python3 project1_model.py
+python3 project1_model.py --snapshot outputs/visible-output.txt
+python3 -m unittest discover -s tests -v
+```
+
+## Repository map
+
+- `app.py` - Streamlit user interface.
+- `project1_model.py` - dependency-free pro-forma, FCFF DCF, scenarios, sensitivity, reverse DCF, and checks.
+- `tests/test_model.py` - articulation, monotonicity, scenario-ordering, and boundary tests.
+- `outputs/visible-output.txt` - frozen, human-readable executed output.
+- `docs/validation-and-ai-use.md` - working validation record and the blank Locked Changed-Input Record.
+- `Lab04 Project 1 Edition A.md` - preserved Edition A working file; the Brightspace receipt remains the baseline of record.
+- `Lab05` through `Lab12` files - weekly development evidence retained for traceability.
+
+## Data sources and boundaries
+
+Material historical inputs currently come from the CDNS FY2025 Form 10-K and the source notes preserved in the weekly files. The project uses a September 1, 2026 valuation date and a $313.04 market close. The final validation record must freeze every load-bearing source, as-of date, definition, transformation, and exclusion.
+
+## Known limitations and open requirements
+
+- The pro-forma simplifies other assets and other liabilities by holding them flat.
+- The Hexagon acquisition and subsequent quarterly updates are not yet fully incorporated.
+- The 9% WACC still needs a complete independently sourced component record.
+- The comparable-company work currently has a single-peer P/E reference; a consistent enterprise-value peer multiple remains required.
+- Scenario ranges are analyst assumptions and must be supported in the final assumption-challenge record.
+- `docs/validation-and-ai-use.md` is not complete until Luke personally records and commits the AI-off changed-input prediction, the test is executed afterward, and the result is reconciled.
+
+## Academic and AI-use note
+
+This report was prepared for FIN 43900 (AI Finance Applications, Purdue) as a learning exercise. It is not investment research or financial advice. Material AI assistance, independent checks, and dispositions belong in `docs/validation-and-ai-use.md`; the judgments remain the student's.
