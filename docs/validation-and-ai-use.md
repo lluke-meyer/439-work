@@ -29,9 +29,9 @@ Include the known-answer reconciliation, source/definition check, articulation c
 
 ### Precommit - complete before the run and before AI assistance on the prediction
 
-| Precommit timestamp | Repository commit | Material input | Old value and units | New value and units | Expected output direction | Expected decision effect |
+| Timestamp | Repository commit | Material input | Old value and units | New value and units | Expected output direction | Expected decision effect |
 |---|---|---|---|---|---|---|
-|  |  |  |  |  |  |  |
+| 3:54 PM EDT on 10/17/2026 | 475ce09d4aa361ffb3dacb5691faea97375df9e9 | Inventory Days | 153.5 days | 148.5 days | Decrease | My recommendation will remain to initiate. |
 
 ### Preserved execution result - complete only after the committed prediction
 
