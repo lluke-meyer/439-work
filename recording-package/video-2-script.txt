@@ -1,0 +1,28 @@
+PROJECT: FIN 43900 Project 1 - Cadence Design Systems Valuation Workbench
+STUDENT: Luke Meyer
+VIDEO: 2 Codebase Walkthrough
+STATUS: DRAFT RECORDING SCRIPT - correct to match the final recording before submission
+STABLE VIDEO ID/URL: TO ADD AFTER RECORDING
+TITLE: CDNS Valuation Workbench - Code, Data Flow, and Validation
+DURATION: TARGET 4:20-4:40; FINAL DURATION TO ADD AFTER RECORDING
+REPOSITORY COMMIT/FROZEN VERSION: TO ADD AFTER FINAL FREEZE
+
+[00:00] Luke Meyer: This repository supports a watch-and-defer decision for a committee with no current CDNS position. The highest-risk claim is that the current market price is not supported even after giving Cadence credit for growth. That claim could be wrong because of a finance convention, a stale or mismatched data input, or a technical failure in the linked statements or valuation bridge.
+
+[00:28] Luke Meyer: The repository has two main application files. The file project1_model.py contains the finance logic, while app.py is the Streamlit interface. The tests folder checks the model and application, outputs contains the frozen visible result and validation evidence, and docs contains the research evolution, decision memo, and validation record. Requirements.txt defines the runnable environment, while the README gives the clean-user setup and reproduction commands.
+
+[00:58] Luke Meyer: In project1_model.py, the base inputs start with Cadence's FY2025 opening financials and explicit forecast assumptions. The named downside, base, and upside cases use the same model structure. The forecast links revenue, gross profit, operating expenses, taxes, working capital, capital spending, depreciation, debt, equity, and cash. Cash is the balancing item, and the model separately checks both the balance sheet and cash-flow statement.
+
+[01:35] Luke Meyer: The forecast then calculates FCFF and discounts it using the selected WACC. Terminal growth must remain below WACC. Enterprise value is bridged to equity value by adding cash, subtracting debt, and dividing by diluted shares. The committee decision function applies one disclosed rule to the calculated value: initiate only with a 15% margin of safety, watch and defer above the modeled downside floor, and do not initiate at or below that floor. A failed integrity check stops the decision.
+
+[02:12] Luke Meyer: The newer functions extend that same core. The market-expectations dashboard solves for the revenue-growth shift, WACC, or gross margin required to reach the market price. The semiconductor regimes move operations and beta together. The Hexagon function values the acquisition as a separate incremental overlay, so the FY2025-based statements are not silently mixed with post-acquisition assumptions.
+
+[02:43] Luke Meyer: App.py imports those functions and presents their outputs. It does not recreate the valuation logic. Changing a sidebar input sends a new input set through run_model, and the displayed action comes from the calculated result. This separation lets the same model drive the interface, the visible text output, and the tests.
+
+[03:08] Luke Meyer: A clean user can reproduce the frozen result with `python project1_model.py --snapshot outputs/visible-output.txt`, then run `python -m unittest discover -s tests -v`. The current suite contains 16 tests covering statement articulation, scenario ordering, WACC and terminal-growth direction, the enterprise-to-equity bridge, the committee engine, market-price reconciliation, industry regimes, acquisition behavior, and application rendering.
+
+[03:43] Luke Meyer: The highest-risk boundary test is terminal growth reaching WACC. I will demonstrate it here using the fail-loud control. Instead of returning an extreme or undefined valuation, the model stops with the expected error that terminal growth must remain below WACC. The companion sensitivity test also confirms that increasing WACC from 10% to 11% lowers value from $83.34 to $72.90 without changing the operating forecast.
+
+[04:15] Luke Meyer: The main unresolved limitation is not hidden in the code. The Hexagon section is an acquisition-economics overlay, not a full post-acquisition three-statement rebuild. Its transaction facts are sourced, but revenue, margins, synergies, integration costs, reinvestment, and deal WACC remain analyst assumptions. Synopsys is also the only admitted peer. Those limitations are why the final action is conditional and why the model specifies what evidence must be updated before the committee reconsiders.
+
+END OF DRAFT RECORDING SCRIPT

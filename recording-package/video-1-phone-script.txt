@@ -1,0 +1,173 @@
+VIDEO 1 — RESEARCH EVOLUTION
+Phone / teleprompter copy
+
+Do not read text inside [brackets].
+/ = brief pause
+// = full pause or screen change
+
+
+[CAMERA — EDITION A]
+
+My Project 1 decision is whether
+a buy-side investment committee
+with no current Cadence position
+should initiate,
+watch and defer,
+or not initiate.
+
+My Edition A view was simple.
+
+Cadence looked strong enough
+to pass my screens,
+so I expected the valuation work
+to support an investment.
+
+That was a research thesis—
+not a completed recommendation.
+
+//
+
+[SHOW EDITION B]
+
+The completed work changed my view
+to WATCH AND DEFER,
+with no position,
+at the September first market price
+of three hundred thirteen dollars
+and four cents.
+
+The change came from
+a mixture of course instruction,
+my own analysis,
+peer challenge,
+and disclosed AI assistance.
+
+The integrated F-C-F-F D-C-F
+produced a range of
+fifty-seven dollars and twenty cents
+to one hundred eleven dollars
+and fifty-two cents,
+with a base value
+of eighty-three dollars
+and thirty-four cents.
+
+Synopsys produced
+higher reference values:
+
+one hundred eighty-nine dollars
+and sixty-four cents
+from E-V to revenue,
+
+and two hundred nine dollars
+and forty-seven cents
+from P-to-E.
+
+But both were still
+below the market.
+
+The methods disagreed
+on the amount of overvaluation—
+not on the action.
+
+//
+
+[SHOW WACC VALIDATION]
+
+One material AI-assisted output
+was the revised ten-percent WACC
+and the Synopsys
+enterprise-value cross-check.
+
+I treated both
+as calculations to test—
+not conclusions to accept.
+
+For WACC,
+I independently checked
+the four-point-seven-nine-percent
+Treasury yield,
+
+the four-point-two-three-percent
+implied equity risk premium,
+
+the industry beta,
+
+Cadence's debt
+and market-equity weights,
+
+and the tax adjustment.
+
+The calculation produced
+ten-point-zero-one-one-five percent,
+which I rounded to ten percent.
+
+//
+
+[SHOW ENTERPRISE-TO-EQUITY BRIDGE]
+
+For the E-V cross-check,
+I rebuilt Synopsys enterprise value
+from market capitalization,
+plus debt,
+minus cash.
+
+I divided that
+by trailing-twelve-month revenue
+and applied the
+nine-point-one-two-four-nine-times multiple
+to Cadence.
+
+I then completed Cadence's separate
+enterprise-to-equity bridge.
+
+The model tests
+confirmed the formulas,
+and the visible output
+preserved the result.
+
+//
+
+[SHOW AI-USE REGISTER]
+
+I accepted those outputs
+with qualifications.
+
+The WACC uses
+an industry beta
+and a recent effective
+debt-cost proxy.
+
+Synopsys is only
+one admitted peer,
+and its Ansys acquisition
+affects comparability.
+
+AI helped accelerate
+the calculation
+and challenge the model,
+but it did not make
+my recommendation.
+
+//
+
+[CAMERA — FINAL RECONCILIATION]
+
+The evidence was sufficient
+because the accounting-linked D-C-F,
+both peer checks,
+the market-implied tests,
+and the sensitivity work
+all failed to support
+three hundred thirteen dollars
+and four cents.
+
+My conclusion is not
+that Cadence is a weak company.
+
+It is that a strong company
+can still be
+an unattractive entry
+at the wrong price.
+
+That is why my final decision
+is WATCH AND DEFER.

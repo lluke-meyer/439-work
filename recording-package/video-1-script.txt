@@ -1,0 +1,22 @@
+PROJECT: FIN 43900 Project 1 - Cadence Design Systems Valuation Workbench
+STUDENT: Luke Meyer
+VIDEO: 1 Research Evolution
+STATUS: DRAFT RECORDING SCRIPT - correct to match the final recording before submission
+STABLE VIDEO ID/URL: TO ADD AFTER RECORDING
+TITLE: From Initial Screen to Watch/Defer - CDNS Research Evolution
+DURATION: TARGET 2:35-2:50; FINAL DURATION TO ADD AFTER RECORDING
+REPOSITORY COMMIT/FROZEN VERSION: TO ADD AFTER FINAL FREEZE
+
+[00:00] Luke Meyer: My Project 1 decision is whether a buy-side investment committee with no current Cadence position should initiate, watch and defer, or not initiate. My Edition A view was simple: Cadence looked strong enough to pass my screens, so I expected the valuation work to support an investment. That was a research thesis, not a completed recommendation.
+
+[00:30] Luke Meyer: The completed work changed my view to watch and defer with no position at the September 1 market price of $313.04. The change came from a mixture of course instruction, my own analysis, peer challenge, and disclosed AI assistance. The integrated FCFF DCF produced a range of $57.20 to $111.52, with a base value of $83.34. Synopsys produced higher reference values of $189.64 from EV to revenue and $209.47 from P/E, but both were still below the market. The methods disagreed on the amount of overvaluation, not on the action.
+
+[01:10] Luke Meyer: One material AI-assisted output was the revised 10% WACC and the Synopsys enterprise-value cross-check. I treated both as calculations to test, not conclusions to accept. For WACC, I independently checked the 4.79% Treasury yield, the 4.23% implied equity risk premium, the industry beta, Cadence's debt and market equity weights, and the tax adjustment. The calculation produced 10.0115%, which I rounded to 10%.
+
+[01:43] Luke Meyer: For the EV cross-check, I rebuilt Synopsys enterprise value from market capitalization plus debt minus cash, divided it by TTM revenue, and applied the 9.1249 times multiple to Cadence. I then completed Cadence's separate enterprise-to-equity bridge. The model tests confirmed the formulas and the visible output preserved the result.
+
+[02:08] Luke Meyer: I accepted those outputs with qualifications. The WACC uses an industry beta and a recent effective debt-cost proxy. Synopsys is only one admitted peer and its Ansys acquisition affects comparability. AI helped accelerate the calculation and challenge the model, but it did not make my recommendation.
+
+[02:32] Luke Meyer: The evidence was sufficient because the accounting-linked DCF, both peer checks, the market-implied tests, and the sensitivity work all failed to support $313.04. My conclusion is not that Cadence is a weak company. It is that a strong company can still be an unattractive entry at the wrong price. That is why my final decision is watch and defer.
+
+END OF DRAFT RECORDING SCRIPT

@@ -18,6 +18,41 @@ YEARS = (2026, 2027, 2028, 2029, 2030)
 VALUATION_DATE = "2026-09-01"
 MARKET_PRICE = 313.04
 
+# Sourced WACC building blocks used to make the industry-regime stress explicit.
+# The base model still rounds the resulting 10.0115% WACC to 10.0%.
+RISK_FREE_RATE = 0.0479
+EQUITY_RISK_PREMIUM = 0.0423
+BASE_RELEVERED_BETA = 1.2751
+PRETAX_DEBT_COST = 0.053804
+WACC_TAX_RATE = 0.251084
+EQUITY_WEIGHT = 0.972013
+DEBT_WEIGHT = 0.027987
+
+# Hexagon D&E facts from Cadence's Q2 2026 Form 10-Q. The operating assumptions
+# in AcquisitionInputs below are intentionally separate analyst judgments.
+HEXAGON_PURCHASE_CONSIDERATION = 3_101.008
+HEXAGON_CASH_CONSIDERATION = 2_200.0
+HEXAGON_CASH_ACQUIRED = 154.6
+HEXAGON_SHARES_ISSUED = 3.224473
+HEXAGON_GOODWILL = 2_147.191
+HEXAGON_ACQUIRED_INTANGIBLES = 1_248.0
+HEXAGON_INTANGIBLE_LIFE = 7.8
+HEXAGON_PRO_FORMA_H1_REVENUE = 3_122.266
+CDNS_REPORTED_H1_REVENUE = 3_058.671
+
+# Independently sourced Synopsys EV/TTM-revenue cross-check. Market prices are
+# from September 1, 2026; balance-sheet and share inputs are the latest public
+# values available before that date. Dollar amounts are USD millions.
+SNPS_PRICE = 414.82
+SNPS_SHARES = 191.636646
+SNPS_CASH_AND_SHORT_TERM_INVESTMENTS = 3_607.669
+SNPS_DEBT = 10_037.360
+SNPS_TTM_REVENUE = 9_416.465
+CDNS_TTM_REVENUE = 5_837.623
+CDNS_PEER_BRIDGE_CASH = 1_440.443
+CDNS_PEER_BRIDGE_DEBT = 2_482.200
+CDNS_PEER_BRIDGE_SHARES = 275.393
+
 OPENING = {
     "revenue": 5_296.759,
     "inventory": 303.545,
@@ -49,9 +84,41 @@ class ModelInputs:
     debt_repayment: float = 0.0
     annual_share_buyback: float = 900.0
     term_debt_rate: float = 116.541 / 2_476.183
-    wacc: float = 0.09
+    wacc: float = 0.10
     terminal_growth: float = 0.03
     diluted_shares: float = 273.312
+
+
+@dataclass(frozen=True)
+class IndustryRegime:
+    """Correlated operating and market-risk stress anchored to the base case."""
+
+    name: str
+    description: str
+    revenue_shift: float
+    gross_margin_shift: float
+    opex_shift: float
+    beta: float
+
+
+@dataclass(frozen=True)
+class AcquisitionInputs:
+    """Illustrative incremental Hexagon D&E cash-flow assumptions.
+
+    Starting revenue is a rounded annualization of the Q2 filing's unaudited
+    pre-close pro-forma revenue difference. It is not company guidance.
+    """
+
+    starting_revenue: float = 440.0
+    revenue_growth: tuple[float, ...] = (0.12, 0.10, 0.08, 0.06, 0.04)
+    ebita_margin: tuple[float, ...] = (0.14, 0.17, 0.20, 0.22, 0.24)
+    synergy_margin: tuple[float, ...] = (0.00, 0.01, 0.02, 0.03, 0.03)
+    integration_costs: tuple[float, ...] = (35.0, 25.0, 15.0, 5.0, 0.0)
+    capex_ratio: float = 0.03
+    net_working_capital_ratio: float = 0.05
+    tax_rate: float = 0.27
+    wacc: float = 0.105
+    terminal_growth: float = 0.03
 
 
 BASE = ModelInputs(
@@ -67,7 +134,7 @@ DOWNSIDE = replace(
     revenue_growth=(0.11, 0.09, 0.07, 0.05, 0.02),
     gross_margin=0.845,
     opex_to_gross_profit=(0.680, 0.675, 0.670, 0.665, 0.660),
-    wacc=0.10,
+    wacc=0.11,
     terminal_growth=0.025,
 )
 
@@ -77,10 +144,46 @@ UPSIDE = replace(
     revenue_growth=(0.16, 0.14, 0.12, 0.10, 0.07),
     gross_margin=0.875,
     opex_to_gross_profit=(0.660, 0.655, 0.650, 0.645, 0.640),
-    wacc=0.085,
+    wacc=0.09,
 )
 
 SCENARIOS = {item.name: item for item in (DOWNSIDE, BASE, UPSIDE)}
+
+INDUSTRY_REGIMES = (
+    IndustryRegime(
+        name="AI buildout extends",
+        description=(
+            "Demand stays strong, but elevated expectations and market sensitivity "
+            "keep the discount rate above the base case."
+        ),
+        revenue_shift=0.03,
+        gross_margin_shift=0.005,
+        opex_shift=-0.005,
+        beta=1.35,
+    ),
+    IndustryRegime(
+        name="Orderly normalization",
+        description=(
+            "Growth fades along the base path while margin discipline and market "
+            "risk remain near the sourced assumptions."
+        ),
+        revenue_shift=0.00,
+        gross_margin_shift=0.000,
+        opex_shift=0.000,
+        beta=BASE_RELEVERED_BETA,
+    ),
+    IndustryRegime(
+        name="Cycle reversal",
+        description=(
+            "Customer R&D growth cools, operating leverage weakens, and a higher "
+            "beta raises the return demanded for long-duration cash flows."
+        ),
+        revenue_shift=-0.05,
+        gross_margin_shift=-0.020,
+        opex_shift=0.010,
+        beta=1.50,
+    ),
+)
 
 
 def _validate_inputs(inputs: ModelInputs) -> None:
@@ -96,6 +199,27 @@ def _validate_inputs(inputs: ModelInputs) -> None:
         raise ValueError("Revenue growth cannot be less than or equal to -100%.")
     if any(not 0 < ratio < 1 for ratio in inputs.opex_to_gross_profit):
         raise ValueError("Operating-expense ratios must be between zero and one.")
+
+
+def _validate_acquisition_inputs(inputs: AcquisitionInputs) -> None:
+    for label, values in (
+        ("Acquisition revenue growth", inputs.revenue_growth),
+        ("Acquisition EBITA margin", inputs.ebita_margin),
+        ("Acquisition synergy margin", inputs.synergy_margin),
+        ("Acquisition integration costs", inputs.integration_costs),
+    ):
+        if len(values) != len(YEARS):
+            raise ValueError(f"{label} must contain one value for each forecast year.")
+    if inputs.starting_revenue <= 0:
+        raise ValueError("Acquisition starting revenue must be positive.")
+    if inputs.terminal_growth >= inputs.wacc:
+        raise ValueError("Acquisition terminal growth must be below acquisition WACC.")
+    if not 0 <= inputs.capex_ratio < 1:
+        raise ValueError("Acquisition capex ratio must be between zero and one.")
+    if not 0 <= inputs.net_working_capital_ratio < 1:
+        raise ValueError("Acquisition working-capital ratio must be between zero and one.")
+    if any(cost < 0 for cost in inputs.integration_costs):
+        raise ValueError("Acquisition integration costs cannot be negative.")
 
 
 def build_proforma(inputs: ModelInputs) -> list[dict[str, float]]:
@@ -248,9 +372,52 @@ def run_named_scenarios() -> dict[str, dict[str, object]]:
     return {name: run_model(inputs) for name, inputs in SCENARIOS.items()}
 
 
+def wacc_from_beta(beta: float) -> float:
+    """Calculate WACC from the sourced capital structure with a stressed beta."""
+
+    cost_of_equity = RISK_FREE_RATE + beta * EQUITY_RISK_PREMIUM
+    return (
+        EQUITY_WEIGHT * cost_of_equity
+        + DEBT_WEIGHT * PRETAX_DEBT_COST * (1 - WACC_TAX_RATE)
+    )
+
+
+def run_industry_regimes(
+    base_inputs: ModelInputs = BASE,
+) -> list[dict[str, object]]:
+    """Run correlated semiconductor-demand and market-risk regimes."""
+
+    rows: list[dict[str, object]] = []
+    for regime in INDUSTRY_REGIMES:
+        stressed = replace(
+            base_inputs,
+            name=regime.name,
+            revenue_growth=tuple(
+                growth + regime.revenue_shift for growth in base_inputs.revenue_growth
+            ),
+            gross_margin=base_inputs.gross_margin + regime.gross_margin_shift,
+            opex_to_gross_profit=tuple(
+                ratio + regime.opex_shift
+                for ratio in base_inputs.opex_to_gross_profit
+            ),
+            wacc=wacc_from_beta(regime.beta),
+        )
+        result = run_model(stressed)
+        rows.append(
+            {
+                "name": regime.name,
+                "description": regime.description,
+                "beta": regime.beta,
+                "inputs": stressed,
+                "result": result,
+            }
+        )
+    return rows
+
+
 def wacc_growth_grid(inputs: ModelInputs) -> list[dict[str, float]]:
     rows: list[dict[str, float]] = []
-    for wacc in (0.08, 0.09, 0.10, 0.11):
+    for wacc in (0.09, 0.10, 0.11):
         for terminal_growth in (0.02, 0.03, 0.04):
             if terminal_growth >= wacc:
                 continue
@@ -264,6 +431,40 @@ def wacc_growth_grid(inputs: ModelInputs) -> list[dict[str, float]]:
                 }
             )
     return rows
+
+
+def comparable_company_evidence() -> dict[str, float]:
+    """Return the sourced Synopsys EV/revenue cross-check for CDNS."""
+
+    peer_market_cap = SNPS_PRICE * SNPS_SHARES
+    peer_enterprise_value = (
+        peer_market_cap + SNPS_DEBT - SNPS_CASH_AND_SHORT_TERM_INVESTMENTS
+    )
+    peer_ev_to_revenue = peer_enterprise_value / SNPS_TTM_REVENUE
+    implied_enterprise_value = peer_ev_to_revenue * CDNS_TTM_REVENUE
+    implied_equity_value = (
+        implied_enterprise_value
+        + CDNS_PEER_BRIDGE_CASH
+        - CDNS_PEER_BRIDGE_DEBT
+    )
+    implied_value_per_share = implied_equity_value / CDNS_PEER_BRIDGE_SHARES
+    target_market_cap = MARKET_PRICE * CDNS_PEER_BRIDGE_SHARES
+    target_enterprise_value = (
+        target_market_cap + CDNS_PEER_BRIDGE_DEBT - CDNS_PEER_BRIDGE_CASH
+    )
+    target_ev_to_revenue = target_enterprise_value / CDNS_TTM_REVENUE
+    return {
+        "peer_market_cap": peer_market_cap,
+        "peer_enterprise_value": peer_enterprise_value,
+        "peer_ev_to_revenue": peer_ev_to_revenue,
+        "implied_enterprise_value": implied_enterprise_value,
+        "implied_equity_value": implied_equity_value,
+        "implied_value_per_share": implied_value_per_share,
+        "target_ev_to_revenue": target_ev_to_revenue,
+        "target_premium_to_peer_multiple": (
+            target_ev_to_revenue / peer_ev_to_revenue - 1
+        ),
+    }
 
 
 def value_with_growth_shift(inputs: ModelInputs, shift: float) -> float:
@@ -296,14 +497,277 @@ def implied_uniform_growth_shift(
     return (lower + upper) / 2
 
 
-def committee_action(scenario_name: str) -> str:
-    if scenario_name == "Downside":
-        return "Do not initiate"
-    return "Watch/defer - no position at the current market price"
+def implied_wacc(
+    inputs: ModelInputs,
+    target_price: float = MARKET_PRICE,
+    lower: float | None = None,
+    upper: float = 0.25,
+) -> float | None:
+    """Solve for the WACC that reconciles the operating case to target price."""
+
+    lower = max(inputs.terminal_growth + 0.0001, 0.0301) if lower is None else lower
+    lower_value = float(run_model(replace(inputs, wacc=lower))["valuation"]["value_per_share"])
+    upper_value = float(run_model(replace(inputs, wacc=upper))["valuation"]["value_per_share"])
+    if not upper_value <= target_price <= lower_value:
+        return None
+    for _ in range(100):
+        midpoint = (lower + upper) / 2
+        midpoint_value = float(
+            run_model(replace(inputs, wacc=midpoint))["valuation"]["value_per_share"]
+        )
+        if midpoint_value > target_price:
+            lower = midpoint
+        else:
+            upper = midpoint
+    return (lower + upper) / 2
+
+
+def implied_gross_margin(
+    inputs: ModelInputs,
+    target_price: float = MARKET_PRICE,
+    lower: float = 0.50,
+    upper: float = 0.99,
+) -> float | None:
+    """Solve for the constant gross margin that reconciles to target price."""
+
+    lower_value = float(
+        run_model(replace(inputs, gross_margin=lower))["valuation"]["value_per_share"]
+    )
+    upper_value = float(
+        run_model(replace(inputs, gross_margin=upper))["valuation"]["value_per_share"]
+    )
+    if not lower_value <= target_price <= upper_value:
+        return None
+    for _ in range(100):
+        midpoint = (lower + upper) / 2
+        midpoint_value = float(
+            run_model(replace(inputs, gross_margin=midpoint))["valuation"]["value_per_share"]
+        )
+        if midpoint_value < target_price:
+            lower = midpoint
+        else:
+            upper = midpoint
+    return (lower + upper) / 2
+
+
+def market_expectations_dashboard(
+    inputs: ModelInputs = BASE,
+    target_price: float = MARKET_PRICE,
+) -> dict[str, object]:
+    """Expose the operating and discount-rate burden embedded in market price."""
+
+    feasibility = []
+    for wacc in (0.08, 0.09, 0.10, 0.11, 0.12):
+        case = replace(inputs, wacc=wacc)
+        growth_shift = implied_uniform_growth_shift(case, target_price=target_price)
+        feasibility.append(
+            {
+                "wacc": wacc,
+                "growth_shift": growth_shift,
+                "first_year_growth": (
+                    inputs.revenue_growth[0] + growth_shift
+                    if growth_shift is not None
+                    else None
+                ),
+                "terminal_year_growth": (
+                    inputs.revenue_growth[-1] + growth_shift
+                    if growth_shift is not None
+                    else None
+                ),
+            }
+        )
+
+    bounded = replace(
+        inputs,
+        name="Bounded operating challenge",
+        revenue_growth=tuple(growth + 0.05 for growth in inputs.revenue_growth),
+        gross_margin=0.90,
+        opex_to_gross_profit=tuple(ratio - 0.03 for ratio in inputs.opex_to_gross_profit),
+        wacc=0.08,
+        terminal_growth=0.04,
+    )
+    bounded_result = run_model(bounded)
+    bounded_value = float(bounded_result["valuation"]["value_per_share"])
+    return {
+        "target_price": target_price,
+        "base_value": float(run_model(inputs)["valuation"]["value_per_share"]),
+        "implied_growth_shift": implied_uniform_growth_shift(
+            inputs, target_price=target_price
+        ),
+        "implied_wacc": implied_wacc(inputs, target_price=target_price),
+        "implied_gross_margin": implied_gross_margin(
+            inputs, target_price=target_price
+        ),
+        "feasibility": feasibility,
+        "bounded_inputs": bounded,
+        "bounded_result": bounded_result,
+        "bounded_value": bounded_value,
+        "bounded_shortfall": target_price - bounded_value,
+    }
+
+
+def acquisition_overlay(
+    base_result: dict[str, object] | None = None,
+    inputs: AcquisitionInputs = AcquisitionInputs(),
+) -> dict[str, object]:
+    """Value Hexagon D&E as a separate incremental cash-flow overlay.
+
+    The base three-statement model remains untouched. The combined per-share
+    illustration adjusts pre-deal cash for net cash consideration and adds the
+    issued shares, preventing the acquisition from being hidden in base growth.
+    """
+
+    _validate_acquisition_inputs(inputs)
+    base_result = run_model(BASE) if base_result is None else base_result
+    revenue = inputs.starting_revenue
+    prior_revenue = revenue
+    forecasts: list[dict[str, float]] = []
+    for year, growth, margin, synergy_margin, integration_cost in zip(
+        YEARS,
+        inputs.revenue_growth,
+        inputs.ebita_margin,
+        inputs.synergy_margin,
+        inputs.integration_costs,
+    ):
+        revenue *= 1 + growth
+        ebita = revenue * margin
+        synergy = revenue * synergy_margin
+        integration_after_tax = integration_cost * (1 - inputs.tax_rate)
+        capex = revenue * inputs.capex_ratio
+        revenue_change = revenue - prior_revenue
+        working_capital_investment = max(0.0, revenue_change) * inputs.net_working_capital_ratio
+        fcff = (
+            (ebita + synergy) * (1 - inputs.tax_rate)
+            - integration_after_tax
+            - capex
+            - working_capital_investment
+        )
+        forecasts.append(
+            {
+                "year": float(year),
+                "revenue": revenue,
+                "ebita": ebita,
+                "synergy": synergy,
+                "integration_cost": integration_cost,
+                "capex": capex,
+                "working_capital_investment": working_capital_investment,
+                "fcff": fcff,
+            }
+        )
+        prior_revenue = revenue
+
+    explicit_pv = sum(
+        row["fcff"] / (1 + inputs.wacc) ** index
+        for index, row in enumerate(forecasts, start=1)
+    )
+    terminal_value = (
+        forecasts[-1]["fcff"]
+        * (1 + inputs.terminal_growth)
+        / (inputs.wacc - inputs.terminal_growth)
+    )
+    terminal_pv = terminal_value / (1 + inputs.wacc) ** len(forecasts)
+    acquired_enterprise_value = explicit_pv + terminal_pv
+    net_cash_paid = HEXAGON_CASH_CONSIDERATION - HEXAGON_CASH_ACQUIRED
+    net_purchase_consideration = (
+        HEXAGON_PURCHASE_CONSIDERATION - HEXAGON_CASH_ACQUIRED
+    )
+
+    base_valuation = base_result["valuation"]
+    combined_equity_value = (
+        float(base_valuation["enterprise_value"])
+        + acquired_enterprise_value
+        + float(base_valuation["cash"])
+        - float(base_valuation["debt"])
+        - net_cash_paid
+    )
+    combined_shares = float(base_valuation["diluted_shares"]) + HEXAGON_SHARES_ISSUED
+    combined_value_per_share = combined_equity_value / combined_shares
+    base_value_per_share = float(base_valuation["value_per_share"])
+    return {
+        "inputs": inputs,
+        "forecasts": forecasts,
+        "explicit_pv": explicit_pv,
+        "terminal_value": terminal_value,
+        "terminal_pv": terminal_pv,
+        "acquired_enterprise_value": acquired_enterprise_value,
+        "purchase_consideration": HEXAGON_PURCHASE_CONSIDERATION,
+        "net_purchase_consideration": net_purchase_consideration,
+        "net_value_creation": acquired_enterprise_value
+        - net_purchase_consideration,
+        "net_cash_paid": net_cash_paid,
+        "combined_equity_value": combined_equity_value,
+        "combined_shares": combined_shares,
+        "combined_value_per_share": combined_value_per_share,
+        "per_share_effect": combined_value_per_share - base_value_per_share,
+        "annual_acquired_amortization": (
+            HEXAGON_ACQUIRED_INTANGIBLES / HEXAGON_INTANGIBLE_LIFE
+        ),
+        "terminal_value_share": terminal_pv / acquired_enterprise_value,
+    }
+
+
+def committee_decision(
+    result: dict[str, object],
+    market_price: float = MARKET_PRICE,
+    margin_of_safety: float = 0.15,
+    do_not_initiate_floor_value: float | None = None,
+) -> dict[str, object]:
+    """Apply disclosed committee rules to the calculated result."""
+
+    checks = result["checks"]
+    failed_checks = [name for name, passed in checks.items() if not passed]
+    value_per_share = float(result["valuation"]["value_per_share"])
+    value_to_price = value_per_share / market_price
+    monitoring_floor_value = (
+        float(run_model(DOWNSIDE)["valuation"]["value_per_share"])
+        if do_not_initiate_floor_value is None
+        else do_not_initiate_floor_value
+    )
+    if failed_checks:
+        action = "Stop / escalate"
+        rationale = "One or more model-integrity checks failed."
+    elif value_per_share >= market_price * (1 + margin_of_safety):
+        action = "Initiate"
+        rationale = f"Intrinsic value clears the {margin_of_safety:.0%} margin-of-safety rule."
+    elif value_per_share <= monitoring_floor_value + 1e-9:
+        action = "Do not initiate"
+        rationale = (
+            "Intrinsic value is at or below the independently modeled downside floor."
+        )
+    else:
+        action = "Watch/defer - no position at the current market price"
+        rationale = (
+            "The model does not clear the margin-of-safety rule, but remains above "
+            "the independently modeled downside floor used for continued monitoring."
+        )
+    return {
+        "action": action,
+        "rationale": rationale,
+        "value_per_share": value_per_share,
+        "value_to_price": value_to_price,
+        "market_premium_to_value": market_price / value_per_share - 1,
+        "required_initiation_value": market_price * (1 + margin_of_safety),
+        "monitoring_floor_value": monitoring_floor_value,
+        "failed_checks": failed_checks,
+    }
+
+
+def committee_action(result_or_scenario: dict[str, object] | str) -> str:
+    """Backward-compatible action label powered by calculated results."""
+
+    if isinstance(result_or_scenario, str):
+        result = run_model(SCENARIOS[result_or_scenario])
+    else:
+        result = result_or_scenario
+    return str(committee_decision(result)["action"])
 
 
 def render_snapshot() -> str:
     results = run_named_scenarios()
+    peer = comparable_company_evidence()
+    expectations = market_expectations_dashboard(BASE)
+    regimes = run_industry_regimes()
+    overlay = acquisition_overlay(results["Base"])
     lines = [
         "Cadence Design Systems Project 1 visible output",
         f"Valuation date: {VALUATION_DATE}",
@@ -354,22 +818,88 @@ def render_snapshot() -> str:
     for check, passed in base["checks"].items():
         lines.append(f"{check}: {'PASS' if passed else 'FAIL'}")
 
-    implied_shift = implied_uniform_growth_shift(BASE)
+    implied_shift = expectations["implied_growth_shift"]
+    implied_rate = expectations["implied_wacc"]
+    implied_margin = expectations["implied_gross_margin"]
     lines.extend(
         [
             "",
-            "Reverse DCF",
+            "Market-implied expectations dashboard",
             (
                 f"Uniform revenue-growth shift required to reach ${MARKET_PRICE:,.2f}: "
                 f"{implied_shift:+.3%} per year"
                 if implied_shift is not None
                 else "No solution in the tested -20 to +50 percentage-point bracket."
             ),
+            (
+                f"WACC required with base operations: {implied_rate:.3%}"
+                if implied_rate is not None
+                else "No WACC solution in the tested range."
+            ),
+            (
+                f"Gross margin required with base growth and WACC: {implied_margin:.3%}"
+                if implied_margin is not None
+                else "Gross margin alone cannot reach market price below the 99% test ceiling."
+            ),
+            (
+                "Bounded operating challenge value: "
+                f"${expectations['bounded_value']:,.2f} per share | shortfall: "
+                f"${expectations['bounded_shortfall']:,.2f}"
+            ),
+            "WACC | Required growth shift | Implied FY2026/FY2030 growth",
+        ]
+    )
+    for row in expectations["feasibility"]:
+        if row["growth_shift"] is None:
+            lines.append(f"{row['wacc']:.1%} | no solution | no solution")
+        else:
+            lines.append(
+                f"{row['wacc']:.1%} | {row['growth_shift']:+.3%} | "
+                f"{row['first_year_growth']:.1%}/{row['terminal_year_growth']:.1%}"
+            )
+
+    lines.extend(["", "Semiconductor industry regimes"])
+    for regime in regimes:
+        regime_result = regime["result"]
+        regime_inputs = regime["inputs"]
+        lines.append(
+            f"{regime['name']}: beta {regime['beta']:.4f} | "
+            f"WACC {regime_inputs.wacc:.3%} | "
+            f"value ${regime_result['valuation']['value_per_share']:,.2f} | "
+            f"action: {committee_action(regime_result)}"
+        )
+
+    lines.extend(
+        [
             "",
-            "Comparable-company evidence currently preserved",
+            "Hexagon D&E acquisition overlay (illustrative; separate from base statements)",
+            f"Purchase consideration: ${HEXAGON_PURCHASE_CONSIDERATION:,.1f} million",
+            f"Acquired-operation enterprise value: ${overlay['acquired_enterprise_value']:,.1f} million",
+            f"Value creation versus net consideration: ${overlay['net_value_creation']:,.1f} million",
+            f"Combined illustrative value per share: ${overlay['combined_value_per_share']:,.2f}",
+            f"Per-share effect versus standalone base: ${overlay['per_share_effect']:+,.2f}",
+            (
+                "Boundary: starting revenue, margins, synergies, integration costs, "
+                "reinvestment, and acquisition WACC are analyst assumptions."
+            ),
+            "",
+            "Comparable-company evidence",
             "Synopsys FY2025 P/E: 51.594527x",
             "CDNS implied equity value from that P/E: $209.47 per share",
-            "Required enterprise-value peer multiple: pending independent source verification.",
+            f"Synopsys EV/TTM revenue: {peer['peer_ev_to_revenue']:.6f}x",
+            (
+                "CDNS implied equity value from that EV/TTM-revenue multiple: "
+                f"${peer['implied_value_per_share']:,.2f} per share"
+            ),
+            f"CDNS market EV/TTM revenue: {peer['target_ev_to_revenue']:.6f}x",
+            (
+                "CDNS premium to the Synopsys EV/TTM-revenue multiple: "
+                f"{peer['target_premium_to_peer_multiple']:.1%}"
+            ),
+            (
+                "Qualification: the peer bridge uses latest pre-valuation-date "
+                "2026 inputs; the integrated DCF retains FY2025 opening balances."
+            ),
         ]
     )
     return "\n".join(lines) + "\n"

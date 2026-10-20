@@ -1,0 +1,296 @@
+VIDEO 3 — COMMITTEE PRESENTATION
+Phone / teleprompter copy
+
+Do not read text inside [brackets].
+/ = brief pause
+// = full pause or screen change
+
+
+[CAMERA — OPENING RECOMMENDATION]
+
+I recommend WATCH AND DEFER,
+with zero allocation,
+to Cadence Design Systems
+at the September first,
+twenty-twenty-six closing price
+of three hundred thirteen dollars
+and four cents.
+
+The company is strong,
+but the current price requires
+more than the evidence supports.
+
+The integrated F-C-F-F D-C-F
+produces a range of
+fifty-seven dollars and twenty cents
+to one hundred eleven dollars
+and fifty-two cents per share,
+with a base value
+of eighty-three dollars
+and thirty-four cents.
+
+//
+
+[SHOW TOP OF WORKBENCH]
+
+At the top of the workbench,
+the committee action comes
+from the calculated value.
+
+The five-year statements
+connect to F-C-F-F,
+and the bridge converts
+twenty-two-point-two-five-seven billion dollars
+of enterprise value
+into twenty-two-point-seven-seven-eight billion
+of equity value—
+
+or eighty-three dollars
+and thirty-four cents per share.
+
+All statement
+and cash-flow checks pass.
+
+//
+
+[SHOW VALUATION COMPARISON]
+
+I do not average the D-C-F
+with the peer methods.
+
+Synopsys implies
+one hundred eighty-nine dollars
+and sixty-four cents
+from E-V to revenue,
+
+and two hundred nine dollars
+and forty-seven cents
+from P-to-E.
+
+Both remain below
+three hundred thirteen dollars
+and four cents.
+
+I then challenged
+my unusually conservative D-C-F
+against outside estimates.
+
+Value Investing dot I-O
+reported one hundred thirty-seven dollars
+and thirty-seven cents.
+
+Fair Value Calculator
+reported two hundred twenty-four dollars
+and twenty-four cents.
+
+And Alpha Spread reported
+two hundred seventy-two dollars
+and ninety-two cents.
+
+These were post-date checks—
+not inputs to my
+September first decision.
+
+//
+
+[SHOW ALPHA SPREAD RECONCILIATION]
+
+Alpha Spread
+is the optimistic boundary.
+
+Its published case uses
+seven years of F-C-F-E,
+
+net margin ending near
+thirty-four percent,
+
+one-hundred-one-percent
+cash conversion,
+
+a nine-point-three-percent
+discount rate,
+
+and a twenty-nine-point-one-times
+terminal P-to-E.
+
+Applying those assumptions
+to roughly
+five-point-eight-three-eight billion dollars
+of starting revenue
+produces two hundred seventy-seven dollars
+and forty-six cents
+in my reconstruction—
+
+close to Alpha Spread's value.
+
+My model uses
+five years of accounting-linked F-C-F-F,
+a ten-percent WACC,
+three-percent perpetual growth,
+and net margins reaching
+roughly twenty percent.
+
+The gap is mainly
+the margin
+and terminal-value philosophy—
+not hidden arithmetic.
+
+Even the optimistic outside value
+remains below the market.
+
+//
+
+[CHANGE BASE TO DOWNSIDE]
+
+The decision engine changes
+with the calculated output—
+not the scenario name.
+
+When I switch from Base
+to Downside,
+value falls to
+fifty-seven dollars and twenty cents,
+and the action changes
+to DO NOT INITIATE.
+
+[RETURN TO BASE]
+
+I will return to Base
+for the remaining analysis.
+
+//
+
+[SHOW MARKET EXPECTATIONS]
+
+The market-price burden of proof
+is more important
+than any outside target.
+
+At the sourced ten-percent WACC,
+reaching three hundred thirteen dollars
+and four cents
+requires adding
+thirty-two-point-two-one-five
+percentage points
+to every annual
+revenue-growth assumption.
+
+Holding operations fixed instead
+requires a
+four-point-eight-seven-one-percent WACC.
+
+Gross margin alone
+cannot reach the price
+below the ninety-nine-percent
+test ceiling.
+
+Even an aggressive bounded case
+reaches only
+two hundred three dollars
+and ninety-five cents.
+
+//
+
+[SHOW SEMICONDUCTOR REGIMES]
+
+I also connect
+the semiconductor boom
+to both operations
+and market risk.
+
+The extended AI-buildout case
+raises growth and margins,
+but beta rises to one-point-three-five
+and WACC to ten-point-three-one-nine percent.
+
+Value reaches
+ninety-three dollars
+and forty-eight cents.
+
+Orderly normalization produces
+eighty-three dollars
+and twenty cents.
+
+A cycle reversal combines
+weaker growth and margins
+with a one-point-five-zero beta,
+producing fifty-four dollars
+and sixty-nine cents
+and a DO-NOT-INITIATE action.
+
+Better demand
+does not automatically mean
+a lower discount rate.
+
+//
+
+[SHOW HEXAGON OVERLAY]
+
+The Hexagon acquisition
+stays separate
+from the base statements.
+
+Cadence paid
+three-point-one-zero-one billion dollars
+of consideration,
+or two-point-nine-four-six billion
+net of acquired cash.
+
+Under the displayed assumptions,
+the acquired operation is worth
+one-point-zero-nine-five billion dollars,
+
+and the combined illustration
+is seventy-eight dollars
+and ninety-three cents per share—
+
+four dollars and forty-one cents
+below the standalone base.
+
+This does not prove
+the transaction will destroy value.
+
+Rather,
+it shows that strategic fit alone
+is not enough
+to assume value creation.
+
+//
+
+[SHOW REVERSAL RULES]
+
+I would reverse the decision
+only when an acquisition-aware D-C-F
+and at least two qualified peers
+independently support value
+at least fifteen percent
+above the then-current market price.
+
+I would stop
+if the statements fail to tie,
+a bridge is incomplete,
+or terminal growth reaches WACC.
+
+//
+
+[CAMERA — COMMITTEE ASK]
+
+My committee ask is to approve
+WATCH AND DEFER,
+with zero allocation,
+at three hundred thirteen dollars
+and four cents.
+
+Assign me to refresh
+the D-C-F,
+peer set,
+acquisition bridge,
+and WACC
+after the next two quarterly filings.
+
+I will return only with
+reconciled cash flows,
+current peer evidence,
+and a price that clears
+the fifteen-percent
+margin-of-safety rule.

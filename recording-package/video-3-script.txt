@@ -1,0 +1,30 @@
+PROJECT: FIN 43900 Project 1 - Cadence Design Systems Valuation Workbench
+STUDENT: Luke Meyer
+VIDEO: 3 Committee Presentation
+STATUS: DRAFT RECORDING SCRIPT - correct to match the final recording before submission
+STABLE VIDEO ID/URL: TO ADD AFTER RECORDING
+TITLE: CDNS Investment-Committee Decision - Watch/Defer at $313.04
+DURATION: TARGET 4:35-4:50; FINAL DURATION TO ADD AFTER RECORDING
+REPOSITORY COMMIT/FROZEN VERSION: TO ADD AFTER FINAL FREEZE
+
+[00:00] Luke Meyer: I recommend watch and defer with zero allocation to Cadence Design Systems at the September 1, 2026 closing price of $313.04. The company is strong, but the current price requires more than the evidence supports. The integrated FCFF DCF produces a range of $57.20 to $111.52 per share, with a base value of $83.34.
+
+[00:28] Luke Meyer: At the top of the workbench, the committee action comes from the calculated value. The five-year statements connect to FCFF, and the bridge converts $22.257 billion of enterprise value into $22.778 billion of equity value, or $83.34 per share. All statement and cash-flow checks pass.
+
+[00:55] Luke Meyer: I do not average the DCF with the peer methods. Synopsys implies $189.64 from EV to revenue and $209.47 from P/E. Both remain below $313.04. I then challenged my unusually conservative DCF against outside estimates. ValueInvesting.io reported $137.37, Fair Value Calculator reported $224.24, and Alpha Spread reported $272.92. These were post-date checks, not inputs to my September 1 decision.
+
+[01:30] Luke Meyer: Alpha Spread is the optimistic boundary. Its published case uses seven years of FCFE, net margin ending near 34%, 101% cash conversion, a 9.3% discount rate, and a 29.1-times terminal P/E. Applying those assumptions to roughly $5.838 billion of starting revenue produces $277.46 in my reconstruction, close to Alpha Spread's value. My model uses five years of accounting-linked FCFF, a 10% WACC, 3% perpetual growth, and net margins reaching roughly 20%. The gap is mainly the margin and terminal-value philosophy, not hidden arithmetic. Even the optimistic outside value remains below the market.
+
+[02:15] Luke Meyer: The decision engine changes with the calculated output rather than the scenario name. When I switch from Base to Downside, value falls to $57.20 and the action changes to do not initiate. I will return to Base for the remaining analysis.
+
+[02:35] Luke Meyer: The market-price burden of proof is more important than any outside target. At the sourced 10% WACC, reaching $313.04 requires adding 32.215 percentage points to every annual revenue-growth assumption. Holding operations fixed instead requires a 4.871% WACC. Gross margin alone cannot reach the price below the 99% test ceiling. Even an aggressive bounded case reaches only $203.95.
+
+[03:05] Luke Meyer: I also connect the semiconductor boom to both operations and market risk. The extended AI-buildout case raises growth and margins, but beta rises to 1.35 and WACC to 10.319%. Value reaches $93.48. Orderly normalization produces $83.20. A cycle reversal combines weaker growth and margins with a 1.50 beta, producing $54.69 and a do-not-initiate action. Better demand does not automatically mean a lower discount rate.
+
+[03:38] Luke Meyer: The Hexagon acquisition stays separate from the base statements. Cadence paid $3.101 billion of consideration, or $2.946 billion net of acquired cash. Under the displayed assumptions, the acquired operation is worth $1.095 billion and the combined illustration is $78.93 per share, $4.41 below the standalone base. This does not prove the transaction will destroy value. Rather, it shows that strategic fit alone is not enough to assume value creation.
+
+[04:12] Luke Meyer: I would reverse the decision only when an acquisition-aware DCF and at least two qualified peers independently support value at least 15% above the then-current market price. I would stop if the statements fail to tie, a bridge is incomplete, or terminal growth reaches WACC.
+
+[04:32] Luke Meyer: My committee ask is to approve watch and defer with zero allocation at $313.04. Assign me to refresh the DCF, peer set, acquisition bridge, and WACC after the next two quarterly filings. I will return only with reconciled cash flows, current peer evidence, and a price that clears the 15% margin-of-safety rule.
+
+END OF DRAFT RECORDING SCRIPT

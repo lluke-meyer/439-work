@@ -1,0 +1,140 @@
+CDNS Project 1 validation evidence
+Run: 2026-10-18 EDT
+Locked-prediction commit: 8ea1229bf850b12957848c35b27fa981f74808e1
+Final analysis version: working tree after the decision-engine, market-expectations, industry-regime, and acquisition-overlay update; record the final commit after freeze.
+Environment: macOS 15.8.1, x86_64, Python 3.13.5
+
+OFFICIAL DCF TRAINING-CASE RECONCILIATION
+Source: FIN43900-FALL2026/lessons/week-03/starter/dcf_expected_output.csv
+Tolerance: $0.01 for dollar outputs and 0.0002 for terminal-value share
+Explicit-period PV: actual 448.440817; expected 448.440817; PASS
+Terminal value: actual 1894.648579; expected 1894.648579; PASS
+Terminal-value PV: actual 1176.427703; expected 1176.427703; PASS
+Enterprise value: actual 1624.868520; expected 1624.868520; PASS
+Equity value: actual 1374.868520; expected 1374.868520; PASS
+Value per share: actual 27.497370; expected 27.497370; PASS
+Terminal-value share: actual 0.724014; expected 0.724014; PASS
+
+SOURCE AND DEFINITION CHECK
+Authoritative source: Cadence FY2025 Form 10-K
+FY2025 revenue: filing $5,296.759 million; model $5,296.759 million; PASS
+FY2025 cash: filing $3,001.317 million; model $3,001.317 million; PASS
+FY2025 inventory: filing $303.545 million; model $303.545 million; PASS
+FY2025 PP&E: filing $517.004 million; model $517.004 million; PASS
+FY2025 deferred revenue: filing $934.432 million; model $934.432 million; PASS
+FY2025 debt: filing $2,480.150 million; model $2,480.150 million; PASS
+FY2025 stockholders' equity: filing $5,474.181 million; model $5,474.181 million; PASS
+FY2025 weighted-average diluted shares: filing 273.312 million; model 273.312 million; PASS
+Inventory-days check: $303.545 million / $722.249 million cost of revenue x 365 = 153.40 days; model uses 153.5 days; PASS with a 0.1-day rounding qualification.
+Qualification: diluted shares are a FY2025 weighted average, not a September 1, 2026 spot count.
+Qualification: inventory days use ending inventory rather than average inventory.
+
+WACC COMPONENT CHECK
+September 1, 2026 U.S. Treasury 10-year par yield: 4.7900%.
+Damodaran end-2025 implied U.S. ERP: 4.2300%.
+January 2026 Software (System & Application) unlevered beta corrected for cash: 1.248199.
+CDNS relevered beta using June 2026 market D/E and 25.1084% tax: 1.275115.
+Cost of equity: 10.183736%.
+Annualized first-half 2026 effective debt-cost proxy: 5.380435%.
+Market capital weights: 97.2013% equity and 2.7987% debt.
+Calculated WACC: 10.011497%; rounded model input 10.0%; PASS.
+Evidence: docs/wacc-and-ev.md.
+
+BASE MODEL AND ARTICULATION
+Base value per share: $83.340249
+Enterprise value: $22,256.723256 million
+Plus cash: $3,001.317000 million
+Less debt: $2,480.150000 million
+Equity value: $22,777.890256 million
+Diluted shares: 273.312 million
+Terminal-value share: 74.124269%
+Maximum balance-sheet gap: $0.000000 million; PASS
+Maximum cash-flow tie gap: $0.000000 million; PASS
+Cash floor: PASS
+
+DCF DIRECTION AND BOUNDARY
+WACC 10.0% to 11.0%: value per share $83.340249 to $72.895652; PASS, value fell.
+Terminal growth 3.0% to 3.5%: value per share $83.340249 to $88.299032; PASS, value rose.
+Terminal growth equal to WACC: stopped with "Terminal growth must be below WACC."; PASS.
+
+MARKET-IMPLIED EXPECTATIONS
+Uniform annual growth shift required at 10.0% WACC: +32.215 percentage points.
+Recalculated value with the solved shift: $313.04 per share within test tolerance; PASS.
+WACC required with base operations: 4.871%.
+Gross-margin-only result: no solution below the 99% test ceiling.
+Bounded challenge: +5 growth points, 90% gross margin, -3 expense-ratio points, 8% WACC, and 4% terminal growth.
+Bounded challenge value: $203.95 per share; $109.09 below market.
+Required growth shift rises monotonically from 22.505 points at 8% WACC to 40.417 points at 12% WACC; PASS.
+
+RESULT-BASED COMMITTEE ENGINE
+Initiation rule: intrinsic value at least 15% above market.
+Monitoring rule: value remains above the independently modeled $57.20 downside floor.
+Do-not-initiate rule: value at or below the downside floor.
+Integrity rule: any failed model check returns stop/escalate.
+Base action: Watch/defer; downside action: Do not initiate.
+Custom low-growth/high-WACC UI case: Do not initiate; PASS.
+Artificial value above the initiation threshold: Initiate; PASS.
+
+SEMICONDUCTOR INDUSTRY REGIMES
+AI buildout extends: beta 1.3500; WACC 10.319%; value $93.48; Watch/defer.
+Orderly normalization: beta 1.2751; WACC 10.011%; value $83.20; Watch/defer.
+Cycle reversal: beta 1.5000; WACC 10.936%; value $54.69; Do not initiate.
+Value ordering $54.69 < $83.20 < $93.48: PASS.
+Buildout WACC remains above base because beta rises: PASS.
+
+HEXAGON D&E ACQUISITION OVERLAY
+Filing facts: $3,101.008 million consideration; $2,200.0 million cash; 3.224473 million issued shares; $154.6 million cash acquired.
+Filing facts: $2,147.191 million goodwill; $1,248.0 million acquired intangibles; 7.8-year weighted life.
+Filing-derived starting point: rounded $440 million annualized revenue; not company guidance.
+Default acquired-operation enterprise value: $1,094.9 million.
+Net consideration after acquired cash: $2,946.4 million.
+Value versus net consideration: -$1,851.5 million.
+Combined illustrative value per share: $78.93; effect versus standalone base: -$4.41.
+Higher EBITA margins raise acquired enterprise value: PASS.
+Base result remains unchanged after overlay: PASS.
+Acquisition terminal growth equal to WACC stops the model: PASS.
+Qualification: operating inputs are adjustable analyst assumptions; the overlay is not a full post-acquisition statement rebuild.
+
+ECONOMIC INTERPRETATION
+Cadence FY2025 recurring revenue: 80% of total revenue.
+Cadence FY2025 R&D expense: 33% of total revenue.
+Cadence filing risk: weaker economic conditions can reduce customer chip designs and R&D spending.
+Base terminal-value share: 74.124269% of enterprise value.
+WACC 10.0% to 11.0%: value per share fell 12.5325% with the operating forecast held fixed.
+Interpretation: operating demand may be relatively resilient, while equity value remains sensitive to discount rates.
+This interpretation does not replace the DCF or comparable-company methods.
+
+LOCKED CHANGED-INPUT RUN
+Prediction timestamp: 2026-10-17 15:54 EDT
+Prediction lock commit: 8ea1229bf850b12957848c35b27fa981f74808e1
+Change: inventory days from 153.5 days to 148.5 days; all other inputs held fixed.
+Before value per share: $97.277803
+After value per share: $97.357892
+Change: +$0.080090 per share, or +0.082331%
+Enterprise-value change: +$21.889487 million
+Observed direction: increase.
+Reason: lower inventory days reduced inventory investment and increased FCFF.
+Decision effect: no change; watch/defer remained the model action at the $313.04 market price.
+Prediction reconciliation: if "Decrease" meant value per share, the prediction was not supported. Forecast inventory did decrease, but value increased.
+Base restored after the run: inventory days 153.5; value per share $97.277803; all checks PASS.
+Qualification: this locked record belongs to the committed 9.0% WACC version. It was preserved rather than rerun after the final base WACC changed to 10.0%.
+
+SCENARIO AND PEER CHECKS
+Downside: $57.20 per share at 11.0% WACC; Do not initiate.
+Base: $83.34 per share at 10.0% WACC; Watch/defer.
+Upside: $111.52 per share at 9.0% WACC; Watch/defer.
+Scenario ordering: PASS.
+Synopsys FY2025 P/E: 51.594527x; CDNS implied price: $209.47.
+Peer-removal test: removing Synopsys leaves no usable peer.
+Synopsys EV/TTM revenue: $85,924.404 million enterprise value / $9,416.465 million TTM revenue = 9.124911x.
+Applied to CDNS TTM revenue: implied enterprise value $53,267.790 million; implied equity value $52,226.033 million; implied price $189.64 per share.
+CDNS market EV/TTM revenue: 14.946286x; 63.8% premium to Synopsys.
+Enterprise-value peer definition: PASS with single-peer, Ansys-acquisition, and bridge-date qualifications.
+
+COLD RUN
+Earlier locked-version run: system Python failed because Streamlit was not installed; using the declared environment corrected it.
+Final October 18 run: the declared repository environment was used after all model, app, document, and test updates.
+Visible output regenerated and 16 tests passed.
+Command: .venv/bin/python project1_model.py --snapshot outputs/visible-output.txt
+Command: .venv/bin/python -m unittest discover -s tests -v
+Result: Ran 16 tests; OK.
