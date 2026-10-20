@@ -1,0 +1,41 @@
+PROJECT: FIN 43900 Project 1 - Cadence Design Systems Valuation Workbench
+STUDENT: Luke Meyer
+VIDEO: 2 Codebase Walkthrough
+TITLE: CDNS Valuation Workbench | Code, Data Flow, and Validation
+URL: https://youtu.be/MWI-aiNAMgs
+DURATION: 4:59
+SPEAKER: Luke Meyer
+REPOSITORY COMMIT/FROZEN VERSION: a5ca463b665efc780269b61687ccc67d1fcc71f0
+STATUS: Corrected transcript of final recording
+
+EVIDENCE INDEX
+
+00:02 - Decision, repository purpose, and highest-risk claim
+00:34 - Repository architecture and deliverable map
+01:21 - Base inputs and linked operating forecast
+01:53 - FCFF DCF, equity bridge, and committee rules
+02:28 - Market expectations, semiconductor regimes, and acquisition overlay
+03:09 - Streamlit interface and bounded input demonstration
+04:00 - Full 16-test validation suite
+04:16 - Focused fail-loud terminal-growth test
+04:31 - Acquisition and peer-set limitations
+
+CORRECTED TRANSCRIPT
+
+[00:02] Luke Meyer: All right, delving immediately into the codebase walkthrough because I found this is a little bit more difficult to fit into the required time frame. I wanted to familiarize you with the repository. Starting off, the repository I currently have suggests a watch-and-defer decision. As mentioned in Video 1, the highest-risk claim I make is that the current market price is not supported, even after taking into account Cadence's growth and the industry. The claim could be wrong because of a financial convention, stale or mismatched data, or a technical failure, so simple financial mistakes.
+
+[00:34] Luke Meyer: Familiarizing you with the repository, I will leave it on this little map for a second. The repository has two main files: project1_model.py, which goes into all the financial logic, and app.py, which holds the Streamlit interface. The tests folder goes into checking the model and the application. The outputs folder contains the frozen visible result and validation evidence. Docs contains all the PDFs that I will be submitting, such as the research evolution, decision memo, and Validation and AI Use. Then you see the README, again giving you a clean interface to better understand my repository.
+
+[01:21] Luke Meyer: Looking at the most important file, we can look into the base inputs, which begin with Cadence's FY2025 opening financials and explicit forecast assumptions. The downside and upside cases use the same model structure. The forecast links revenue, gross profit, operating expenses, taxes, working capital, capital spending, depreciation, debt, equity, and cash together, where cash is the main balancing item.
+
+[01:53] Luke Meyer: Looking down to line 325, we get a good understanding of the DCF itself. The forecast calculates FCFF and discounts it using the selected WACC. Terminal growth must remain below WACC, and enterprise value is bridged to equity value by adding cash, subtracting debt, and dividing by diluted shares. The committee decision function applies one disclosed rule to the calculated value: initiate only with a 15% margin of safety, watch and defer above the floor, and do not initiate below the floor. A failed integrity check will stop the decision.
+
+[02:28] Luke Meyer: Looking at the extended functions, I can pull up the market-expectations dashboard, which solves for the revenue-growth shift, WACC, or gross margin required to reach the market price. Another thing I added was the semiconductor regimes, which provide another scenario and show how operations and beta move together. Lastly, the Hexagon function, which is code-named for general acquisition work, values the most recent acquisition as a separate incremental overlay so the FY2025 statements are not mixed with post-acquisition assumptions.
+
+[03:09] Luke Meyer: Looking at my Streamlit interface and pulling it up, it imports those functions and presents them to you. Looking at this, you can change the sidebar and change some of the values. Going from the original WACC to something a little lower, like a WACC value of 9%, changes it slightly. This separation lets the same model drive the interface, the visible text output, and the tests. You can go down to free cash flow for the firm, the enterprise-to-equity bridge, the fail-loud checks, the semiconductor-cycle regimes, and then the acquisition overlay. Basically, whatever you need to better understand the company's valuation, you can have it here.
+
+[04:00] Luke Meyer: Testing my model, if I run this code down here, it goes through a series of 16 tests covering statement articulation, scenario ordering, WACC and terminal-growth direction, the enterprise-to-equity bridge, the committee engine, and acquisition behavior. It goes through all of that.
+
+[04:16] Luke Meyer: Then, running the fail-loud test, the test goes into terminal growth reaching WACC. Running this, I should get a value of OK, which shows that the safeguard worked.
+
+[04:31] Luke Meyer: Overall, my main unresolved limitation is not hidden in the code. The Hexagon section is an acquisition-economics overlay, but not a full post-acquisition three-statement rebuild. Its transaction facts are sourced, but some of the ideas are still analyst assumptions. Also, Synopsys is the only peer I was able to admit after testing two to three candidates. These limitations are why the final action is conditional.

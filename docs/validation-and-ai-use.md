@@ -5,7 +5,7 @@
 - Decision: Watch/defer; do not buy CDNS at the September 1, 2026 market price.
 - Intended user: A buy-side investment committee with no current CDNS position.
 - Locked-prediction commit: `8ea1229bf850b12957848c35b27fa981f74808e1`.
-- Final repository commit: Record after the final files are frozen.
+- Frozen repository commits: valuation package `a5ca463`; final transcripts and recording metadata `4e0d5eb`.
 - Run: October 18, 2026; rerun after the decision-engine, market-expectations, industry-regime, and acquisition-overlay update.
 - Valuation date: September 1, 2026.
 - Source cutoff: FY2025 10-K operating-model inputs; Q2 2026 acquisition facts; latest public WACC and peer inputs available by September 1, 2026; September 1, 2026 market prices. The Hexagon layer remains separate from the integrated DCF.
