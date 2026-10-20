@@ -52,8 +52,8 @@ python3 -m unittest discover -s tests -v
 - `docs/validation-and-ai-use.pdf` - repository copy of the validation and named AI-use record.
 - `docs/validation-and-ai-use.md` - working validation and AI-use record, including the completed Locked Changed-Input Record.
 - `docs/wacc-and-ev.md` - internal source-and-calculation worksheet; not a Brightspace deliverable.
-- `recording-package/` - timed screen plan and draft scripts for all three required videos.
-- `docs/transcript-video-1.txt` through `docs/transcript-video-3.txt` - reserved for the corrected transcripts that will match the final recordings.
+- `recording-package/` - timed screen plan and archived recording scripts for all three required videos.
+- `docs/transcript-video-1.txt` through `docs/transcript-video-3.txt` - corrected transcripts, final URLs, durations, evidence timestamps, and the frozen model commit.
 - `submission/` - capitalized Brightspace-ready copies where macOS cannot store both filename casings in `docs/`.
 
 The original Lab 04-Lab 12 working files are stored separately in the sibling `../439-Work/` folder. They are development history, not part of the final runnable Project 1 package. The Brightspace receipt preserved in `docs/research-evolution.pdf` remains the Edition A baseline of record.

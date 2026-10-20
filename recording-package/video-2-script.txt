@@ -1,11 +1,11 @@
 PROJECT: FIN 43900 Project 1 - Cadence Design Systems Valuation Workbench
 STUDENT: Luke Meyer
 VIDEO: 2 Codebase Walkthrough
-STATUS: DRAFT RECORDING SCRIPT - correct to match the final recording before submission
-STABLE VIDEO ID/URL: TO ADD AFTER RECORDING
+STATUS: ARCHIVED RECORDING SCRIPT - see docs/transcript-video-2.txt for the corrected final transcript
+STABLE VIDEO ID/URL: https://youtu.be/MWI-aiNAMgs
 TITLE: CDNS Valuation Workbench - Code, Data Flow, and Validation
-DURATION: TARGET 4:20-4:40; FINAL DURATION TO ADD AFTER RECORDING
-REPOSITORY COMMIT/FROZEN VERSION: TO ADD AFTER FINAL FREEZE
+DURATION: 4:59
+REPOSITORY COMMIT/FROZEN VERSION: a5ca463b665efc780269b61687ccc67d1fcc71f0
 
 [00:00] Luke Meyer: This repository supports a watch-and-defer decision for a committee with no current CDNS position. The highest-risk claim is that the current market price is not supported even after giving Cadence credit for growth. That claim could be wrong because of a finance convention, a stale or mismatched data input, or a technical failure in the linked statements or valuation bridge.
 
@@ -25,4 +25,4 @@ REPOSITORY COMMIT/FROZEN VERSION: TO ADD AFTER FINAL FREEZE
 
 [04:15] Luke Meyer: The main unresolved limitation is not hidden in the code. The Hexagon section is an acquisition-economics overlay, not a full post-acquisition three-statement rebuild. Its transaction facts are sourced, but revenue, margins, synergies, integration costs, reinvestment, and deal WACC remain analyst assumptions. Synopsys is also the only admitted peer. Those limitations are why the final action is conditional and why the model specifies what evidence must be updated before the committee reconsiders.
 
-END OF DRAFT RECORDING SCRIPT
+END OF ARCHIVED RECORDING SCRIPT

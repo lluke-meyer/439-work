@@ -1,11 +1,11 @@
 PROJECT: FIN 43900 Project 1 - Cadence Design Systems Valuation Workbench
 STUDENT: Luke Meyer
 VIDEO: 3 Committee Presentation
-STATUS: DRAFT RECORDING SCRIPT - correct to match the final recording before submission
-STABLE VIDEO ID/URL: TO ADD AFTER RECORDING
-TITLE: CDNS Investment-Committee Decision - Watch/Defer at $313.04
-DURATION: TARGET 4:35-4:50; FINAL DURATION TO ADD AFTER RECORDING
-REPOSITORY COMMIT/FROZEN VERSION: TO ADD AFTER FINAL FREEZE
+STATUS: ARCHIVED RECORDING SCRIPT - see docs/transcript-video-3.txt for the corrected final transcript
+STABLE VIDEO ID/URL: https://youtu.be/kOZrjYyQenQ
+TITLE: CDNS Investment Committee Decision | Watch and Defer
+DURATION: 4:56
+REPOSITORY COMMIT/FROZEN VERSION: a5ca463b665efc780269b61687ccc67d1fcc71f0
 
 [00:00] Luke Meyer: I recommend watch and defer with zero allocation to Cadence Design Systems at the September 1, 2026 closing price of $313.04. The company is strong, but the current price requires more than the evidence supports. The integrated FCFF DCF produces a range of $57.20 to $111.52 per share, with a base value of $83.34.
 
@@ -27,4 +27,4 @@ REPOSITORY COMMIT/FROZEN VERSION: TO ADD AFTER FINAL FREEZE
 
 [04:32] Luke Meyer: My committee ask is to approve watch and defer with zero allocation at $313.04. Assign me to refresh the DCF, peer set, acquisition bridge, and WACC after the next two quarterly filings. I will return only with reconciled cash flows, current peer evidence, and a price that clears the 15% margin-of-safety rule.
 
-END OF DRAFT RECORDING SCRIPT
+END OF ARCHIVED RECORDING SCRIPT
