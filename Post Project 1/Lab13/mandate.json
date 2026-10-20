@@ -1,0 +1,31 @@
+{
+  "decision_user": "Meridian Foundation investment committee, advised by the CIO",
+  "decision": "Decide whether to authorize further analysis and a small pilot; do not execute trades from this record",
+  "objective": "Policy goal: pursue CPI plus 4% net of estimated costs over rolling five-year periods. Optimization objective is unresolved; any Lab 14 allocation is a mechanics-only classroom probe until the CIO chooses the measurable tradeoff.",
+  "horizon_years": 7,
+  "benchmark": "60% broad global equities / 40% U.S. investment-grade bonds",
+  "risk_measure": "Calendar-year total-return loss relative to the CIO's stated 10% threshold, supplemented provisionally by annualized volatility, drawdown, distribution coverage, and benchmark-relative risk; enforcement rule and acceptable probability require clarification",
+  "constraints": [
+    "Long-only; no borrowing, short sales, or derivatives",
+    "Keep at least $3,000,000, equal to twelve months of scheduled distributions, in cash or daily-liquid government securities",
+    "At least 90% of the portfolio must be redeemable within five business days under ordinary market conditions",
+    "Single-issuer exposure may not exceed 8%",
+    "Annual turnover should not exceed 25% unless the committee approves a documented exception",
+    "Quarterly review and annual rebalancing over the seven-year policy horizon",
+    "Evaluate the CPI plus 4% objective net of estimated costs over rolling five-year periods",
+    "Do not treat the statement that calendar-year loss cannot exceed 10% as an enforceable guarantee until the CIO defines the rule, probability, and breach response",
+    "No sector, climate, social, tax, active-management, or home-bias preference may be invented"
+  ],
+  "validation_tests": [
+    "Benchmark test: compare return and risk with the 60/40 policy benchmark",
+    "Naive-baseline test: compare with equal weight and inverse-volatility allocations",
+    "Covariance test: verify labels, units, symmetry, unit correlation diagonal, nonnegative variances, and positive semidefiniteness",
+    "Constraint audit: verify sum to one, long-only, no leverage, issuer cap, liquidity reserve, five-day redemption share, and turnover rule",
+    "Perturbation test: prestate direction, then vary expected returns, covariance or correlation, and a material bound one at a time",
+    "Holdout rule: no holdout exists for course-authored point-in-time inputs; if historical observations are later introduced, freeze a dated out-of-sample window before fitting",
+    "Cost test: deduct estimated trading and implementation costs and test compliance with the 25% turnover default",
+    "Distribution test: verify twelve months of scheduled $750,000 quarterly payments remain covered by eligible liquid assets",
+    "Failure rule: reject adoption if any hard constraint fails, the recommendation is unstable to plausible perturbations, or the CIO objective remains unresolved"
+  ],
+  "unresolved_ambiguity": "Which measurable tradeoff should govern the pilot: probability of achieving CPI plus 4% net of costs, tracking error versus 60/40, drawdown or calendar-year loss risk, probability of meeting distributions, or another objective? The CIO must also define how the 10% calendar-year loss statement is measured and what happens after a breach."
+}

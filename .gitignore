@@ -1,7 +1,6 @@
 .DS_Store
-.env
-.venv/
-__pycache__/
+.vscode/
+Course Materials/
+Project 1/local-deliverables/
+**/__pycache__/
 *.py[cod]
-.streamlit/secrets.toml
-tmp/

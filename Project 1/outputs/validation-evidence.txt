@@ -5,7 +5,7 @@ Final analysis version: working tree after the decision-engine, market-expectati
 Environment: macOS 15.8.1, x86_64, Python 3.13.5
 
 OFFICIAL DCF TRAINING-CASE RECONCILIATION
-Source: FIN43900-FALL2026/lessons/week-03/starter/dcf_expected_output.csv
+Source: Course Materials/FIN43900-FALL2026/lessons/week-03/starter/dcf_expected_output.csv
 Tolerance: $0.01 for dollar outputs and 0.0002 for terminal-value share
 Explicit-period PV: actual 448.440817; expected 448.440817; PASS
 Terminal value: actual 1894.648579; expected 1894.648579; PASS
