@@ -1,44 +1,43 @@
 # Lab 16 — Provenance Gate
 
-## Decision question
+This lab asked a simple question: if I had made a decision on March 31, 2026, what data would I actually have had? The main lesson was that the month a number measures is not the same as the date the number became available. If I ignore that distinction, a backtest can use information that did not exist yet.
 
-On the day a decision would have been made, what did the data actually say, and how much of the
-signal became visible only later?
+## D — Define
 
-## Run command
+The decision date for the training table is March 31, 2026. A row is usable only when its publication date is on or before that date. The goal is to build a point-in-time panel for three fictional retailers and compare its signals with a naive panel that uses the latest publication, even when that publication came later.
 
-From the FIN 439 folder:
+## R — Represent
+
+The input table is stored directly in `asof.py`. Each row contains its original row number, ticker, measured month, publication date, and index value. Keeping the original row number makes every removal traceable.
+
+The filter uses four rules in this order:
+
+1. Quarantine a row with no ticker.
+2. Remove an exact duplicate.
+3. Remove any row published after the decision date.
+4. When a ticker and measured month have multiple knowable publications, keep the latest one as the revision.
+
+The as-of signal is the percent change from the previous measured month to the latest measured month remaining in the point-in-time panel. The naive signal uses each ticker's latest publication without applying the decision-date cutoff.
+
+## I — Implement
+
+Run the script from the FIN 439 folder with:
 
 ```bash
 "Project 1/.venv/bin/python" "Post Project 1/Lab16/asof.py"
 ```
 
-The file uses only the Python standard library. The editable inputs are at the top of `asof.py`:
-the fictional card-spend table and the decision date, initially `2026-03-31`.
+The script uses only the Python standard library. The decision date and training rows are editable at the top. The calculation converts publication strings to dates, applies the four rules, prints the row funnel, shows the remaining panel, and calculates both signal columns from the input data rather than typing the answers into the output.
 
-## Rules implemented
+## V — Validate
 
-The filter applies the assignment's rules in order and keeps each original row number:
-
-1. Quarantine a row with no ticker.
-2. Remove an exact duplicate.
-3. Remove rows published after the decision date.
-4. For a ticker and measured month with multiple knowable publications, keep the latest publication
-   as the revision.
-
-The as-of signal is the percent change from the previous measured month to the latest measured
-month remaining in the panel. The naive signal uses each ticker's latest publication without an
-as-of cutoff.
-
-## Known-answer validation
-
-The run on the supplied training table produced the required row funnel:
+The March 31 run produced the required funnel:
 
 | Funnel step | Removed rows |
 |---|---|
 | Quarantined: no ticker | 11 |
 | Exact duplicate | 7 |
-| Published after 31 March 2026 | 3, 8, 10 |
+| Published after March 31 | 3, 8, 10 |
 | Older vintage replaced by a revision | 2 |
 | As-of panel | 1, 4, 5, 6, 9, 12 |
 
@@ -50,34 +49,22 @@ The computed signals were:
 | BBB | −1.02% (2026-02) | −5.15% (2026-03) |
 | CCC | +0.91% (2026-02) | +1.82% (2026-02) |
 
-The later-date check also passes: changing the decision date to `2026-04-15` makes the as-of
-panel use the latest available vintage for every ticker, so the as-of signals equal the naive
-signals ticker for ticker.
+The later-date test also passed. When I changed the decision date to April 15, 2026, the as-of signals matched the naive signals for all three tickers because every training-table publication was then available.
 
-## Interpretation and reflection
+## E — Evolve
 
-The revision rule removed row 2, which matters because the March 25 revision changes AAA's
-knowable February index from 104.0 to 103.0. The naive AAA signal of +5.83% uses the March value
-published April 10, so it was not knowable on March 31. A backtest using that naive column would
-claim a stronger and more timely signal than a trader could actually have observed: look-ahead
-bias.
+The next step is to use the same filter with a real monthly ALFRED series connected to the Project 2 universe. That series needs a source name, measured month, publication or release date, value, units, revision information, and download date. If a publication date cannot be established, the series should be quarantined rather than used in a backtest.
 
-The measured month and publication date answer different questions. A February observation can be
-useful on March 10, while a March observation published April 10 cannot be used in a March 31
-decision. Revisions are also point-in-time information: the revised value is usable only after its
-publication date.
+## R — Reflect
 
-## Checkout items
+The most important removal was row 2. Row 2 reported AAA's February index as 104.0, but row 4 revised that value to 103.0 on March 25. Because the revision was available before March 31, row 4 is the value that belongs in the as-of panel.
 
-- Submit the GitHub links to `asof.py` and this record individually.
-- Complete the Lab 16 Brightspace quiz if required by the course module.
-- Explain the revision-selection block to the partner and answer the partner's code question.
-- Keep the script unchanged for Thursday's Lab 17 ALFRED series exercise unless the instructor
-  directs otherwise.
+The naive AAA signal of +5.83% uses the March value of 109.0, which was not published until April 10. The knowable signal was only +1.98%. A backtest using the naive column would therefore make the strategy look stronger and more timely than it could have been in real time. That is look-ahead bias.
 
-## Chat/Codex disclosure
+The code also makes the timing distinction clear: the measured month tells me what the observation describes, while the publication date tells me when I could use it. A revision changes the value only from its publication date forward.
 
-Chat/Codex translated the Lab 16 instruction into a standard-library filter, preserved source row
-numbers, printed the funnel and signal comparison, and documented the known-answer and later-date
-checks. The student should read and explain the revision-selection logic before submission and
-complete the individual Brightspace checkout.
+## Submission and disclosure
+
+Submit the GitHub links to `asof.py` and this record individually, and complete the required Brightspace checkout. The script is ready to carry into Lab 17, where the same point-in-time logic will be applied to a real ALFRED series.
+
+Chat/Codex helped translate the assignment instructions into the standard-library filter, preserve the original row numbers, calculate the two signal panels, and draft this record. The student remains responsible for understanding the revision-selection logic and completing the course submission requirements.
