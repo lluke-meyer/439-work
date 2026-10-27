@@ -70,10 +70,6 @@ The naive AAA signal of +5.83% uses the March value of 109.0, which was not publ
 
 The code also makes the timing distinction clear: the measured month tells me what the observation describes, while the publication date tells me when I could use it. A revision changes the value only from its publication date forward.
 
-## Submission
-
-Submit the GitHub links to `asof.py` and this record individually, and complete the required Brightspace checkout. The script is ready to carry into Lab 17, where the same point-in-time logic will be applied to a real ALFRED series.
-
 
 
 ###This report was written for FIN 43900 (AI Finance Applications, Purdue) as a learning exercise. It is not investment research and it is not financial advice.
