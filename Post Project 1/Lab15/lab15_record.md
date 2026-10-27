@@ -138,9 +138,11 @@ Complete these two human-review items before submission:
 
 The app is a learning demonstration built with AI help. It is not investment advice.
 
-## Chat/Codex disclosure
 
-Chat/Codex assembled the synchronized adjusted-close file, implemented the reusable calculation
-and search functions, built the Streamlit interface, reproduced the course known answers, and
-drafted this record. The student selected the six-fund universe. The partner attack and the final
-student disposition remain human-review items.
+
+
+###This report was written for FIN 43900 (AI Finance Applications, Purdue) as a learning exercise. It is not investment research and it is not financial advice.
+
+###AI assistance: drafted with [Codex], resumed from my Lab 03 session; sources gathered and verified by me; the judgments are mine.
+
+###Any remaining errors are my own.

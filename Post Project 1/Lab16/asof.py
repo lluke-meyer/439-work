@@ -1,6 +1,6 @@
 """FIN 439 Lab 16: point-in-time provenance gate.
 
-The inputs at the top are intentionally editable.  The calculations below
+The inputs at the top are editable.  The calculations below
 keep the source row number attached to every observation so each removal is
 visible in the funnel.
 """
@@ -165,3 +165,11 @@ def run(decision_date=DECISION_DATE):
 
 if __name__ == "__main__":
     run()
+
+
+
+###This report was written for FIN 43900 (AI Finance Applications, Purdue) as a learning exercise. It is not investment research and it is not financial advice.
+
+###AI assistance: drafted with [Codex], resumed from my Lab 03 session; sources gathered and verified by me; the judgments are mine.
+
+###Any remaining errors are my own.

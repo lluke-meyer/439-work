@@ -153,7 +153,9 @@ if __name__ == "__main__":
 
 
 
-# This report was prepared for FIN 43900 as a learning exercise. It is not
-# investment research or financial advice. AI assistance was used to draft and
-# check the presentation language; the student remains responsible for sources,
-# assumptions, judgments, and any remaining errors.
+
+###This report was written for FIN 43900 (AI Finance Applications, Purdue) as a learning exercise. It is not investment research and it is not financial advice.
+
+###AI assistance: drafted with [Codex], resumed from my Lab 03 session; sources gathered and verified by me; the judgments are mine.
+
+###Any remaining errors are my own.

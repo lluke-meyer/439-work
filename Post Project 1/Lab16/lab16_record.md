@@ -1,7 +1,5 @@
 # Lab 16 — Provenance Gate
 
-This lab asked a simple question: if I had made a decision on March 31, 2026, what data would I actually have had? The main lesson was that the month a number measures is not the same as the date the number became available. If I ignore that distinction, a backtest can use information that did not exist yet.
-
 ## D — Define
 
 The decision date for the training table is March 31, 2026. A row is usable only when its publication date is on or before that date. The goal is to build a point-in-time panel for three fictional retailers and compare its signals with a naive panel that uses the latest publication, even when that publication came later.
@@ -28,6 +26,15 @@ Run the script from the FIN 439 folder with:
 ```
 
 The script uses only the Python standard library. The decision date and training rows are editable at the top. The calculation converts publication strings to dates, applies the four rules, prints the row funnel, shows the remaining panel, and calculates both signal columns from the input data rather than typing the answers into the output.
+
+Published code: [asof.py](https://github.com/lluke-meyer/439-work/blob/main/Post%20Project%201/Lab16/asof.py)
+
+### Code references
+
+- [Editable decision date and training table](https://github.com/lluke-meyer/439-work/blob/main/Post%20Project%201/Lab16/asof.py#L12-L27)
+- [Four-rule provenance gate and revision selection](https://github.com/lluke-meyer/439-work/blob/main/Post%20Project%201/Lab16/asof.py#L52-L78)
+- [Naive panel and signal calculation](https://github.com/lluke-meyer/439-work/blob/main/Post%20Project%201/Lab16/asof.py#L81-L114)
+- [Output functions and run sequence](https://github.com/lluke-meyer/439-work/blob/main/Post%20Project%201/Lab16/asof.py#L117-L167)
 
 ## V — Validate
 
@@ -63,8 +70,14 @@ The naive AAA signal of +5.83% uses the March value of 109.0, which was not publ
 
 The code also makes the timing distinction clear: the measured month tells me what the observation describes, while the publication date tells me when I could use it. A revision changes the value only from its publication date forward.
 
-## Submission and disclosure
+## Submission
 
 Submit the GitHub links to `asof.py` and this record individually, and complete the required Brightspace checkout. The script is ready to carry into Lab 17, where the same point-in-time logic will be applied to a real ALFRED series.
 
-Chat/Codex helped translate the assignment instructions into the standard-library filter, preserve the original row numbers, calculate the two signal panels, and draft this record. The student remains responsible for understanding the revision-selection logic and completing the course submission requirements.
+
+
+###This report was written for FIN 43900 (AI Finance Applications, Purdue) as a learning exercise. It is not investment research and it is not financial advice.
+
+###AI assistance: drafted with [Codex], resumed from my Lab 03 session; sources gathered and verified by me; the judgments are mine.
+
+###Any remaining errors are my own.

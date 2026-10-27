@@ -137,8 +137,11 @@ If the AI bubble bursts, will CDNS’s valuation be impacted?
 This question should be tested through Cadence’s exposure to AI-related design activity, the durability of customer demand, the portion of growth that depends on semiconductor capital spending, and the valuation multiple applied to future cash flows. The answer should not be assumed in Edition A.
 
 
-***This report was written for FIN 43900 (AI Finance Applications, Purdue) as a learning exercise. It is not investment research and it is not financial advice.
 
-***AI assistance: drafted with [Codex], resumed from my Lab 03 session; sources gathered and verified by me; the judgments are mine.
 
-***Any remaining errors are my own.
+
+###This report was written for FIN 43900 (AI Finance Applications, Purdue) as a learning exercise. It is not investment research and it is not financial advice.
+
+###AI assistance: drafted with [Codex], resumed from my Lab 03 session; sources gathered and verified by me; the judgments are mine.
+
+###Any remaining errors are my own.

@@ -16,3 +16,20 @@ It is intentionally excluded from this Git repository so course-provided files a
 history do not mix with student work.
 
 Each lab folder should keep one consolidated record plus only its required code and source data.
+
+Lab records should link to their code-heavy files and important implementation blocks. Use relative
+links with line anchors where practical, and update those links when the code changes.
+
+## Lab document convention
+
+Do not add a separate custom Chat/Codex explanation to a lab document. Every submitted lab document,
+including code and the written record, should end with this exact three-line block. In Python files,
+the lines are valid comments; in Markdown files, they render as headings.
+
+```text
+###This report was written for FIN 43900 (AI Finance Applications, Purdue) as a learning exercise. It is not investment research and it is not financial advice.
+
+###AI assistance: drafted with [Codex], resumed from my Lab 03 session; sources gathered and verified by me; the judgments are mine.
+
+###Any remaining errors are my own.
+```

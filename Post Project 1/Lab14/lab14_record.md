@@ -92,10 +92,11 @@ Exact CIO question:
 > distributions, or another objective—and what measure, acceptable probability, and response rule
 > define the 10% calendar-year loss statement?
 
-## Chat/Codex disclosure
 
-Chat/Codex implemented and checked the supplied starter using only the course-authored inputs.
-Accepted contributions were the covariance build, transparent baselines, and solver-free
-long-only minimum-variance calculation. The candidate was modified to remain mechanics-only.
-Claims that the supplied sleeves prove liquidity, issuer, turnover, cost, or loss-rule compliance
-were rejected. No external market data or real securities were used.
+
+
+###This report was written for FIN 43900 (AI Finance Applications, Purdue) as a learning exercise. It is not investment research and it is not financial advice.
+
+###AI assistance: drafted with [Codex], resumed from my Lab 03 session; sources gathered and verified by me; the judgments are mine.
+
+###Any remaining errors are my own.
