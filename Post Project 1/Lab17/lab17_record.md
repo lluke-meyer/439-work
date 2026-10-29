@@ -84,7 +84,14 @@ The live Streamlit AppTest completed with zero exceptions and zero displayed err
 
 ## Submission
 
-After commit, add the GitHub links to [`asof.py`](asof.py), [`asof_app.py`](asof_app.py), [`m2sl_vintages.csv`](m2sl_vintages.csv), and this record, then complete the required Brightspace checkout.
+Published files:
+
+- [asof.py](https://github.com/lluke-meyer/439-work/blob/main/Post%20Project%201/Lab17/asof.py)
+- [asof_app.py](https://github.com/lluke-meyer/439-work/blob/main/Post%20Project%201/Lab17/asof_app.py)
+- [m2sl_vintages.csv](https://github.com/lluke-meyer/439-work/blob/main/Post%20Project%201/Lab17/m2sl_vintages.csv)
+- [lab17_record.md](https://github.com/lluke-meyer/439-work/blob/main/Post%20Project%201/Lab17/lab17_record.md)
+
+Complete the required Brightspace checkout.
 
 ###This report was written for FIN 43900 (AI Finance Applications, Purdue) as a learning exercise. It is not investment research and it is not financial advice.
 
