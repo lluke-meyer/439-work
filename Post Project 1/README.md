@@ -23,6 +23,7 @@ single written handoff for GitHub and Brightspace and should include, as applica
 - The student's final call plus any remaining human-review items.
 - The required three-line disclosure block at the bottom of the document.
 - Links to the lab's code-heavy files and important implementation blocks.
+- For completed in-class work, record the item as exactly `Completed during class.`
 
 Update the record whenever its code, data, controls, or reported results change so it remains
 submission-ready. Use relative links with line anchors where practical, and update them when code
