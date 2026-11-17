@@ -11,11 +11,12 @@ REPOSITORY COMMIT/FROZEN VERSION: pending
 documentation, but the checks and committee decision are mine. This is an educational course
 project, not investment advice.
 
-[00:12] Luke Meyer: I am moving the signal-lag control from one month to zero so the committee can
-see the sensitivity surface. The frozen one-month result remains visible. I now return to the
-frozen setting before presenting the decision.
+[00:12] Luke Meyer: In the live app, I am raising the reserve minimum from one percent to
+twenty-five percent. The allocation mandate flips from PASS to NO FEASIBLE MIX. I am returning
+the control to one percent; the allocation passes again. The full process still says REJECT /
+REDESIGN.
 
-[00:30] Luke Meyer: My current recommendation is reject/redesign. The six-fund search currently
+[00:50] Luke Meyer: My current recommendation is reject/redesign. The six-fund search currently
 produces 20% TLT, 10% SOXX, 30% VTI, and 40% VXUS, with a 9.19% estimated return, 15.45% estimated
 volatility, and a 20% reserve proxy. The app also lets me swap TLT for SGOV or expand the universe
 to seven or nine funds. The selected allocation passes the displayed mandate controls, but the
@@ -23,17 +24,18 @@ full process gate still rejects adoption because the evidence checks apply to al
 bundled estimates, one of ten starting themes is allocation-feasible. The baselines are visible
 beside it so the committee can see the tradeoff.
 
-[01:15] Luke Meyer: The frozen signal produced 6.13% development net, but the holdout produced
--6.09% net versus -2.09% for buy-and-hold. The failure rule triggers. That result is a reason not
+[01:35] Luke Meyer: The frozen signal produced 6.55% development gross and 6.13% net. The holdout
+produced -5.52% gross and -6.09% net versus -2.09% for buy-and-hold. The failure rule triggers. That result is a reason not
 to adopt the signal as presented, not a reason to hide it behind the portfolio allocation.
 
-[02:05] Luke Meyer: The main condition is reserve eligibility. TLT is a long-duration Treasury fund,
+[02:25] Luke Meyer: The main condition is reserve eligibility. TLT is a long-duration Treasury fund,
 not automatically cash. SGOV is the cleaner reserve candidate, but its observed price history still
 needs to be supplied for full risk evidence. If the reserve evidence fails, I would pause the pilot
 until the committee approves an eligible liquid reserve and the final mandate controls.
 
-[03:05] Luke Meyer: I would also reverse the decision toward adoption only if the point-in-time
-signal, leakage diagnostic, costs, holdout, and changed-input record support the same action. If the holdout
+[03:25] Luke Meyer: I would also reverse the decision toward adoption only if the point-in-time
+signal, leakage diagnostic, costs, and holdout support the same action. The November 15 changed-input
+direction matched the prediction, but its cited GitHub SHA does not prove a pre-run lock. If the holdout
 failure remains or a hard mandate constraint fails, I would reject or redesign the process.
 
 [04:15] Luke Meyer: My committee ask is to reject adoption and return the process for redesign. I

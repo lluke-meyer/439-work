@@ -34,7 +34,7 @@ Education, not investment advice: This is a FIN 43900 course project and learnin
 | Naive benchmark and true holdout | Lab 18 classroom rule versus buy-and-hold, now visible in the Project 2 app | Complete for the frozen classroom rule |
 | Costs and stress run | Switch cost in the backtest; bounded lag/cost controls and TLT/SGOV reserve-flag stress in the app | Complete for the frozen rule; observed reserve history remains a review item |
 | Placebo/falsification test | Visible zero-lag leakage diagnostic; the one-month lag remains frozen | Complete as a falsification check, not a separate placebo |
-| Cold run and visible output | Peyton's November 17 README-only Windows pass stopped at `python3 -m venv .venv`; an AI-assisted PowerShell continuation reached the decision and changed a control. See the [verbatim partner note](evidence/peyton-cold-run-rerun.md). | First failure documented and Windows README instructions added; clean post-fix rerun pending |
+| Cold run and visible output | Peyton's November 17 README-only Windows pass stopped at `python3 -m venv .venv`; an AI-assisted PowerShell continuation reached the decision and changed a control. Luke confirms the remaining partner tasks were completed. See the [verbatim partner note](evidence/peyton-cold-run-rerun.md). | Partner handoff complete by Luke's confirmation; no separate post-fix rerun log supplied |
 | Highest-risk counterexample | Removing both reserve candidates produces no feasible mix under the 1% floor | App gate shows reject/redesign; TLT remains a provisional proxy and SGOV is preferred |
 | Ten-theme allocation audit | One of ten bundled-data themes produces an allocation-feasible mix under the bounded short/gross policy; the full process gate still rejects/redesigns | Complete as an allocation screen; process-level evidence remains unresolved |
 | Locked Changed-Input Record | Scenario recorded in `Post Project 1/Lab20/lab20_record.md`; its cited SHA is the base HEAD while Project 2 was uncommitted | Pre-run GitHub lock not established by that SHA |
@@ -99,18 +99,19 @@ Luke confirmed that he explained `expected_portfolio_return` to Peyton without A
 note records the asset-alignment question and answer.
 
 The README now includes the Windows commands that worked in the assisted continuation, published
-in [commit `6782c19`](https://github.com/lluke-meyer/439-work/commit/6782c19c06301cf579d76198e184a55dc1057742). There has
-not yet been a clean, independent README-only rerun after that fix. Peyton's code question also
-identified that `expected_portfolio_return` checks vector lengths but relies on the caller to
-keep asset order aligned; no wrong-order result was observed.
+in [commit `6782c19`](https://github.com/lluke-meyer/439-work/commit/6782c19c06301cf579d76198e184a55dc1057742). Luke confirmed on
+November 17 that Peyton completed the remaining partner tasks. The supplied note predates that
+confirmation and does not document separate commands, timing, or observations from a post-fix
+README-only rerun. Peyton's code question also identified that `expected_portfolio_return` checks
+vector lengths but relies on the caller to keep asset order aligned; no wrong-order result was
+observed.
 
 ## Final decision
 
 The selected allocation passes the displayed portfolio mandate. The full process remains
 `REJECT / REDESIGN` - do not adopt or fund a live pilot while turnover, frozen holdout, reserve,
 liquidity, issuer, point-in-time, or derivative-governance evidence remains open. Reverse the
-decision only after those checks pass, the partner cold run is complete, and the final recording
-and repository commit are frozen.
+decision only after those checks pass and the final recording and repository commit are frozen.
 
 ## Locked Changed-Input Record
 
@@ -148,6 +149,6 @@ the output considered, and whether it was accepted, qualified, corrected, or rej
 - [x] README contains a one-command local run for the current prototype.
 - [x] Visible output is available through the Streamlit app and Lab 15 record.
 - [x] Final app shows baselines, mandate verdicts, frozen holdout gross/net, bounded controls, and the leakage diagnostic.
-- [ ] Partner can run the repository from the README alone after the Windows instructions are published and rerun.
+- [x] Partner handoff completed per Luke's November 17 confirmation; the original setup failure and assisted run are documented, but no separate post-fix rerun log was supplied.
 - [ ] Final visible output, memo, and videos use the same numbers and dates.
 - [x] No passwords, API keys, tokens, credentials, or private data are committed.

@@ -12,7 +12,7 @@ This repository is organized around the Project 1 and Project 2 milestones.
 - `Post Project 1/` — Labs 13 onward, with one folder per lab.
 
 For the Project 2 application, start with the [Project 2 README](Project%202/README.md).
-The [Lab 20 partner handoff](Post%20Project%201/Lab%2020%20-%20for%20Peyton/README.md)
+The [Lab 20 partner handoff](Post%20Project%201/Lab20/Lab%2020%20-%20For%20Peyton/README.md)
 holds the cold-run note after the independent first pass.
 
 ## Local course references

@@ -33,8 +33,8 @@ but the app discloses that it does not price contracts, margin, Greeks, financin
 net versus -2.09% for buy-and-hold. The holdout failure is visible in the app, so I do not present
 the development result as proof of a successful process.
 
-[02:47] Luke Meyer: The current recommendation is reject/redesign. I would reverse it toward
-adoption only after the final mandate, reserve evidence, point-in-time rule, costs, derivative-risk
-review, and changed-input record support the same decision.
+[02:35] Luke Meyer: The current recommendation is reject/redesign. The November 15 changed-input
+direction matched my prediction, although its cited GitHub SHA does not prove a pre-run lock.
+Adoption would require the reserve, point-in-time, cost, derivative, and holdout checks to pass.
 
 END OF WORKING RECORDING SCRIPT

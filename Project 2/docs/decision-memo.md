@@ -89,10 +89,10 @@ call because the process-level holdout, turnover, liquidity, issuer, and point-i
 
 The selected allocation passes the displayed mandate controls, but reject adoption and return the process for redesign now. Reverse that decision only after the final
 mandate, integrated app, observed reserve evidence, point-in-time signal, cost and turnover
-checks, partner cold run, changed-input evidence, and derivative-risk disclosure are complete.
+checks, changed-input evidence, and derivative-risk disclosure are complete.
 
 ## Open items before freezing
 
-- Obtain a clean partner rerun using the published Windows README fix; Peyton's first pass was blocked at setup, while an assisted continuation reached the app.
+- Luke confirmed Peyton's remaining partner tasks are complete. The supplied note documents the first Windows setup failure and assisted continuation, but no separate post-fix rerun log was supplied.
 - Record the three videos, correct their transcripts, and add the final evidence timestamps.
 - Reconcile this memo to the final visible output, validation record, and frozen repository commit.

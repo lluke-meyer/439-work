@@ -15,13 +15,13 @@ for the final URL, duration, timestamps, and frozen repository commit after reco
    ```
 
 3. Keep these items ready:
-   - `README.md`
-   - `docs/decision-memo.md`
-   - `docs/validation-and-ai-use.md`
-   - `app.py`
-   - `portfolio.py`
-   - `market_data.py`
-   - `backtest.py`
+   - `Project 2/README.md`
+   - `Project 2/docs/decision-memo.md`
+   - `Project 2/docs/validation-and-ai-use.md`
+   - `Project 2/app.py`
+   - `Project 2/portfolio.py`
+   - `Project 2/market_data.py`
+   - `Project 2/backtest.py`
    - the running Streamlit application
 4. Record at 720p or better with clear audio and a small webcam view.
 
@@ -38,7 +38,8 @@ Target: 2:30-2:50. Hard stop: 3:00.
 | 2:32-end | Decision reconciliation | State what remains provisional and what evidence would reverse the call. |
 
 Use `video-1-script.txt` as the spoken outline. Project 2 has no Edition A or Edition B, so focus on
-system evolution and the checked AI output.
+system evolution and the checked AI output. If you mention the November 15 changed-input run,
+state that its cited SHA was not a pre-run GitHub lock.
 
 ## Video 2 - Detailed Codebase Walkthrough
 
@@ -50,14 +51,15 @@ Target: 4:20-4:45. Hard stop: 5:00.
 | 0:12-0:42 | Repository root and README | State the decision and highest-risk claim. |
 | 0:42-1:32 | Repository map, `portfolio.py`, `market_data.py`, `backtest.py` | Explain the application architecture and source boundaries. |
 | 1:32-2:37 | Portfolio search and backtest functions | Trace data through estimates, constraints, lag, costs, and holdout. |
-| 2:37-3:32 | `app.py` imports and visible panels | Show the committee-use dropdown, data-source switch, theme audit, and bounded controls. |
+| 2:37-3:32 | `app.py` imports and visible panels | Show the decision-first hero, sidebar price source, theme selector and audit, and bounded mandate controls. |
 | 3:32-4:22 | Tests and visible output | Reproduce the known-answer values and show the mandate verdict/holdout panel. |
 | 4:22-end | Limitation and failure rule | Explain the reserve classification, holdout failure, or other highest-risk limitation. |
 
 Recommended terminal command:
 
 ```bash
-python -m unittest discover -s tests -v
+cd "Project 2"
+../.venv/bin/python -m unittest discover -s tests -v
 ```
 
 ## Video 3 - Buy-Side Investment-Committee Presentation
@@ -66,11 +68,11 @@ Target: 4:30-4:50. Hard stop: 5:00. Keep the running product as the main visual.
 
 | Time | Live product evidence | Purpose |
 |---|---|---|
-| 0:00-0:25 | Two required opening statements, then live app | Raise Reserve minimum from 1% to 25%, read `Allocation mandate: NO FEASIBLE MIX`, then reset to 1% and read `PASS`. |
-| 0:25-1:15 | Baseline and mandate verdict table | Explain the allocation range and which rules pass or fail. |
-| 1:15-2:10 | Frozen holdout panel | Show development and holdout gross/net results and the failure rule. |
-| 2:10-3:15 | Memo and risk controls | Defend the recommendation, assumptions, costs, and monitoring triggers. |
-| 3:15-4:20 | Changed input, exposure-policy, or reserve stress | Show the condition most likely to reverse the decision and disclose the derivative boundary. |
+| 0:00-0:50 | Two required opening statements, then live app | Raise Reserve minimum from 1% to 25%, read `Allocation mandate: NO FEASIBLE MIX`, then reset to 1% and read `PASS`. |
+| 0:50-1:35 | Baseline and mandate verdict table | Explain the allocation range and which rules pass or fail. |
+| 1:35-2:25 | Frozen holdout panel | Show development and holdout gross/net results and the failure rule. |
+| 2:25-3:25 | App decision gates and risk controls | Defend the recommendation, assumptions, costs, and monitoring triggers with the app on screen. |
+| 3:25-4:20 | Reserve and exposure details | Explain the condition most likely to reverse the decision and disclose the derivative boundary. |
 | 4:20-end | Committee ask | End with reject/redesign plus the conditions that would reverse the decision. |
 
 Use `video-3-script.txt` as the spoken outline. Lead with the decision, not the build process.

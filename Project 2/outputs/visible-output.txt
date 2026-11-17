@@ -54,6 +54,6 @@ Leakage falsification check
 Frozen one-month lag: 6.13% development net - retained
 Zero-lag diagnostic: 17.72% development net - rejected because it uses unavailable current-month information
 
-Next human-owned steps: complete the partner cold run, record the videos, correct the transcripts,
+Next human-owned steps: record the videos, correct the transcripts,
 add the final links and commit, and upload an observed SGOV history if it is selected as the reserve.
 This is a course project and learning demonstration, not investment advice.

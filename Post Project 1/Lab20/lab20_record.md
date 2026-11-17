@@ -45,8 +45,12 @@ The first failure was a Windows setup instruction gap. The [Project 2 README](..
 now includes PowerShell setup, run, and validation commands based on the commands that worked in
 Peyton's assisted continuation. The [fix was pushed in commit `6782c19`](https://github.com/lluke-meyer/439-work/commit/6782c19c06301cf579d76198e184a55dc1057742).
 
-A clean README-only rerun after this fix has not been performed. The app code and frozen holdout
-were not changed to turn the failed decision into a pass.
+On November 17, I confirmed that Peyton completed the remaining partner tasks. His supplied
+note documents the first README failure and assisted continuation; it does not include separate
+commands, elapsed time, or screen results for a clean post-fix README-only rerun. I treat the
+partner handoff as complete on my confirmation, without claiming that the supplied note proves
+an independent post-fix pass. The app code and frozen holdout were not changed to turn the failed
+decision into a pass.
 
 ## E - Reflect and checkout status
 
@@ -58,7 +62,7 @@ remains reject/redesign until the stated reversal conditions are met.
 - [x] The first setup failure has a README fix pushed in commit `6782c19`.
 - [x] The changed-input direction, actual result, and decision effect are recorded.
 - [x] The committee action and reversal condition are stated.
-- [ ] Clean independent rerun after the README fix is pending.
+- [x] I confirmed Peyton completed the remaining partner tasks; a separate post-fix rerun log was not supplied.
 - [ ] A pre-run GitHub commit of the earlier prediction is not established by `44ee60e`.
 - [x] I explained the code to Peyton without AI. Completed during class.
 

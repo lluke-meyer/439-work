@@ -98,7 +98,7 @@ snapshot of the current executed result for a grader who does not run the app.
 - `outputs/visible-output.txt` - frozen readable snapshot of the current result.
 - `docs/decision-memo.md` - investment-committee recommendation and conditions.
 - `docs/validation-and-ai-use.md` - sources, tests, limitations, AI-use register, and Locked Changed-Input Record.
-- `docs/evidence/peyton-cold-run-rerun.md` - Peyton's first setup failure, assisted continuation, and pending clean rerun.
+- `docs/evidence/peyton-cold-run-rerun.md` - Peyton's first setup failure and assisted continuation; Luke's completion confirmation is in the validation record.
 - `docs/signal-data-card.md` - point-in-time timing rule, signal boundaries, and tested selection ledger.
 - `recording-package/manifest.md` - final links, evidence index, and freeze checklist.
 - `recording-package/` - working scripts and recording guide; replace draft placeholders after the final mandate and app output are frozen.
@@ -143,8 +143,9 @@ The frozen classroom signal produces 6.13% development net and -6.09% holdout ne
 buy-and-hold, so its failure rule triggers. The app displays that failure rather than averaging it
 away.
 
-Before submission, the remaining human-owned steps are a clean partner rerun after the Windows
-README fix, corrected video transcripts, manifest links/durations, access check, and frozen commit.
+Before submission, the remaining human-owned steps are the three recordings, corrected video
+transcripts, manifest links/durations, access check, and frozen commit. Luke confirmed the partner
+handoff complete; the supplied partner note does not contain a separate post-fix README-only log.
 The current signal data card
 and zero-lag leakage diagnostic are included in the repository; no new signal was selected after
 seeing the holdout.

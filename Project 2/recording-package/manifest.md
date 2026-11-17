@@ -31,11 +31,11 @@ Status: ready for recording; complete the external video fields after recording.
 - [backtest.py](https://github.com/lluke-meyer/439-work/blob/main/Project%202/backtest.py) - frozen lagged signal, cost, development, holdout, and leakage diagnostic.
 - [outputs/visible-output.txt](https://github.com/lluke-meyer/439-work/blob/main/Project%202/outputs/visible-output.txt) - readable bundled-data result snapshot.
 - [Post Project 1/Lab20/lab20_record.md](https://github.com/lluke-meyer/439-work/blob/main/Post%20Project%201/Lab20/lab20_record.md) - Lab 20 changed-input evidence archive.
-- [docs/evidence/peyton-cold-run-rerun.md](https://github.com/lluke-meyer/439-work/blob/main/Project%202/docs/evidence/peyton-cold-run-rerun.md) - partner first failure, assisted continuation, control check, and pending clean rerun.
+- [docs/evidence/peyton-cold-run-rerun.md](https://github.com/lluke-meyer/439-work/blob/main/Project%202/docs/evidence/peyton-cold-run-rerun.md) - partner first failure, assisted continuation, and control check; later completion is owner-confirmed in the validation record.
 
 ## Final freeze checklist
 
-- [ ] Obtain a clean partner rerun after the Windows README fix in commit `6782c19`; the November 17 first pass was blocked at setup.
+- [x] Partner handoff completed per Luke's November 17 confirmation; the separate post-fix rerun details were not supplied.
 - [ ] Record the three videos within the course time limits.
 - [ ] Correct captions/transcripts and save the final transcript files.
 - [ ] Add video URLs, durations, and timestamped evidence moments above.

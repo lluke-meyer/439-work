@@ -583,7 +583,8 @@ with hero:
         </div>""",
         unsafe_allow_html=True,
     )
-    hero_metrics = st.columns(4)
+    # Give the full-process verdict enough room to remain readable during screen sharing.
+    hero_metrics = st.columns([1.1, 1.8, 1, 1])
     hero_metrics[0].metric("Allocation mandate", allocation_decision)
     hero_metrics[1].metric("Full process gate", gate_decision)
     hero_metrics[2].metric("Estimated return", f"{current_result['expected_return']:.2%}" if current_result else "—")

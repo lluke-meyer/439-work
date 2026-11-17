@@ -1,5 +1,9 @@
 # Peyton's Project 2 cold-run note
 
+Archived blank handoff form. Peyton's supplied observations are preserved in the
+[completed note](../../../Project%202/docs/evidence/peyton-cold-run-rerun.md); Luke's later
+completion confirmation is recorded in the [Lab 20 record](../lab20_record.md).
+
 Complete this from your own run. Start with only the repository link and the Project 2 README. Use `None` for a clean first run; leave no result implied by this template.
 
 - Date and time:
