@@ -21,6 +21,8 @@ Education, not investment advice: This is a FIN 43900 course project and learnin
   weight, 10% maximum short ticker weight, 110% gross-exposure ceiling, 60% broad-exposure overlap
   cap, and 70% high-correlation pair cap. Derivatives are permitted for hedging but not priced in
   this app.
+- Mandate provenance: these are analyst-proposed Project 2 working controls, separate from the
+  Lab 13 Meridian teaching case. The committee has not approved implementation.
 - The 30% drawdown trigger is the post-Lab-20 mandate revision for the requested moderately risky/risky
   posture. The historical 10.50% changed-input run remains recorded under its original 25% trigger.
 - Final frozen commit: not created; final mandate, recordings, and publication remain open.

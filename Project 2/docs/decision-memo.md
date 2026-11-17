@@ -53,6 +53,9 @@ is a cleaner reserve candidate; TLT should not be treated as cash without qualif
 available in the app and receives the preferred reserve classification when selected, but it needs
 an observed price file before its historical risk evidence is complete.
 
+The table is this Project 2 proposal, separate from the Lab 13 Meridian teaching mandate. The
+committee must approve the working controls before implementation.
+
 The classroom signal test is a separately evaluated equity-versus-bills timing component, not a realized
 return for the selected ETF allocation. Its development net return was 6.13% versus 5.33% for buy-and-hold; its untouched
 holdout net return was -6.09% versus -2.09% for buy-and-hold. That result triggers the frozen

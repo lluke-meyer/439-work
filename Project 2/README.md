@@ -133,6 +133,8 @@ turnover limit, a 40% maximum long ticker weight, a 10% maximum short ticker wei
 ceiling, and a 60% broad-exposure overlap cap. Shorting and limited borrowing are permitted within
 those bounds. Derivatives are permitted for hedging, but derivative contracts, margin, Greeks,
 financing spreads, and counterparty exposure are not priced by this app and require separate review.
+These are analyst-proposed Project 2 controls, separate from the Lab 13 Meridian teaching case;
+the committee must approve them before implementation.
 The app evaluates a candidate allocation and historical sensitivity; it does not execute the
 proposed rebalancing schedule. The separately tested monthly timing component would require an
 explicit policy exception and still fails its turnover and holdout gates.
