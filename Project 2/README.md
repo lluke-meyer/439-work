@@ -1,8 +1,8 @@
-# Project 2 - Portfolio Decision Workbench
-
-AI announcement: I used OpenAI Codex to help organize the Project 2 application, calculations, and documentation. I independently review the evidence, checks, and recommendation; the analysis and decision remain mine.
+AI announcement: I used OpenAI Codex to help write and organize the Project 2 application, calculations, tests, and documentation. I independently review the evidence, checks, and recommendation; the analysis and decision remain mine.
 
 Education, not investment advice: This is a FIN 43900 course project and learning demonstration, not investment advice.
+
+# Project 2 - Portfolio Decision Workbench
 
 ## Decision and intended user
 
@@ -14,7 +14,16 @@ signal, costs, turnover, and holdout checks are complete.
 ## What the product does
 
 The Streamlit workbench connects a constrained portfolio search with transparent allocation
-baselines and a frozen signal backtest. It provides:
+baselines and a frozen signal backtest.
+
+The committee decision has two layers: the selected weights can satisfy the numerical allocation
+rules while the proposed process still fails adoption because its reserve classification or
+out-of-sample evidence is inadequate. The ten-theme audit applies one set of controls to each
+starting universe so a favorable theme cannot hide a failed process gate. The classroom
+equity-versus-bills signal is a separately tested timing component, not a demonstrated return for
+the selected ETF mix.
+
+It provides:
 
 - a six-fund default universe with monthly adjusted-close inputs and four optional candidates;
 - a 3-10 fund-slot selector, with the six-fund default preserved;
@@ -107,17 +116,26 @@ snapshot of the current executed result for a grader who does not run the app.
 
 The bundled price file contains monthly adjusted-close observations for TLT, SOXX, VTI, VXUS,
 FREL, and GBTC from October 2021 through September 2026. The six-fund set remains the default.
+It is the same file used in [Lab 15](../Post%20Project%201/Lab15/prices.csv); the
+[Lab 15 record](../Post%20Project%201/Lab15/lab15_record.md) identifies Yahoo Finance monthly
+chart data for all six tickers, the October 22, 2026 download date, and the common 60-price
+window. The loader rejects missing, nonpositive, or unordered observations rather than imputing
+them.
 SGOV, BND, VOO, and TIP are optional modeled candidates when they are not present in an uploaded
 price file; the app labels them as modeled rather than implying that their history was observed.
 Yahoo Finance live mode can replace those modeled estimates with a common observed window. The
 classroom signal table covers December 2024 through June 2026 and uses a one-month availability lag.
 
-The current working mandate uses a 9% estimated annual return target before trading costs, a 1%
+The current working mandate proposes a five-year investment horizon, quarterly committee review,
+and annual core-portfolio rebalancing. It uses a 9% estimated annual return target before trading costs, a 1%
 reserve floor, a 30% drawdown review trigger for the requested moderately risky/risky posture, a 75% liquidity floor within 10 business days, a 25% annual one-way
 turnover limit, a 40% maximum long ticker weight, a 10% maximum short ticker weight, a 110% gross-exposure
 ceiling, and a 60% broad-exposure overlap cap. Shorting and limited borrowing are permitted within
 those bounds. Derivatives are permitted for hedging, but derivative contracts, margin, Greeks,
 financing spreads, and counterparty exposure are not priced by this app and require separate review.
+The app evaluates a candidate allocation and historical sensitivity; it does not execute the
+proposed rebalancing schedule. The separately tested monthly timing component would require an
+explicit policy exception and still fails its turnover and holdout gates.
 
 TLT is marked reserve eligible as a provisional model proxy. [iShares describes TLT](https://www.ishares.com/us/products/239454/ishares-20-plus-year-treasury-bond-etf)
 as targeted exposure to 20-plus-year government debt; its effective duration is about 15 years, so
@@ -143,8 +161,9 @@ The frozen classroom signal produces 6.13% development net and -6.09% holdout ne
 buy-and-hold, so its failure rule triggers. The app displays that failure rather than averaging it
 away.
 
-Before submission, the remaining human-owned steps are the three recordings, corrected video
-transcripts, manifest links/durations, access check, and frozen commit. Luke confirmed the partner
+Before submission, the remaining human-owned steps include a new AI-off changed-input prediction
+committed before its run, the three recordings, corrected video transcripts, manifest links and
+durations, access check, and frozen commit. Luke confirmed the partner
 handoff complete; the supplied partner note does not contain a separate post-fix README-only log.
 The current signal data card
 and zero-lag leakage diagnostic are included in the repository; no new signal was selected after

@@ -664,6 +664,11 @@ with st.container(border=True):
 with st.container(border=True):
     st.markdown('<div class="p2-section-label">03 / Decision evidence</div>', unsafe_allow_html=True)
     st.header("Why the committee call holds")
+    st.caption(
+        "Working policy: five-year horizon, quarterly committee review, annual core-portfolio "
+        "rebalance. The monthly classroom timing signal is a separate test, not realized "
+        "performance of this ETF mix."
+    )
     st.caption("A hard failure means reject/redesign; a review item means the evidence is incomplete.")
     st.caption(
         "Allocation PASS means the selected weights satisfy the displayed return, reserve, ticker, "

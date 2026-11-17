@@ -2,6 +2,7 @@ Project 2 Portfolio Decision - visible executed output
 Run snapshot: November 15, 2026
 
 Working mandate
+Investment horizon: five years; quarterly committee review; annual core-portfolio rebalance
 Estimated annual return target: 9.00%
 Reserve floor: 1.00% of assets, or $1 million on a $100 million portfolio
 Drawdown review trigger: 30.00% review/pause threshold for the moderately risky/risky posture
@@ -46,6 +47,7 @@ No feasible mix under allocation controls: the other nine themes
 Important: allocation PASS does not override the full-process gate.
 
 Frozen classroom signal holdout
+Separate equity-versus-bills timing component; these returns are not the selected ETF mix's realized performance
 Development: 6.55% gross, 6.13% net, 5.33% buy-and-hold, 4 switches
 Holdout: -5.52% gross, -6.09% net, -2.09% buy-and-hold, 6 switches
 Failure rule: TRIGGERED - holdout net trails buy-and-hold.

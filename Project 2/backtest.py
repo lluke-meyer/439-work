@@ -5,8 +5,8 @@ from __future__ import annotations
 from math import prod
 
 
-# Classroom known-answer data. The Project 2 signal will replace this input after the
-# app join is checked, but the frozen result remains available for validation.
+# Frozen classroom timing component. It is evaluated separately from the ETF allocator;
+# its generic equity-fund returns are not the selected portfolio's realized returns.
 MONTHLY_DATA = (
     ("2024-12", 0.8, None),
     ("2025-01", 1.2, 2.0),

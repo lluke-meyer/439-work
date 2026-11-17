@@ -7,16 +7,17 @@ TITLE: Project 2 Investment Committee Decision | Reject / Redesign
 DURATION: pending
 REPOSITORY COMMIT/FROZEN VERSION: pending
 
-[00:00] Luke Meyer: AI announcement: I used OpenAI Codex to help organize the application and
-documentation, but the checks and committee decision are mine. This is an educational course
+[00:00] Luke Meyer: AI announcement: I used OpenAI Codex to help write the app, tests, documents,
+and this outline. My voice, checks, and committee decision are mine. This is a FIN 43900 course
 project, not investment advice.
 
-[00:12] Luke Meyer: In the live app, I am raising the reserve minimum from one percent to
+[00:15] Luke Meyer: In the live app, I am raising the reserve minimum from one percent to
 twenty-five percent. The allocation mandate flips from PASS to NO FEASIBLE MIX. I am returning
 the control to one percent; the allocation passes again. The full process still says REJECT /
 REDESIGN.
 
-[00:50] Luke Meyer: My current recommendation is reject/redesign. The six-fund search currently
+[00:50] Luke Meyer: My current recommendation is reject/redesign under a five-year horizon,
+quarterly review, and annual core rebalance. The six-fund search currently
 produces 20% TLT, 10% SOXX, 30% VTI, and 40% VXUS, with a 9.19% estimated return, 15.45% estimated
 volatility, and a 20% reserve proxy. The app also lets me swap TLT for SGOV or expand the universe
 to seven or nine funds. The selected allocation passes the displayed mandate controls, but the

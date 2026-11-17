@@ -1,4 +1,4 @@
-AI announcement: I used OpenAI Codex to help organize the Project 2 application, calculations, and documentation. I independently review the evidence, checks, and recommendation; the analysis and decision remain mine.
+AI announcement: I used OpenAI Codex to help write and organize the Project 2 application, calculations, tests, and documentation. I independently review the evidence, checks, and recommendation; the analysis and decision remain mine.
 
 Education, not investment advice: This is a FIN 43900 course project and learning demonstration, not investment advice.
 
@@ -35,6 +35,7 @@ mandate uses:
 
 | Control | Working value |
 |---|---:|
+| Investment horizon / review / core rebalance | Five years / quarterly / annually |
 | Estimated annual return target | 9% before trading costs |
 | Reserve floor | 1% of assets, or $1 million on a $100 million portfolio |
 | Drawdown review trigger | 30%; review or pause, not automatic liquidation |
@@ -52,12 +53,19 @@ is a cleaner reserve candidate; TLT should not be treated as cash without qualif
 available in the app and receives the preferred reserve classification when selected, but it needs
 an observed price file before its historical risk evidence is complete.
 
-The classroom signal test is also informative but is not yet the final integrated Project 2
-strategy. Its development net return was 6.13% versus 5.33% for buy-and-hold; its untouched
+The classroom signal test is a separately evaluated equity-versus-bills timing component, not a realized
+return for the selected ETF allocation. Its development net return was 6.13% versus 5.33% for buy-and-hold; its untouched
 holdout net return was -6.09% versus -2.09% for buy-and-hold. That result triggers the frozen
 failure rule and supports caution rather than adoption.
 
 ## Mandate, assumptions, and sensitivity
+
+This is a committee research tool for a moderately risky/risky portfolio discussion, not an
+individual suitability assessment. The working policy proposes a five-year horizon, quarterly
+committee review, and annual core-portfolio rebalance. The current model estimates from monthly
+prices and tests a 30% historical drawdown review trigger; it does not simulate the proposed
+multi-year implementation schedule. The separate monthly equity-versus-bills timing component
+would require an explicit policy exception and fails its turnover and holdout gates as tested.
 
 The working mandate permits bounded shorting up to 10% per ticker and gross exposure up to 110%.
 The portfolio remains ETF-based and long-biased, with no unrestricted leverage. Derivatives are
@@ -74,6 +82,8 @@ but its reserve status remains a review item because its duration creates price 
 The app also audits ten six-fund starting themes. Under the bundled source estimates, one of ten
 starting themes produces an allocation-feasible mix. That does not change the overall pilot/reject
 call because the process-level holdout, turnover, liquidity, issuer, and point-in-time checks still apply.
+This separation of allocation feasibility from evidence for adopting a process is the workbench's
+main decision feature.
 
 ## Risks, failure conditions, and monitoring
 

@@ -25,14 +25,19 @@ for the final URL, duration, timestamps, and frozen repository commit after reco
    - the running Streamlit application
 4. Record at 720p or better with clear audio and a small webcam view.
 
+The November 15 changed-input test has no proven pre-run GitHub commit. A new human-authored,
+AI-off prediction and pre-run commit are required for a complete Locked Changed-Input Record.
+If you complete that test before recording, update the scripts and validation record to use the
+new evidence; do not describe the November 15 test as precommitted.
+
 ## Video 1 - System Change and AI-Output Check
 
 Target: 2:30-2:50. Hard stop: 3:00.
 
 | Time | Screen evidence | Purpose |
 |---|---|---|
-| 0:00-0:12 | Required opening statements | State the AI announcement and education disclaimer in your own words. |
-| 0:12-0:47 | README and decision memo | State the mandate, intended user, and current committee decision. |
+| 0:00-0:15 | Required opening statements | State the AI announcement and education disclaimer in your own words. |
+| 0:15-0:47 | README and decision memo | State the mandate, intended user, and current committee decision. |
 | 0:47-1:27 | Lab evidence map or validation record | Explain how the system changed from the mandate and labs into one product. |
 | 1:27-2:32 | Validation record and app stress | Show one AI-proposed test, the independent run, and whether the claim was accepted, qualified, corrected, or rejected. |
 | 2:32-end | Decision reconciliation | State what remains provisional and what evidence would reverse the call. |
@@ -47,8 +52,8 @@ Target: 4:20-4:45. Hard stop: 5:00.
 
 | Time | Screen evidence | Purpose |
 |---|---|---|
-| 0:00-0:12 | Required opening statements | State the AI announcement and education disclaimer in your own words. |
-| 0:12-0:42 | Repository root and README | State the decision and highest-risk claim. |
+| 0:00-0:15 | Required opening statements | State the AI announcement and education disclaimer in your own words. |
+| 0:15-0:42 | Repository root and README | State the decision and highest-risk claim. |
 | 0:42-1:32 | Repository map, `portfolio.py`, `market_data.py`, `backtest.py` | Explain the application architecture and source boundaries. |
 | 1:32-2:37 | Portfolio search and backtest functions | Trace data through estimates, constraints, lag, costs, and holdout. |
 | 2:37-3:32 | `app.py` imports and visible panels | Show the decision-first hero, sidebar price source, theme selector and audit, and bounded mandate controls. |
@@ -68,7 +73,7 @@ Target: 4:30-4:50. Hard stop: 5:00. Keep the running product as the main visual.
 
 | Time | Live product evidence | Purpose |
 |---|---|---|
-| 0:00-0:50 | Two required opening statements, then live app | Raise Reserve minimum from 1% to 25%, read `Allocation mandate: NO FEASIBLE MIX`, then reset to 1% and read `PASS`. |
+| 0:00-0:50 | Two required opening statements (0:00-0:15), then live app | Raise Reserve minimum from 1% to 25%, read `Allocation mandate: NO FEASIBLE MIX`, then reset to 1% and read `PASS`. |
 | 0:50-1:35 | Baseline and mandate verdict table | Explain the allocation range and which rules pass or fail. |
 | 1:35-2:25 | Frozen holdout panel | Show development and holdout gross/net results and the failure rule. |
 | 2:25-3:25 | App decision gates and risk controls | Defend the recommendation, assumptions, costs, and monitoring triggers with the app on screen. |

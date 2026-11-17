@@ -10,13 +10,22 @@ Status: ready for recording; complete the external video fields after recording.
 - Frozen commit: [fill after final review and commit]
 - Access check: [confirm the grader can open the repository]
 
-## Videos
+## Submission locations
 
-| Video | Title | URL | Duration | Evidence moments |
+| Item | Required | Location | Title / duration | Evidence moments |
 |---|---|---|---|---|
-| 1 | Project 2 Portfolio Decision - System Change and AI Check | [add URL] | [add duration] | [add timestamps] |
-| 2 | Project 2 Portfolio Decision - Code, Data Flow, and Validation | [add URL] | [add duration] | [add timestamps] |
-| 3 | Project 2 Investment Committee Decision - Reject / Redesign | [add URL] | [add duration] | [add timestamps] |
+| Research evolution | No - Project 2 has no editions | N/A | N/A | N/A |
+| Repository | Yes | [439-work](https://github.com/lluke-meyer/439-work) | Project 2/ | N/A |
+| Visible executed output | Yes | [visible-output.txt](https://github.com/lluke-meyer/439-work/blob/main/Project%202/outputs/visible-output.txt) | Bundled-data decision snapshot | N/A |
+| Decision memo | Yes | [decision-memo.md](https://github.com/lluke-meyer/439-work/blob/main/Project%202/docs/decision-memo.md) | Reject / redesign | N/A |
+| Validation and AI use | Yes | [validation-and-ai-use.md](https://github.com/lluke-meyer/439-work/blob/main/Project%202/docs/validation-and-ai-use.md) | Validation record | N/A |
+| Video 1 | Yes | [add stable URL] | System Change and AI Check / [duration] | [add timestamps] |
+| Transcript Video 1 | Yes | [add GitHub link after recording] | Corrected transcript | N/A |
+| Video 2 | Yes | [add stable URL] | Code, Data Flow, and Validation / [duration] | [add timestamps] |
+| Transcript Video 2 | Yes | [add GitHub link after recording] | Corrected transcript | N/A |
+| Video 3 | Yes | [add stable URL] | Investment Committee Decision / [duration] | [add timestamps] |
+| Transcript Video 3 | Yes | [add GitHub link after recording] | Corrected transcript | N/A |
+| Deployed output | No | N/A - local app and visible output supplied | N/A | N/A |
 
 ## Evidence index
 
@@ -36,6 +45,7 @@ Status: ready for recording; complete the external video fields after recording.
 ## Final freeze checklist
 
 - [x] Partner handoff completed per Luke's November 17 confirmation; the separate post-fix rerun details were not supplied.
+- [ ] Complete a new human-authored, AI-off changed-input prediction, commit it before the run, then preserve the before/after output and decision effect in the validation record. The November 15 test has no proven pre-run commit.
 - [ ] Record the three videos within the course time limits.
 - [ ] Correct captions/transcripts and save the final transcript files.
 - [ ] Add video URLs, durations, and timestamped evidence moments above.

@@ -8,14 +8,15 @@ Education, not investment advice: This is a FIN 43900 course project and learnin
 
 - Working repository: `439-work`
 - Working path: `Project 2/`
-- Current prototype command: `.venv/bin/python -m streamlit run app.py`
+- Reproduction command from repository root: `./.venv/bin/python -m streamlit run "Project 2/app.py"`
 - Current evidence boundary: bundled monthly adjusted-close prices through September 1, 2026;
   classroom signal data through June 2026.
 - Optional live source: Yahoo Finance public chart endpoint, cached for one hour; record the
   retrieval date, lookback, source status, and fallback status before treating live output as evidence.
 - User flow: decision-first hero, data source, six-fund theme, 3-10 fund count, editable
   assumptions, mandate gate, overlap audit, allocation results, baselines, and holdout evidence.
-- Working mandate: 9% estimated return target before trading costs, 1% reserve floor, 30% drawdown review trigger,
+- Working mandate: five-year investment horizon, quarterly committee review, annual core-portfolio
+  rebalance; 9% estimated return target before trading costs, 1% reserve floor, 30% drawdown review trigger,
   75% liquidity within 10 business days, 25% annual one-way turnover limit, 40% maximum long ticker
   weight, 10% maximum short ticker weight, 110% gross-exposure ceiling, 60% broad-exposure overlap
   cap, and 70% high-correlation pair cap. Derivatives are permitted for hedging but not priced in
@@ -28,7 +29,7 @@ Education, not investment advice: This is a FIN 43900 course project and learnin
 
 | Required check | Current evidence | Status |
 |---|---|---|
-| Known-answer/manual baselines | Lab 14 baseline and Lab 15 engine checks | Complete for classroom inputs; integrate into final app |
+| Known-answer/manual baselines | Lab 14 baseline and Lab 15 engine checks, integrated into the current app and covered by the test suite | Complete for classroom inputs |
 | Constraint and unit checks | Portfolio engine validates bounded net weights, gross exposure, covariance dimensions, correlations, bounds, ticker selection, and overlap buckets | Complete for current engine; holdings-level issuer and liquidity evidence pending |
 | Point-in-time and revision audit | Labs 16-17 provenance funnel and the linked Project 2 signal data card | Complete for the frozen classroom signal; the input is course-authored rather than a live production feed |
 | Naive benchmark and true holdout | Lab 18 classroom rule versus buy-and-hold, now visible in the Project 2 app | Complete for the frozen classroom rule |
@@ -44,6 +45,10 @@ Education, not investment advice: This is a FIN 43900 course project and learnin
 
 - Price input: `prices.csv`, monthly adjusted close, common window October 2021 through
   September 2026.
+- Bundled price lineage: same six-ticker CSV as [Lab 15](../../Post%20Project%201/Lab15/prices.csv).
+  The [Lab 15 record](../../Post%20Project%201/Lab15/lab15_record.md) identifies Yahoo Finance
+  monthly chart data, an October 22, 2026 download, and 60 common monthly price observations.
+  The loader rejects missing, nonpositive, or unordered observations; it does not impute prices.
 - Fund universe: six observed default funds, with optional modeled SGOV, BND, VOO, and TIP candidates.
   A real uploaded history or live Yahoo history takes precedence over a modeled candidate.
 - Return transformation: monthly price changes, annualized expected return as monthly mean times
@@ -57,6 +62,10 @@ Education, not investment advice: This is a FIN 43900 course project and learnin
   as hedge-permitted but remain outside the price-only allocation engine.
 - Signal timing: the frozen classroom rule uses a one-month lag so the signal must be available
   before the position is selected.
+- Integration boundary: the equity-versus-bills classroom signal is a separate timing component;
+  its holdout does not measure realized performance of the selected six-ETF allocation. Both
+  components must clear their own evidence gates before committee adoption. Its monthly switches
+  would also require an explicit exception to the proposed annual core-rebalance schedule.
 - Signal data card and selection ledger: [`docs/signal-data-card.md`](signal-data-card.md) records the
   event/availability boundary, threshold, universe, lag, cost, holdout, and zero-lag diagnostic.
 - Cost treatment: the classroom backtest subtracts a 0.10% switch cost whenever the position
@@ -117,7 +126,8 @@ decision only after those checks pass and the final recording and repository com
 
 The bundled-data Lab 20 scenario records a prediction before the objective-return change and the
 actual result afterward. Its cited commit is the base HEAD while Project 2 was uncommitted, so it
-does not by itself establish the required pre-run GitHub lock:
+does not establish the required pre-run GitHub lock. A review of the current branch history found
+no other commit containing this prediction before the November 15 run:
 
 - Input changed: Objective Return
 - Units: Annual percentage
@@ -135,14 +145,18 @@ does not by itself establish the required pre-run GitHub lock:
 The original frozen rule and holdout remain locked evidence. A changed lag, cost, or estimate is a
 sensitivity scenario, not permission to retune the holdout.
 
-## Named AI-use register - working draft
+## Named AI-use register
 
 | Tool/model | Interaction date | Material use | Independent disposition |
 |---|---|---|---|
-| OpenAI Codex (model identifier not exposed in the repository) | November 15, 2026 | Organized the Project 2 documentation, reviewed course instructions, and proposed the reserve-eligibility stress test | Qualified: the test supports that reserve classification is load-bearing, but does not prove TLT is cash-equivalent |
+| OpenAI Codex (model identifier not exposed in the repository) | October 22, 2026 | Helped build the Lab 15 portfolio engine and six-fund price application carried into Project 2 | Accepted the known-answer mechanics after the Lab 15 checks; qualified TLT as a long-duration proxy rather than cash |
+| OpenAI Codex (model identifier not exposed in the repository) | November 15-17, 2026 | Helped integrate the ETF allocator, frozen classroom backtest, Streamlit app, tests, and Project 2 documentation | Accepted the runnable calculations after eight tests and app checks; rejected adoption because turnover and holdout fail |
+| OpenAI Codex (model identifier not exposed in the repository) | November 15, 2026 | Proposed the reserve-eligibility stress test | Qualified: removing the reserve flag shows classification is load-bearing, but does not establish that TLT is cash-equivalent |
+| OpenAI Codex (model identifier not exposed in the repository) | November 17, 2026 | Helped correct the Windows README instructions and prepare the recording guide and scripts after Peyton's note | Accepted the Windows commands shown to work in the assisted continuation; preserved the original first failure and the lack of a separate post-fix log |
 
-Before submission, add every material AI interaction, the exposed tool/model/version, the date,
-the output considered, and whether it was accepted, qualified, corrected, or rejected.
+These entries group material uses by task and date. The exposed model identifier was not recorded;
+the repository does not infer one. Peyton's AI-assisted continuation is attributed to him in his
+[verbatim note](evidence/peyton-cold-run-rerun.md), not presented as Luke's independent run.
 
 ## Reproducibility and access checklist
 

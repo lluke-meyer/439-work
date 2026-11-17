@@ -7,11 +7,11 @@ TITLE: Project 2 Portfolio Decision | Code, Data Flow, and Validation
 DURATION: pending
 REPOSITORY COMMIT/FROZEN VERSION: pending
 
-[00:00] Luke Meyer: AI announcement: I used OpenAI Codex to help organize the application and
-documentation. The checks and committee decision are mine. This is a FIN 43900 course project,
-not investment advice.
+[00:00] Luke Meyer: AI announcement: I used OpenAI Codex to help write the app, tests, documents,
+and this outline. My voice, checks, and committee decision are mine. This is a FIN 43900 course
+project, not investment advice.
 
-[00:12] Luke Meyer: This repository supports a reject-or-redesign decision for an investment
+[00:15] Luke Meyer: This repository supports a reject-or-redesign decision for an investment
 committee. The highest-risk claim is that the proposed process can satisfy its mandate and produce
 a useful allocation after timing, constraints, costs, bounded shorting, and exposure limits are applied.
 

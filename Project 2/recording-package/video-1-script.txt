@@ -7,12 +7,12 @@ TITLE: Project 2 Portfolio Decision | System Change and AI Check
 DURATION: pending
 REPOSITORY COMMIT/FROZEN VERSION: pending
 
-[00:00] Luke Meyer: AI announcement: I used OpenAI Codex to help organize the application and
-documentation. The checks and committee decision are mine. This is a FIN 43900 course project,
-not investment advice.
+[00:00] Luke Meyer: AI announcement: I used OpenAI Codex to help write the app, tests, documents,
+and this outline. My voice, checks, and committee decision are mine. This is a FIN 43900 course
+project, not investment advice.
 
-[00:12] Luke Meyer: My Project 2 decision is whether the committee should adopt, pilot, rebalance,
-or reject a proposed investment process under an explicit mandate. The selected allocation passes
+[00:15] Luke Meyer: My Project 2 decision is whether the committee should adopt, pilot, rebalance,
+or reject a proposed investment process under a five-year working mandate. The selected allocation passes
 the displayed portfolio controls, but my full-process call is reject/redesign because reserve,
 point-in-time, turnover, and holdout evidence are not sufficient for adoption.
 
