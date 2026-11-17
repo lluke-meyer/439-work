@@ -25,10 +25,21 @@ for the final URL, duration, timestamps, and frozen repository commit after reco
    - the running Streamlit application
 4. Record at 720p or better with clear audio and a small webcam view.
 
-The November 15 changed-input test has no proven pre-run GitHub commit. A new human-authored,
-AI-off prediction and pre-run commit are required for a complete Locked Changed-Input Record.
-If you complete that test before recording, update the scripts and validation record to use the
-new evidence; do not describe the November 15 test as precommitted.
+## Recording setup on this Mac
+
+Use the installed Zoom desktop app to record locally, then upload each finished MP4 to YouTube
+as **Unlisted**. Start a meeting alone, turn on the camera and microphone, share the whole screen
+so both the app and code editor remain visible as you switch, and choose **Record on this Computer**.
+Make a short test first and play it back to confirm readable app text, your camera thumbnail, and
+clear audio. Record each of the three videos as its own session and file. Zoom's
+[computer-recording guide](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0076922)
+and YouTube's [visibility guide](https://support.google.com/youtube/answer/157177) cover the
+current controls. Correct the YouTube captions and save a separate plain-text transcript for
+each video after upload.
+
+The November 15 changed-input prediction was written AI-off before the run, and the result is
+documented. The cited SHA does not prove a pre-run GitHub commit. Record using that accurate
+description; do not call this test precommitted or the Locked Changed-Input Record complete.
 
 ## Video 1 - System Change and AI-Output Check
 
@@ -44,7 +55,7 @@ Target: 2:30-2:50. Hard stop: 3:00.
 
 Use `video-1-script.txt` as the spoken outline. Project 2 has no Edition A or Edition B, so focus on
 system evolution and the checked AI output. If you mention the November 15 changed-input run,
-state that its cited SHA was not a pre-run GitHub lock.
+state that the prediction was AI-off and the cited SHA was not a pre-run GitHub lock.
 
 ## Video 2 - Detailed Codebase Walkthrough
 

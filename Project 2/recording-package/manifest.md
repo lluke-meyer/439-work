@@ -45,7 +45,7 @@ Status: ready for recording; complete the external video fields after recording.
 ## Final freeze checklist
 
 - [x] Partner handoff completed per Luke's November 17 confirmation; the separate post-fix rerun details were not supplied.
-- [ ] Complete a new human-authored, AI-off changed-input prediction, commit it before the run, then preserve the before/after output and decision effect in the validation record. The November 15 test has no proven pre-run commit.
+- [ ] The November 15 AI-off prediction and actual result are documented, but no pre-run GitHub commit is evidenced. A new precommitted test would be needed to meet the full Locked Changed-Input Record requirement; the current limitation is disclosed.
 - [ ] Record the three videos within the course time limits.
 - [ ] Correct captions/transcripts and save the final transcript files.
 - [ ] Add video URLs, durations, and timestamped evidence moments above.

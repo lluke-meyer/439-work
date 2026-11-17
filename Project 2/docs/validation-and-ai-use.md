@@ -40,7 +40,7 @@ Education, not investment advice: This is a FIN 43900 course project and learnin
 | Cold run and visible output | Peyton's November 17 README-only Windows pass stopped at `python3 -m venv .venv`; an AI-assisted PowerShell continuation reached the decision and changed a control. Luke confirms the remaining partner tasks were completed. See the [verbatim partner note](evidence/peyton-cold-run-rerun.md). | Partner handoff complete by Luke's confirmation; no separate post-fix rerun log supplied |
 | Highest-risk counterexample | Removing both reserve candidates produces no feasible mix under the 1% floor | App gate shows reject/redesign; TLT remains a provisional proxy and SGOV is preferred |
 | Ten-theme allocation audit | One of ten bundled-data themes produces an allocation-feasible mix under the bounded short/gross policy; the full process gate still rejects/redesigns | Complete as an allocation screen; process-level evidence remains unresolved |
-| Locked Changed-Input Record | Scenario recorded in `Post Project 1/Lab20/lab20_record.md`; its cited SHA is the base HEAD while Project 2 was uncommitted | Pre-run GitHub lock not established by that SHA |
+| Locked Changed-Input Record | Luke's November 15 AI-off prediction and subsequent result are recorded in `Post Project 1/Lab20/lab20_record.md` | Human prediction and result documented; the cited SHA does not establish a pre-run GitHub lock |
 | Independent AI-output check | The reserve-eligibility test was run and its limitation identified | Complete for this working record; the result was qualified rather than accepted as proof that TLT is cash |
 
 ## Data and transformation record
@@ -126,10 +126,12 @@ decision only after those checks pass and the final recording and repository com
 
 ## Locked Changed-Input Record
 
-The bundled-data Lab 20 scenario records a prediction before the objective-return change and the
-actual result afterward. Its cited commit is the base HEAD while Project 2 was uncommitted, so it
-does not establish the required pre-run GitHub lock. A review of the current branch history found
-no other commit containing this prediction before the November 15 run:
+Luke wrote the bundled-data Lab 20 prediction without AI on November 15 before changing the
+objective-return input. The result and decision effect were recorded afterward. This supports
+the AI-off prediction and sensitivity finding. The cited `44ee60e` SHA was the base HEAD while
+Project 2 was uncommitted; it does not establish the rubric's separate pre-run GitHub lock. A
+review of the current branch history found no other commit containing this prediction before
+the run:
 
 - Input changed: Objective Return
 - Units: Annual percentage

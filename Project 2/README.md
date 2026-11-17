@@ -163,12 +163,14 @@ The frozen classroom signal produces 6.13% development net and -6.09% holdout ne
 buy-and-hold, so its failure rule triggers. The app displays that failure rather than averaging it
 away.
 
-Before submission, the remaining human-owned steps include a new AI-off changed-input prediction
-committed before its run, the three recordings, corrected video transcripts, manifest links and
-durations, access check, and frozen commit. Luke confirmed the partner
+Before submission, the remaining human-owned steps are the three recordings, corrected video
+transcripts, manifest links and durations, access check, and frozen commit. Luke confirmed the partner
 handoff complete; the supplied partner note does not contain a separate post-fix README-only log.
 The current signal data card
 and zero-lag leakage diagnostic are included in the repository; no new signal was selected after
 seeing the holdout.
 The mandate, final decision, derivative disclosure, and changed-input scenario are documented.
-The cited base SHA does not establish that the prediction was committed before the run.
+Luke's November 15 changed-input prediction was written AI-off before the run, and the actual
+result is documented. The cited base SHA does not establish that the prediction was committed
+before the run. Meeting the rubric's separate pre-run commit requirement would require a new
+AI-off, precommitted test; this historical result is presented with that limitation.

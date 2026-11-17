@@ -35,9 +35,10 @@ needs to be supplied for full risk evidence. If the reserve evidence fails, I wo
 until the committee approves an eligible liquid reserve and the final mandate controls.
 
 [03:25] Luke Meyer: I would also reverse the decision toward adoption only if the point-in-time
-signal, leakage diagnostic, costs, and holdout support the same action. The November 15 changed-input
-direction matched the prediction, but its cited GitHub SHA does not prove a pre-run lock. If the holdout
-failure remains or a hard mandate constraint fails, I would reject or redesign the process.
+signal, leakage diagnostic, costs, and holdout support the same action. In my AI-off objective
+stress, raising the return target to 10.5% made all ten themes infeasible; the process decision
+remained reject/redesign. If the holdout failure remains or a hard mandate constraint fails, I
+would reject or redesign the process.
 
 [04:15] Luke Meyer: My committee ask is to reject adoption and return the process for redesign. I
 would reverse that decision only after the reserve, point-in-time, derivative-risk, cost, turnover,
