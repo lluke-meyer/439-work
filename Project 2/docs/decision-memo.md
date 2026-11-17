@@ -93,6 +93,6 @@ checks, partner cold run, changed-input evidence, and derivative-risk disclosure
 
 ## Open items before freezing
 
-- Complete the partner cold run and record the student-owned code explanation.
+- Publish the Windows README fix and obtain a clean partner rerun; Peyton's first pass was blocked at setup, while an assisted continuation reached the app. Record the student-owned code explanation.
 - Record the three videos, correct their transcripts, and add the final evidence timestamps.
 - Reconcile this memo to the final visible output, validation record, and frozen repository commit.

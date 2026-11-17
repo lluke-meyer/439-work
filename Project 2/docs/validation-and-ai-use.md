@@ -34,7 +34,7 @@ Education, not investment advice: This is a FIN 43900 course project and learnin
 | Naive benchmark and true holdout | Lab 18 classroom rule versus buy-and-hold, now visible in the Project 2 app | Complete for the frozen classroom rule |
 | Costs and stress run | Switch cost in the backtest; bounded lag/cost controls and TLT/SGOV reserve-flag stress in the app | Complete for the frozen rule; observed reserve history remains a review item |
 | Placebo/falsification test | Visible zero-lag leakage diagnostic; the one-month lag remains frozen | Complete as a falsification check, not a separate placebo |
-| Cold run and visible output | Local app run reached the bundled six-fund result with zero exceptions and zero displayed errors; the app shows the allocation gate, holdout, and leakage diagnostic | Local check complete; partner cold run pending |
+| Cold run and visible output | Peyton's November 17 README-only Windows pass stopped at `python3 -m venv .venv`; an AI-assisted PowerShell continuation reached the decision and changed a control. See the [verbatim partner note](evidence/peyton-cold-run-rerun.md). | First failure documented and Windows README instructions added; clean post-fix rerun pending |
 | Highest-risk counterexample | Removing both reserve candidates produces no feasible mix under the 1% floor | App gate shows reject/redesign; TLT remains a provisional proxy and SGOV is preferred |
 | Ten-theme allocation audit | One of ten bundled-data themes produces an allocation-feasible mix under the bounded short/gross policy; the full process gate still rejects/redesigns | Complete as an allocation screen; process-level evidence remains unresolved |
 | Locked Changed-Input Record | Scenario recorded in `Post Project 1/Lab20/lab20_record.md`; its cited SHA is the base HEAD while Project 2 was uncommitted | Pre-run GitHub lock not established by that SHA |
@@ -80,6 +80,27 @@ combined weight. The bounded short/gross controls are available, but this defaul
 need a short position. That is a sensitivity scenario, not proof that TLT qualifies as the $1 million
 reserve.
 
+## Partner cold-run evidence - November 17, 2026
+
+Peyton's [completed note](evidence/peyton-cold-run-rerun.md) records a fresh ZIP of commit
+`813865ced5ca2e38ec33cebf0086d713ea79ce00`. On Windows PowerShell, the README-only first
+pass stopped after about 40 seconds at `python3 -m venv .venv`: `python3` resolved to the
+WindowsApps alias, and the README supplied only Bash commands. The subsequent run used Windows
+commands with Codex assistance. It reached the decision after approximately 6 minutes 23 seconds
+from README review; that time includes installation, tool delays, and browser assistance.
+
+In the assisted continuation, the default 9% objective showed allocation `PASS`, full process
+`REJECT / REDESIGN`, and 9.19% estimated return. Raising the objective to 10% kept the two
+verdicts, with 10.18% estimated return. Frozen holdout net remained -6.09% against -2.09%
+buy-and-hold. Peyton's Windows test run reported eight passing tests and no app exception. The
+full-process metric text was truncated at the tested window widths, although the full verdict
+remained readable elsewhere on the page.
+
+The README now includes the Windows commands that worked in the assisted continuation. There has
+not yet been a clean, independent README-only rerun after that fix. Peyton's code question also
+identified that `expected_portfolio_return` checks vector lengths but relies on the caller to
+keep asset order aligned; no wrong-order result was observed.
+
 ## Final decision
 
 The selected allocation passes the displayed portfolio mandate. The full process remains
@@ -124,6 +145,6 @@ the output considered, and whether it was accepted, qualified, corrected, or rej
 - [x] README contains a one-command local run for the current prototype.
 - [x] Visible output is available through the Streamlit app and Lab 15 record.
 - [x] Final app shows baselines, mandate verdicts, frozen holdout gross/net, bounded controls, and the leakage diagnostic.
-- [ ] Partner can run the repository from the README alone.
+- [ ] Partner can run the repository from the README alone after the Windows instructions are published and rerun.
 - [ ] Final visible output, memo, and videos use the same numbers and dates.
 - [x] No passwords, API keys, tokens, credentials, or private data are committed.

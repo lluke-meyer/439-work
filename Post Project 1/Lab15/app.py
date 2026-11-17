@@ -1,9 +1,17 @@
-"""Streamlit interface for the FIN 439 Lab 15 portfolio engine."""
+"""Streamlit interface for the FIN 439 Project 2 portfolio prototype."""
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import streamlit as st
 
+from backtest import (
+    DEFAULT_BILLS_RETURN_PERCENT,
+    DEFAULT_LAG_MONTHS,
+    DEFAULT_SWITCH_COST_PERCENT,
+    run_backtest,
+)
 from portfolio import (
     ASSETS,
     CORRELATIONS,
@@ -13,14 +21,17 @@ from portfolio import (
     RESERVE_MINIMUM,
     VOLATILITIES,
     covariance_matrix,
+    equal_weight,
     estimate_from_prices,
+    inverse_volatility,
+    portfolio_result,
     risk_level_portfolios,
     search_lowest_risk_mix,
 )
 
 
-st.set_page_config(page_title="Portfolio Stability Decision", layout="wide")
-st.title("Portfolio Stability Decision")
+st.set_page_config(page_title="Project 2 Portfolio Decision", layout="wide")
+st.title("Project 2 Portfolio Decision")
 st.caption("Built with AI help, a learning demonstration, not investment advice.")
 
 with st.sidebar:
@@ -32,9 +43,29 @@ with st.sidebar:
         "Reserve minimum (%)", min_value=0.0, max_value=100.0, value=RESERVE_MINIMUM * 100, step=1.0
     ) / 100
     uploaded = st.file_uploader("Upload prices.csv", type="csv")
-    last_36 = st.toggle("Use last 36 monthly returns", value=False, disabled=uploaded is None)
+    classroom_inputs = st.checkbox(
+        "Use Meridian classroom inputs instead of bundled prices",
+        value=False,
+        disabled=uploaded is not None,
+    )
+    last_36 = st.toggle(
+        "Use last 36 monthly returns",
+        value=False,
+        disabled=uploaded is None and classroom_inputs,
+    )
+    st.subheader("Signal controls")
+    signal_lag = st.number_input(
+        "Signal lag (months)", min_value=0, max_value=1, value=DEFAULT_LAG_MONTHS, step=1
+    )
+    switch_cost = st.number_input(
+        "Switch cost (%)", min_value=0.0, max_value=5.0, value=DEFAULT_SWITCH_COST_PERCENT, step=0.05
+    )
+    bills_return = st.number_input(
+        "Bills return (%)", min_value=-10.0, max_value=10.0,
+        value=DEFAULT_BILLS_RETURN_PERCENT, step=0.05
+    )
 
-if uploaded is None:
+if uploaded is None and classroom_inputs:
     assets = ASSETS
     loaded_expected = EXPECTED_RETURNS
     loaded_volatility = VOLATILITIES
@@ -47,9 +78,10 @@ if uploaded is None:
     observation_label = "Course-authored inputs"
 else:
     try:
-        loaded_estimate = estimate_from_prices(uploaded, last_36=False)
-        current_estimate = estimate_from_prices(uploaded, last_36=last_36)
-    except ValueError as error:
+        price_source = uploaded if uploaded is not None else Path(__file__).with_name("prices.csv")
+        loaded_estimate = estimate_from_prices(price_source, last_36=False)
+        current_estimate = estimate_from_prices(price_source, last_36=last_36)
+    except (OSError, ValueError) as error:
         st.error(str(error))
         st.stop()
     assets = loaded_estimate["assets"]
@@ -60,7 +92,7 @@ else:
     current_volatility = current_estimate["volatilities"]
     current_correlation = current_estimate["correlations"]
     default_reserve = tuple(asset.upper() == "TLT" for asset in assets)
-    source_label = "Uploaded fund universe"
+    source_label = "Uploaded fund universe" if uploaded is not None else "Bundled six-fund universe"
     observation_label = (
         f"{current_estimate['return_observations']} monthly returns, "
         f"{current_estimate['start_date']} through {current_estimate['end_date']}"
@@ -68,6 +100,11 @@ else:
 
 st.subheader(source_label)
 st.write(observation_label)
+if not classroom_inputs or uploaded is not None:
+    st.warning(
+        "The 6.5% return objective and 3% reserve threshold are classroom controls, not a full "
+        "Project 2 mandate verdict. TLT is a long-duration Treasury fund, not a cash reserve."
+    )
 st.write("Edit an expected-return estimate or change reserve eligibility to test the allocation.")
 
 header = st.columns([1.7, 1.2, 1.2, 1.3])
@@ -116,6 +153,21 @@ loaded_result = search_lowest_risk_mix(
 )
 
 
+def mandate_verdict(result: dict[str, object]) -> str:
+    return "PASS" if (
+        result["expected_return"] >= objective - 1e-12
+        and result["reserve_weight"] >= reserve_minimum - 1e-12
+    ) else "FAIL"
+
+
+baseline_results = [
+    ("Equal weight", portfolio_result(equal_weight(len(assets)), current_expected_defaults, current_covariance, reserve_flags)),
+    ("Inverse volatility", portfolio_result(inverse_volatility(current_volatility), current_expected_defaults, current_covariance, reserve_flags)),
+]
+if current_result is not None:
+    baseline_results.insert(0, ("Constrained search", current_result))
+
+
 def show_result(container: st.delta_generator.DeltaGenerator, title: str, result: dict[str, object] | None) -> None:
     container.markdown(f"### {title}")
     if result is None:
@@ -158,6 +210,75 @@ def show_result(container: st.delta_generator.DeltaGenerator, title: str, result
 current_column, loaded_column = st.columns(2)
 show_result(current_column, "Current estimates", current_result)
 show_result(loaded_column, "Inputs as loaded", loaded_result)
+
+st.subheader("Baseline and mandate verdicts")
+st.caption("PASS means the displayed portfolio meets the current objective and reserve controls.")
+st.dataframe(
+    [
+        {
+            "Portfolio": name,
+            "Return": f"{result['expected_return']:.2%}",
+            "Volatility": f"{result['volatility']:.2%}",
+            "Reserve": f"{result['reserve_weight']:.2%}",
+            "Mandate verdict": mandate_verdict(result),
+        }
+        for name, result in baseline_results
+    ],
+    hide_index=True,
+    width="stretch",
+)
+
+st.subheader("Signal holdout and cost controls")
+locked_backtest = run_backtest()
+adjusted_backtest = run_backtest(
+    lag_months=int(signal_lag),
+    switch_cost_percent=float(switch_cost),
+    bills_return_percent=float(bills_return),
+)
+st.caption(
+    "The frozen result uses the one-month lag, 0.10% switch cost, and 0.30% bills return. "
+    "Sidebar controls run bounded sensitivity scenarios; they do not retune the holdout."
+)
+backtest_columns = st.columns(2)
+for container, title, result in (
+    (backtest_columns[0], "Frozen classroom rule", locked_backtest),
+    (backtest_columns[1], "Adjusted sensitivity", adjusted_backtest),
+):
+    container.markdown(f"### {title}")
+    development = result["development"]
+    holdout = result["holdout"]
+    container.dataframe(
+        [
+            {
+                "Period": "Development",
+                "Rule gross": f"{development['gross']:.2%}",
+                "Rule net": f"{development['net']:.2%}",
+                "Buy-and-hold": f"{development['buy_and_hold']:.2%}",
+                "Switches": development["switches"],
+            },
+            {
+                "Period": "Holdout",
+                "Rule gross": f"{holdout['gross']:.2%}",
+                "Rule net": f"{holdout['net']:.2%}",
+                "Buy-and-hold": f"{holdout['buy_and_hold']:.2%}",
+                "Switches": holdout["switches"],
+            },
+        ],
+        hide_index=True,
+        width="stretch",
+    )
+    if result["failure_triggered"]:
+        container.warning("Failure rule triggered: holdout net trails buy-and-hold.")
+    else:
+        container.success("Failure rule not triggered.")
+
+if current_result is not None:
+    current_mandate_passes = mandate_verdict(current_result) == "PASS"
+    holdout_passes = not adjusted_backtest["failure_triggered"]
+    if current_mandate_passes and holdout_passes:
+        st.success("Current process verdict: pilot candidate, subject to final mandate and evidence review.")
+    else:
+        st.warning("Current process verdict: do not adopt yet; a mandate or holdout check fails under the displayed controls.")
 
 universe_notes = {
     "TLT": "TLT holds long-duration U.S. Treasuries, so it can move sharply when interest-rate expectations change; it is not a cash substitute.",

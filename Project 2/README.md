@@ -39,7 +39,9 @@ baselines and a frozen signal backtest. It provides:
 
 Python 3.11 or newer is recommended.
 
-From the FIN 439 repository root, enter the project folder first:
+From the FIN 439 repository root, use the commands for your shell.
+
+macOS/Linux (Bash):
 
 ```bash
 cd "Project 2"
@@ -47,6 +49,15 @@ python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
 streamlit run app.py
+```
+
+Windows (PowerShell):
+
+```powershell
+cd "Project 2"
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m streamlit run app.py
 ```
 
 The terminal will print a local URL, normally `http://localhost:8501`.
@@ -60,11 +71,18 @@ must be recorded before using the output as evidence.
 
 ## Reproduce the validation output
 
-Run these commands from `Project 2/` with the virtual environment activated:
+On macOS/Linux, run these commands from `Project 2/` with the virtual environment activated:
 
 ```bash
 python -m unittest discover -s tests -v
 python -c "from backtest import run_backtest; r=run_backtest(); print(r['development']['net'], r['holdout']['net'])"
+```
+
+On Windows PowerShell, run the same checks through the virtual-environment interpreter:
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+.\.venv\Scripts\python.exe -c "from backtest import run_backtest; r=run_backtest(); print(r['development']['net'], r['holdout']['net'])"
 ```
 
 The repository also includes [`outputs/visible-output.txt`](outputs/visible-output.txt), a readable
@@ -80,6 +98,7 @@ snapshot of the current executed result for a grader who does not run the app.
 - `outputs/visible-output.txt` - frozen readable snapshot of the current result.
 - `docs/decision-memo.md` - investment-committee recommendation and conditions.
 - `docs/validation-and-ai-use.md` - sources, tests, limitations, AI-use register, and Locked Changed-Input Record.
+- `docs/evidence/peyton-cold-run-rerun.md` - Peyton's first setup failure, assisted continuation, and pending clean rerun.
 - `docs/signal-data-card.md` - point-in-time timing rule, signal boundaries, and tested selection ledger.
 - `recording-package/manifest.md` - final links, evidence index, and freeze checklist.
 - `recording-package/` - working scripts and recording guide; replace draft placeholders after the final mandate and app output are frozen.
@@ -124,8 +143,9 @@ The frozen classroom signal produces 6.13% development net and -6.09% holdout ne
 buy-and-hold, so its failure rule triggers. The app displays that failure rather than averaging it
 away.
 
-Before submission, the remaining human-owned steps are the partner cold run, corrected video
-transcripts, manifest links/durations, access check, and frozen commit. The current signal data card
+Before submission, the remaining human-owned steps are a clean partner rerun after the Windows
+README fix, corrected video transcripts, manifest links/durations, access check, and frozen commit.
+The current signal data card
 and zero-lag leakage diagnostic are included in the repository; no new signal was selected after
 seeing the holdout.
 The mandate, final decision, derivative disclosure, and changed-input scenario are documented.

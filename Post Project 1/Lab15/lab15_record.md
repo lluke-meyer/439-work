@@ -5,9 +5,10 @@
 Which mix carries the least risk while meeting the mandate, and does the answer survive a
 one-point change in one estimate?
 
-The app starts with the Meridian training controls: a 6.5% expected-return objective and a 3%
-reserve-eligible minimum. These are classroom defaults until the student's Project 2 mandate
-supplies its own numeric objective and hard constraint.
+The app opens on the bundled six-fund prices with the Meridian training controls: a 6.5%
+expected-return objective and a 3% reserve-eligible minimum. A sidebar checkbox restores the
+original Meridian classroom inputs. These controls are classroom defaults until the student's
+Project 2 mandate supplies its own numeric objective and hard constraint.
 
 ## Run commands
 
@@ -89,10 +90,10 @@ allocation, and restoring it returns the original result.
 
 ## Own-universe results
 
-The runnable output below uses the provisional 6.5% objective, a 3% reserve minimum, and marks only
-TLT as reserve eligible. That classification is a classroom assumption for the government-bond
-sleeve; TLT is a volatile long-duration asset, not a cash reserve. The student should replace those
-controls if the Project 2 mandate requires different values.
+The default runnable output below uses the bundled `prices.csv`, the provisional 6.5% objective,
+a 3% reserve minimum, and marks only TLT as reserve eligible. That classification is a classroom
+assumption for the government-bond sleeve; TLT is a volatile long-duration asset, not a cash
+reserve. The student should replace those controls if the Project 2 mandate requires different values.
 
 | Estimate window | TLT | SOXX | VTI | VXUS | FREL | GBTC | Return | Volatility | Reserve |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -126,6 +127,15 @@ Draft call for student review: **pilot, not adopt**. The full-window and 36-retu
 classroom defaults rather than confirmed Project 2 mandate values. Adoption would require the
 student's numeric mandate controls and a partner stress that does not materially overturn the
 allocation.
+
+## Project 2 integration
+
+The app now includes the Lab 18 backtest, equal-weight and inverse-volatility baselines, mandate
+verdicts, and bounded lag and cost controls. The frozen backtest returns 6.13% development net and
+-6.09% holdout net, so the failure rule is triggered.
+
+Checks passed: `py_compile`, `git diff --check`, and Streamlit `AppTest` with zero exceptions and
+zero displayed errors.
 
 ## Partner attack and final call
 
