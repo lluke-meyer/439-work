@@ -6,22 +6,34 @@ STABLE VIDEO ID/URL: pending
 TITLE: Project 2 Portfolio Decision | System Change and AI Check
 DURATION: pending
 REPOSITORY COMMIT/FROZEN VERSION: pending
+SCREEN CUES: Production notes only. Do not read aloud or copy into the corrected transcript.
+OPEN BEFORE RECORDING: README.md, docs/decision-memo.md, docs/validation-and-ai-use.md,
+and the running app as tabs in one browser window. Keep this script in an unshared window or on your phone.
 
+SCREEN 00:00 - Project 2/README.md, opening AI and education statements.
 [00:00] Luke Meyer: AI announcement: I used OpenAI Codex to help write the app, tests, documents,
 and this outline. My voice, checks, and committee decision are mine. This is a FIN 43900 course
 project, not investment advice.
 
+SCREEN 00:15 - Project 2/README.md > "Decision and intended user"; then
+Project 2/docs/decision-memo.md > "Decision and committee ask".
 [00:15] Luke Meyer: My Project 2 decision is whether the committee should adopt, pilot, rebalance,
 or reject a proposed investment process under a five-year working mandate. The selected allocation passes
 the displayed portfolio controls, but my full-process call is reject/redesign because reserve,
 point-in-time, turnover, and holdout evidence are not sufficient for adoption.
 
+SCREEN 00:47 - Project 2/README.md > "What the product does"; then
+Project 2/docs/validation-and-ai-use.md > "Validation status" (Lab 14-18 rows).
 [00:47] Luke Meyer: The system changed from separate Lab 13 through Lab 19 exercises into one
 portfolio application. The app now compares a constrained search with equal-weight and
 inverse-volatility baselines, shows mandate verdicts, pulls an optional public monthly price history,
 allows bounded shorting and gross exposure, and lets the committee start from ten six-fund themes
 before adjusting a 3-10 fund universe.
 
+SCREEN 01:27 - Project 2/docs/validation-and-ai-use.md > "Named AI-use register"
+(November 15 reserve-test row). Then the running app > "Build the portfolio" >
+"Edit fund estimates and reserve flags": uncheck TLT's Reserve eligible box, show the
+"Allocation mandate: NO FEASIBLE MIX" hero result, then recheck TLT.
 [01:27] Luke Meyer: One AI-proposed test challenged the riskiest claim: whether TLT can count as the
 reserve-eligible asset. When I turn off that flag, the current 1% reserve constraint produces no
 feasible portfolio. I accept that as evidence that the reserve definition is load-bearing, but I
@@ -29,10 +41,14 @@ do not accept it as proof that TLT is actually eligible. SGOV is the cleaner res
 that still requires my own mandate and liquidity review. Derivatives are permitted for hedging only,
 but the app discloses that it does not price contracts, margin, Greeks, financing, or counterparties.
 
+SCREEN 02:17 - Running app > "The frozen signal and its holdout" > "Frozen classroom rule"
+table; alternatively Project 2/docs/validation-and-ai-use.md > "Current validation results".
 [02:17] Luke Meyer: The frozen classroom signal produced 6.13% development net and -6.09% holdout
 net versus -2.09% for buy-and-hold. The holdout failure is visible in the app, so I do not present
 the development result as proof of a successful process.
 
+SCREEN 02:35 - Project 2/docs/validation-and-ai-use.md > "Locked Changed-Input Record";
+keep this section visible through the closing decision.
 [02:35] Luke Meyer: The current recommendation is reject/redesign. I wrote the November 15
 changed-input prediction without AI before the run, and the direction matched. Its cited GitHub
 SHA does not prove a pre-run lock.

@@ -6,15 +6,24 @@ STABLE VIDEO ID/URL: pending
 TITLE: Project 2 Portfolio Decision | Code, Data Flow, and Validation
 DURATION: pending
 REPOSITORY COMMIT/FROZEN VERSION: pending
+SCREEN CUES: Production notes only. Do not read aloud or copy into the corrected transcript.
+OPEN BEFORE RECORDING: Project 2 GitHub directory, README.md, portfolio.py, market_data.py,
+backtest.py, app.py, tests/, outputs/visible-output.txt, and the running app as browser tabs.
+Keep this script in an unshared window or on your phone.
 
+SCREEN 00:00 - Project 2/README.md, opening AI and education statements.
 [00:00] Luke Meyer: AI announcement: I used OpenAI Codex to help write the app, tests, documents,
 and this outline. My voice, checks, and committee decision are mine. This is a FIN 43900 course
 project, not investment advice.
 
+SCREEN 00:15 - Project 2/README.md > "Decision and intended user" and
+"Current results and limitations".
 [00:15] Luke Meyer: This repository supports a reject-or-redesign decision for an investment
 committee. The highest-risk claim is that the proposed process can satisfy its mandate and produce
 a useful allocation after timing, constraints, costs, bounded shorting, and exposure limits are applied.
 
+SCREEN 00:42 - Project 2/README.md > "Repository map"; then the GitHub Project 2/
+directory with portfolio.py, market_data.py, backtest.py, app.py, tests/, and outputs/.
 [00:42] Luke Meyer: The repository has four main Python files. `portfolio.py` contains the
 portfolio calculations and constrained search. `market_data.py` handles the optional public Yahoo
 Finance monthly pull. `backtest.py` contains the lagged, cost-adjusted development and holdout
@@ -22,6 +31,9 @@ calculation. `app.py` is the Streamlit interface that calls the engines. The tes
 known-answer model, live-data adapter shape, and application rendering, while `outputs` contains the
 visible executed result.
 
+SCREEN 01:22 - Project 2/portfolio.py > estimate_from_prices(), equal_weight(),
+inverse_volatility(), and search_lowest_risk_mix(); then Project 2/app.py >
+"Ten starting themes" if time allows.
 [01:22] Luke Meyer: The bundled or live price history becomes monthly returns, annualized estimates,
 correlations, and covariance. The default bounded-short policy uses ten-point allocation steps so
 the app stays usable. The theme audit runs all ten six-fund starting universes under the same return,
@@ -29,16 +41,24 @@ reserve, ticker, gross-exposure, and overlap controls. Equal-weight and inverse-
 use the same estimates and receive the same visible mandate verdict. Derivative hedging is disclosed,
 but contract-level risk is outside this price-only engine.
 
+SCREEN 02:17 - Project 2/backtest.py > _period_result() and run_backtest(); then
+Project 2/app.py > the locked_backtest and adjusted_backtest calls.
 [02:17] Luke Meyer: The backtest applies the signal lag before selecting a position, charges the
 switch cost, and reports development and holdout gross and net results against buy-and-hold. The
 one-month lag and 0.10% switch cost are preserved as the frozen classroom result; the sidebar
 controls run bounded sensitivity scenarios without retuning the holdout.
 
+SCREEN 03:07 - Project 2/README.md > "Setup and run" and "Reproduce the validation output";
+show the test command and Project 2/outputs/visible-output.txt >
+"Mandate-survival gate" and "Frozen classroom signal holdout".
 [03:07] Luke Meyer: A clean user can run the application with Streamlit or run the test suite with
 `python -m unittest discover -s tests -v`. The visible output shows the current inputs, data source,
 theme audit, baseline verdicts, allocation, and holdout result without requiring the grader to infer
 the decision from source code.
 
+SCREEN 03:57 - Project 2/app.py > gate_rows and gate_decision; then the running app >
+"Build the portfolio" > "Edit fund estimates and reserve flags". Uncheck TLT's Reserve
+eligible box to show NO FEASIBLE MIX; recheck it before ending.
 [03:57] Luke Meyer: The highest-risk limitation is the reserve classification. Removing the TLT
 reserve proxy creates no feasible portfolio under the current 1% working minimum. SGOV is the
 preferred reserve candidate, but it needs observed history or a verified uploaded file. The app

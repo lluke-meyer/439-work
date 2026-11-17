@@ -6,16 +6,25 @@ STABLE VIDEO ID/URL: pending
 TITLE: Project 2 Investment Committee Decision | Reject / Redesign
 DURATION: pending
 REPOSITORY COMMIT/FROZEN VERSION: pending
+SCREEN CUES: Production notes only. Do not read aloud or copy into the corrected transcript.
+OPEN BEFORE RECORDING: the running app in one browser window; keep the memo and this script
+in an unshared window or on your phone.
 
+SCREEN 00:00 - Running app at default inputs, with the hero and sidebar "Portfolio mandate"
+visible. Keep the app as the main visual throughout this video.
 [00:00] Luke Meyer: AI announcement: I used OpenAI Codex to help write the app, tests, documents,
 and this outline. My voice, checks, and committee decision are mine. This is a FIN 43900 course
 project, not investment advice.
 
+SCREEN 00:15 - Running app sidebar > "Portfolio mandate" > Reserve minimum (%): change
+1 to 25, read the hero's NO FEASIBLE MIX verdict, then restore 1 and read PASS.
 [00:15] Luke Meyer: In the live app, I am raising the reserve minimum from one percent to
 twenty-five percent. The allocation mandate flips from PASS to NO FEASIBLE MIX. I am returning
 the control to one percent; the allocation passes again. The full process still says REJECT /
 REDESIGN.
 
+SCREEN 00:50 - Running app > "The proposed mix" > current allocation and
+"Baseline and mandate verdicts"; keep the two-layer hero decision in view when possible.
 [00:50] Luke Meyer: My current recommendation is reject/redesign under a five-year horizon,
 quarterly review, and annual core rebalance. The six-fund search currently
 produces 20% TLT, 10% SOXX, 30% VTI, and 40% VXUS, with a 9.19% estimated return, 15.45% estimated
@@ -25,21 +34,30 @@ full process gate still rejects adoption because the evidence checks apply to al
 bundled estimates, one of ten starting themes is allocation-feasible. The baselines are visible
 beside it so the committee can see the tradeoff.
 
+SCREEN 01:35 - Running app > "The frozen signal and its holdout" >
+"Frozen classroom rule" gross/net table and failure warning.
 [01:35] Luke Meyer: The frozen signal produced 6.55% development gross and 6.13% net. The holdout
 produced -5.52% gross and -6.09% net versus -2.09% for buy-and-hold. The failure rule triggers. That result is a reason not
 to adopt the signal as presented, not a reason to hide it behind the portfolio allocation.
 
+SCREEN 02:25 - Running app > "Why the committee call holds" > gate table, TLT/SGOV
+reserve note, and derivative-risk disclosure. Use "Overlap review" if time allows.
 [02:25] Luke Meyer: The main condition is reserve eligibility. TLT is a long-duration Treasury fund,
 not automatically cash. SGOV is the cleaner reserve candidate, but its observed price history still
 needs to be supplied for full risk evidence. If the reserve evidence fails, I would pause the pilot
 until the committee approves an eligible liquid reserve and the final mandate controls.
 
+SCREEN 03:25 - Running app sidebar > "Portfolio mandate" > Objective return (%): change
+9.0 to 10.5; then "Ten starting themes" shows all ten NO FEASIBLE MIX. This is a live
+replay of the historical sensitivity, not the original AI-off run. Restore 9.0 before closing.
 [03:25] Luke Meyer: I would also reverse the decision toward adoption only if the point-in-time
 signal, leakage diagnostic, costs, and holdout support the same action. In my AI-off objective
 stress, raising the return target to 10.5% made all ten themes infeasible; the process decision
 remained reject/redesign. If the holdout failure remains or a hard mandate constraint fails, I
 would reject or redesign the process.
 
+SCREEN 04:15 - Running app hero or "Why the committee call holds" with the default
+REJECT / REDESIGN decision visible.
 [04:15] Luke Meyer: My committee ask is to reject adoption and return the process for redesign. I
 would reverse that decision only after the reserve, point-in-time, derivative-risk, cost, turnover,
 and holdout conditions are verified.
