@@ -1,0 +1,44 @@
+# Project 2 Submission Manifest
+
+Status: ready for recording; complete the external video fields after recording.
+
+## Repository
+
+- Repository URL: `https://github.com/lluke-meyer/439-work`
+- Project path: `Project 2/`
+- Final decision: `REJECT / REDESIGN`
+- Frozen commit: [fill after final review and commit]
+- Access check: [confirm the grader can open the repository]
+
+## Videos
+
+| Video | Title | URL | Duration | Evidence moments |
+|---|---|---|---|---|
+| 1 | Project 2 Portfolio Decision - System Change and AI Check | [add URL] | [add duration] | [add timestamps] |
+| 2 | Project 2 Portfolio Decision - Code, Data Flow, and Validation | [add URL] | [add duration] | [add timestamps] |
+| 3 | Project 2 Investment Committee Decision - Reject / Redesign | [add URL] | [add duration] | [add timestamps] |
+
+## Evidence index
+
+- [README.md](https://github.com/lluke-meyer/439-work/blob/main/Project%202/README.md) - product purpose, setup, data boundaries, and current decision.
+- [docs/decision-memo.md](https://github.com/lluke-meyer/439-work/blob/main/Project%202/docs/decision-memo.md) - mandate, recommendation, risks, and reversal condition.
+- [docs/validation-and-ai-use.md](https://github.com/lluke-meyer/439-work/blob/main/Project%202/docs/validation-and-ai-use.md) - validation record, final decision, and changed-input record.
+- [docs/signal-data-card.md](https://github.com/lluke-meyer/439-work/blob/main/Project%202/docs/signal-data-card.md) - point-in-time timing rule and selection ledger.
+- [app.py](https://github.com/lluke-meyer/439-work/blob/main/Project%202/app.py) - committee-use flow, live/bundled data source, themes, bounded exposure controls,
+  overlap audit, baselines, gate, and holdout.
+- [portfolio.py](https://github.com/lluke-meyer/439-work/blob/main/Project%202/portfolio.py) - estimates, bounded net allocations, gross exposure, overlap, and theme audit.
+- [market_data.py](https://github.com/lluke-meyer/439-work/blob/main/Project%202/market_data.py) - cached public Yahoo Finance monthly adapter and fallback boundary.
+- [backtest.py](https://github.com/lluke-meyer/439-work/blob/main/Project%202/backtest.py) - frozen lagged signal, cost, development, holdout, and leakage diagnostic.
+- [outputs/visible-output.txt](https://github.com/lluke-meyer/439-work/blob/main/Project%202/outputs/visible-output.txt) - readable bundled-data result snapshot.
+- [Post Project 1/Lab20/lab20_record.md](https://github.com/lluke-meyer/439-work/blob/main/Post%20Project%201/Lab20/lab20_record.md) - Lab 20 changed-input evidence archive.
+
+## Final freeze checklist
+
+- [ ] Run the partner cold check from the README, if required by Brightspace.
+- [ ] Record the three videos within the course time limits.
+- [ ] Correct captions/transcripts and save the final transcript files.
+- [ ] Add video URLs, durations, and timestamped evidence moments above.
+- [ ] Confirm README, memo, validation record, visible output, and videos use the same decision.
+- [ ] Commit the final repository and replace the frozen-commit placeholder.
+
+This is a course project and learning demonstration, not investment advice.

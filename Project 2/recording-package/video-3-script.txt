@@ -1,0 +1,43 @@
+PROJECT: FIN 43900 Project 2 - Portfolio Decision Workbench
+STUDENT: Luke Meyer
+VIDEO: 3 Committee Presentation
+STATUS: WORKING RECORDING SCRIPT - replace with corrected transcript after recording
+STABLE VIDEO ID/URL: pending
+TITLE: Project 2 Investment Committee Decision | Reject / Redesign
+DURATION: pending
+REPOSITORY COMMIT/FROZEN VERSION: pending
+
+[00:00] Luke Meyer: AI announcement: I used OpenAI Codex to help organize the application and
+documentation, but the checks and committee decision are mine. This is an educational course
+project, not investment advice.
+
+[00:12] Luke Meyer: I am moving the signal-lag control from one month to zero so the committee can
+see the sensitivity surface. The frozen one-month result remains visible. I now return to the
+frozen setting before presenting the decision.
+
+[00:30] Luke Meyer: My current recommendation is reject/redesign. The six-fund search currently
+produces 20% TLT, 10% SOXX, 30% VTI, and 40% VXUS, with a 9.19% estimated return, 15.45% estimated
+volatility, and a 20% reserve proxy. The app also lets me swap TLT for SGOV or expand the universe
+to seven or nine funds. The selected allocation passes the displayed mandate controls, but the
+full process gate still rejects adoption because the evidence checks apply to all themes. Under the
+bundled estimates, one of ten starting themes is allocation-feasible. The baselines are visible
+beside it so the committee can see the tradeoff.
+
+[01:15] Luke Meyer: The frozen signal produced 6.13% development net, but the holdout produced
+-6.09% net versus -2.09% for buy-and-hold. The failure rule triggers. That result is a reason not
+to adopt the signal as presented, not a reason to hide it behind the portfolio allocation.
+
+[02:05] Luke Meyer: The main condition is reserve eligibility. TLT is a long-duration Treasury fund,
+not automatically cash. SGOV is the cleaner reserve candidate, but its observed price history still
+needs to be supplied for full risk evidence. If the reserve evidence fails, I would pause the pilot
+until the committee approves an eligible liquid reserve and the final mandate controls.
+
+[03:05] Luke Meyer: I would also reverse the decision toward adoption only if the point-in-time
+signal, leakage diagnostic, costs, holdout, and changed-input record support the same action. If the holdout
+failure remains or a hard mandate constraint fails, I would reject or redesign the process.
+
+[04:15] Luke Meyer: My committee ask is to reject adoption and return the process for redesign. I
+would reverse that decision only after the reserve, point-in-time, derivative-risk, cost, turnover,
+and holdout conditions are verified.
+
+END OF WORKING RECORDING SCRIPT

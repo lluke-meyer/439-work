@@ -1,0 +1,40 @@
+PROJECT: FIN 43900 Project 2 - Portfolio Decision Workbench
+STUDENT: Luke Meyer
+VIDEO: 1 System Change and AI-Output Check
+STATUS: WORKING RECORDING SCRIPT - replace with corrected transcript after recording
+STABLE VIDEO ID/URL: pending
+TITLE: Project 2 Portfolio Decision | System Change and AI Check
+DURATION: pending
+REPOSITORY COMMIT/FROZEN VERSION: pending
+
+[00:00] Luke Meyer: AI announcement: I used OpenAI Codex to help organize the application and
+documentation. The checks and committee decision are mine. This is a FIN 43900 course project,
+not investment advice.
+
+[00:12] Luke Meyer: My Project 2 decision is whether the committee should adopt, pilot, rebalance,
+or reject a proposed investment process under an explicit mandate. The selected allocation passes
+the displayed portfolio controls, but my full-process call is reject/redesign because reserve,
+point-in-time, turnover, and holdout evidence are not sufficient for adoption.
+
+[00:47] Luke Meyer: The system changed from separate Lab 13 through Lab 19 exercises into one
+portfolio application. The app now compares a constrained search with equal-weight and
+inverse-volatility baselines, shows mandate verdicts, pulls an optional public monthly price history,
+allows bounded shorting and gross exposure, and lets the committee start from ten six-fund themes
+before adjusting a 3-10 fund universe.
+
+[01:27] Luke Meyer: One AI-proposed test challenged the riskiest claim: whether TLT can count as the
+reserve-eligible asset. When I turn off that flag, the current 1% reserve constraint produces no
+feasible portfolio. I accept that as evidence that the reserve definition is load-bearing, but I
+do not accept it as proof that TLT is actually eligible. SGOV is the cleaner reserve candidate;
+that still requires my own mandate and liquidity review. Derivatives are permitted for hedging only,
+but the app discloses that it does not price contracts, margin, Greeks, financing, or counterparties.
+
+[02:17] Luke Meyer: The frozen classroom signal produced 6.13% development net and -6.09% holdout
+net versus -2.09% for buy-and-hold. The holdout failure is visible in the app, so I do not present
+the development result as proof of a successful process.
+
+[02:47] Luke Meyer: The current recommendation is reject/redesign. I would reverse it toward
+adoption only after the final mandate, reserve evidence, point-in-time rule, costs, derivative-risk
+review, and changed-input record support the same decision.
+
+END OF WORKING RECORDING SCRIPT

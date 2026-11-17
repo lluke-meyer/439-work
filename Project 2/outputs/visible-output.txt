@@ -1,0 +1,59 @@
+Project 2 Portfolio Decision - visible executed output
+Run snapshot: November 15, 2026
+
+Working mandate
+Estimated annual return target: 9.00%
+Reserve floor: 1.00% of assets, or $1 million on a $100 million portfolio
+Drawdown review trigger: 30.00% review/pause threshold for the moderately risky/risky posture
+Liquidity floor: 75.00% within 10 business days
+Annual one-way turnover limit: 25.00%
+Maximum ticker weight: 40.00%
+Maximum broad-exposure overlap: 60.00%
+Maximum high-correlation pair weight: 70.00% when correlation is at least 70.00%
+Exposure policy: bounded shorting up to 10% per ticker; gross exposure capped at 110%
+Derivative policy: permitted for hedging; contracts, margin, Greeks, financing, and counterparties not priced here
+
+Universe
+TLT, SOXX, VTI, VXUS, FREL, GBTC
+Optional modeled candidates: SGOV, BND, VOO, TIP; choose 3-10 fund slots in the app
+Ten six-fund starting themes are available, including defense, bull-market growth, and bear-market defense
+Price source: bundled CSV by default; Yahoo Finance live monthly history is available in the sidebar
+TLT reserve status: provisionally eligible; long-duration Treasury risk asset
+SGOV reserve status: preferred reserve candidate; observed price history still required for full evidence
+
+Mandate-survival gate
+Return target: PASS - 9.19% estimated return
+Reserve floor: PASS - 20% TLT proxy exceeds the 1% floor
+Reserve eligibility: REVIEW - TLT is a proxy, not cash
+Maximum ticker weight: PASS - 40% cap
+Short and gross exposure: PASS - short floor -10%; gross exposure capped at 110%
+Overlap proxy: PASS - 40% maximum broad bucket
+High-correlation pair: PASS - 70% maximum combined weight at or above the 70% correlation screen
+Historical drawdown: PASS - 28.04% is below the 30% review trigger
+Liquidity: REVIEW - holdings-level evidence required
+Issuer concentration: REVIEW - holdings-level look-through required
+Derivative governance: REVIEW - hedging permitted, but contracts are not priced in this app
+Annual turnover: FAIL - frozen development rule shows 400% one-way turnover
+Frozen holdout: FAIL - holdout net trails buy-and-hold
+
+Allocation mandate: PASS - return, reserve floor, ticker, exposure, overlap, and drawdown controls pass
+Full process gate: REJECT / REDESIGN - turnover and holdout evidence fail; reserve, liquidity, issuer, and derivative evidence remain review items
+Final decision: REJECT / REDESIGN - no adoption or live pilot until the reversal conditions pass
+
+Theme allocation audit using bundled source estimates
+Allocation PASS under the bounded short/gross policy: Global diversification
+No feasible mix under allocation controls: the other nine themes
+Important: allocation PASS does not override the full-process gate.
+
+Frozen classroom signal holdout
+Development: 6.55% gross, 6.13% net, 5.33% buy-and-hold, 4 switches
+Holdout: -5.52% gross, -6.09% net, -2.09% buy-and-hold, 6 switches
+Failure rule: TRIGGERED - holdout net trails buy-and-hold.
+
+Leakage falsification check
+Frozen one-month lag: 6.13% development net - retained
+Zero-lag diagnostic: 17.72% development net - rejected because it uses unavailable current-month information
+
+Next human-owned steps: complete the partner cold run, record the videos, correct the transcripts,
+add the final links and commit, and upload an observed SGOV history if it is selected as the reserve.
+This is a course project and learning demonstration, not investment advice.

@@ -1,13 +1,19 @@
 # FIN 439
 
-This repository is organized around the Project 1 milestone.
+This repository is organized around the Project 1 and Project 2 milestones.
 
 ## Course work
 
 - `Pre Project 1/` — Labs 04–12 and the supporting CDNS research used before Project 1.
 - `Project 1/` — the runnable valuation application, tests, documentation, submission package,
   and local final-deliverable archive. Large video/archive files stay local and are ignored by Git.
+- `Project 2/` — the runnable portfolio application, tests, working documentation, visible output,
+  and recording package.
 - `Post Project 1/` — Labs 13 onward, with one folder per lab.
+
+For the Project 2 application, start with the [Project 2 README](Project%202/README.md).
+The [Lab 20 partner handoff](Post%20Project%201/Lab%2020%20-%20for%20Peyton/README.md)
+holds the cold-run note after the independent first pass.
 
 ## Local course references
 
