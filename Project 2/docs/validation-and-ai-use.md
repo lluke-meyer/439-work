@@ -95,8 +95,11 @@ verdicts, with 10.18% estimated return. Frozen holdout net remained -6.09% again
 buy-and-hold. Peyton's Windows test run reported eight passing tests and no app exception. The
 full-process metric text was truncated at the tested window widths, although the full verdict
 remained readable elsewhere on the page.
+Luke confirmed that he explained `expected_portfolio_return` to Peyton without AI; Peyton's
+note records the asset-alignment question and answer.
 
-The README now includes the Windows commands that worked in the assisted continuation. There has
+The README now includes the Windows commands that worked in the assisted continuation, published
+in [commit `6782c19`](https://github.com/lluke-meyer/439-work/commit/6782c19c06301cf579d76198e184a55dc1057742). There has
 not yet been a clean, independent README-only rerun after that fix. Peyton's code question also
 identified that `expected_portfolio_return` checks vector lengths but relies on the caller to
 keep asset order aligned; no wrong-order result was observed.

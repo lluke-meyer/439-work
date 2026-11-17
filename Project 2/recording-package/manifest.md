@@ -35,7 +35,7 @@ Status: ready for recording; complete the external video fields after recording.
 
 ## Final freeze checklist
 
-- [ ] Publish the Windows README fix and obtain a clean partner rerun; the November 17 first pass was blocked at setup.
+- [ ] Obtain a clean partner rerun after the Windows README fix in commit `6782c19`; the November 17 first pass was blocked at setup.
 - [ ] Record the three videos within the course time limits.
 - [ ] Correct captions/transcripts and save the final transcript files.
 - [ ] Add video URLs, durations, and timestamped evidence moments above.

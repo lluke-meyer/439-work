@@ -1,43 +1,71 @@
-# Lab 20 - Project 2 Changed-Input Record
+# Lab 20 - Project 2 Readiness
 
-November 15, 2026.
+November 17, 2026.
 
-## Changed input
+## D - Decision
 
-- Input changed: Objective return
-- Units: Annual percentage
-- Old value: 9.00%
-- New value: 10.50%
-- Prediction timestamp: 11/15/2026 @ 6:45 PM
-- Pre-run commit: `44ee60ecada51f6751c5d4490a68463f6ebb2431` base HEAD; Project 2 changes were uncommitted in the working tree.
-- Expected output direction: Down
-- Expected decision effect: Fewer portfolios will achieve `PASS` status.
+Could a new reader reach the Project 2 decision from the repository, and would that decision
+survive a changed input?
 
-## Actual result
+Committee call: `REJECT / REDESIGN`. The displayed allocation passes, but the frozen signal's
+turnover and net holdout fail. Reconsider only after those checks pass and the reserve, liquidity,
+issuer, and derivative evidence is resolved. The [Project 2 memo](../../Project%202/docs/decision-memo.md)
+contains the monitoring triggers and full recommendation.
 
-- Actual output direction: Down
-- Actual decision effect: The default six-fund result still passed the return gate at 10.68%,
-  but all ten theme portfolios returned `NO FEASIBLE MIX`. The full process gate remained
-  `REJECT / REDESIGN`.
-- Matched or diverged: Matched.
-- Failure diagnosis: The higher return target made the allocation screen stricter under the
-  reserve, ticker-weight, overlap, exposure-policy, and allocation-step constraints. Drawdown,
-  turnover, and frozen holdout failures remained unchanged.
+## R - Partner cold run
 
-## Lab 20 status
+- Peyton tested a fresh ZIP of [commit `813865c`](https://github.com/lluke-meyer/439-work/commit/813865ced5ca2e38ec33cebf0086d713ea79ce00). His [full note](../../Project%202/docs/evidence/peyton-cold-run-rerun.md) preserves the commands, timing, results, and limitations.
+- On Windows PowerShell, the README-only run stopped at `python3 -m venv .venv` about 40 seconds after he began reading. Windows resolved `python3` to an unusable WindowsApps alias; the README had only Bash steps.
+- With Codex-assisted PowerShell substitutions, the app opened in Edge after about 6 minutes 23 seconds from README review. That interval includes installation and tool/browser delays. The default screen showed allocation `PASS`, full process `REJECT / REDESIGN`, 9.19% estimated return, and -6.09% frozen holdout net versus -2.09% buy-and-hold.
+- Peyton changed the objective from 9.00% to 10.00%. Estimated return rose to 10.18%; the allocation remained `PASS` and the full process remained `REJECT / REDESIGN`. The frozen holdout did not change. Eight Windows tests passed in the assisted continuation.
+- This was a real README setup failure followed by an AI-assisted run. It was not a clean independent README-only result. Peyton also noted that the full-process metric card truncated its text at the tested widths, while the full verdict remained readable elsewhere.
 
-- [x] Changed-input prediction and result recorded.
-- [ ] Run the partner cold check from the README, if required by Brightspace.
-- [ ] Explain the portfolio and backtest code without AI assistance.
-- [x] First issue reviewed: no code fix was needed; the 400% development turnover is a real result of four full-position switches and remains disclosed.
-- [x] State the final decision and reversal condition.
+## I - Changed input and code explanation
 
-Final decision: `REJECT / REDESIGN` - do not adopt or fund a live pilot while drawdown, turnover,
-holdout, reserve, liquidity, issuer, point-in-time, or derivative-governance evidence remains open.
-Reversal condition: reconsider adoption only after those checks pass and the partner cold run,
-recording package, and final frozen commit are complete.
+The earlier AI-off prediction changed the objective from 9.00% to 10.50% annually. I expected
+fewer theme portfolios to pass. The default six-fund allocation still passed at 10.68%, but all
+ten themes returned `NO FEASIBLE MIX`; the full process decision remained `REJECT / REDESIGN`.
+This matched the predicted direction under the reserve, ticker, overlap, exposure, and grid
+constraints. The prediction was recorded November 15 at 6:45 PM, but the cited `44ee60e` SHA was
+only the base HEAD while Project 2 was uncommitted. It does not prove a pre-run GitHub lock.
+Commit `813865c` was made November 17 after the November 15 run and already contains the result,
+so it also cannot serve as the pre-run commit.
+Peyton's separate 9.00% to 10.00% control check is an operability test, not the locked prediction.
 
-The detailed Project 2 validation record points here from `Project 2/docs/validation-and-ai-use.md`.
+Peyton supplied a question on [`expected_portfolio_return`](../../Project%202/portfolio.py#L143):
+why must weights and returns have matching lengths and asset order? Matching lengths prevent
+`zip()` from silently dropping an unmatched value; matching order keeps each weight paired with
+its asset's return. The function checks length but relies on the caller for asset alignment.
+I confirmed that I explained this code to Peyton without AI. Completed during class. Peyton's
+note supplies the question and answer; the first-person completion is my own confirmation.
+
+## V - Fix and result
+
+The first failure was a Windows setup instruction gap. The [Project 2 README](../../Project%202/README.md)
+now includes PowerShell setup, run, and validation commands based on the commands that worked in
+Peyton's assisted continuation. The [fix was pushed in commit `6782c19`](https://github.com/lluke-meyer/439-work/commit/6782c19c06301cf579d76198e184a55dc1057742).
+
+A clean README-only rerun after this fix has not been performed. The app code and frozen holdout
+were not changed to turn the failed decision into a pass.
+
+## E - Reflect and checkout status
+
+The cold run exposed an operating-system gap I could not see in my local macOS run. I will keep
+the optimizer and frozen holdout fixed while I finish the recording package. The decision line
+remains reject/redesign until the stated reversal conditions are met.
+
+- [x] Partner's first failure, assisted continuation, timing, and result are recorded.
+- [x] The first setup failure has a README fix pushed in commit `6782c19`.
+- [x] The changed-input direction, actual result, and decision effect are recorded.
+- [x] The committee action and reversal condition are stated.
+- [ ] Clean independent rerun after the README fix is pending.
+- [ ] A pre-run GitHub commit of the earlier prediction is not established by `44ee60e`.
+- [x] I explained the code to Peyton without AI. Completed during class.
+
+This lab record is the individual checkout evidence. It does not certify Project 2 or replace its
+validation file, memo, videos, transcripts, and manifest.
+
+
 
 ###This report was written for FIN 43900 (AI Finance Applications, Purdue) as a learning exercise. It is not investment research and it is not financial advice.
 
