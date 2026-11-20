@@ -1,0 +1,36 @@
+PROJECT: FIN 43900 Project 2 - Portfolio Review
+STUDENT: Luke Meyer
+VIDEO: 1 System Change and AI-Output Check
+TITLE: Portfolio Review | Ten-Fund Redesign, AI Check, and Locked Test
+URL: pending upload
+DURATION: 2:59
+SPEAKER: Luke Meyer
+REPOSITORY COMMIT/FROZEN VERSION: pending final freeze
+STATUS: Corrected transcript of final recording
+
+EVIDENCE INDEX
+
+00:13 - Education and AI-use disclosures
+00:35 - Ten-fund redesign and mandate finder
+01:29 - Checked TLT reserve assumption and SGOV change
+01:54 - Price-source limitation and scenario-return boundary
+02:15 - Pre-committed AI-off prediction and locked cap-test result
+02:40 - Reject-and-redesign recommendation
+
+CORRECTED TRANSCRIPT
+
+[00:00] Luke Meyer: All right, welcome to my Finance 439 project. Today we're going to start off by walking through my system change and AI output check.
+
+[00:13] Luke Meyer: I wanted to start off by going through the README and giving you some disclosures. This is a project for my Finance 439 class, not investment advice. Throughout the entire process, I used OpenAI Codex to help me write and organize the Project 2 application. All decisions, analysis, and checks remain mine.
+
+[00:31] Luke Meyer: Jumping right into the app, I wanted to show you my portfolio setup. As you can see, members of the committee, I changed the portfolio from the standard six-fund portfolio to a ten-fund portfolio because I wanted to truly defend it. I believe in diversification, and I think ten funds are more reasonable than six. I started off with a U.S. core, real estate, emerging markets, Bitcoin, two Fidelity funds because I support them as a company, short-term Treasuries for the reserve, and optional long-term Treasury and inflation-protected funds.
+
+[01:02] Luke Meyer: The mandate finder down here shows what limits my chosen weights would actually need for a fund to pass. Numerical Auto-Pass searches those funds under the risk caps. The full-process check then tells us whether a numerical pass is enough to consider adoption.
+
+[01:25] Luke Meyer: Going back up to the fund and expanding this, one AI-assisted assumption I checked was whether TLT could count as reserve. It is a long-duration bond fund, so I decided to remove that flag. Only SGOV counts toward the working reserve. I made that change in the app. I still need your approval of the reserve and liquidity policy.
+
+[01:52] Luke Meyer: Going to some of my sources, before you rely on these results, the price panel runs from January 2024 through September 2026, and the closes exclude distributions. That matters for SGOV, bonds, and real estate. I use it for price-risk screens. The annual returns are scenario assumptions. The data gate stays REVIEW until I have total-return history and a defensible basis for those assumptions.
+
+[02:15] Luke Meyer: Now I'm going to the Locked Changed-Input Record without AI. Before the run, I committed my AI-off prediction: cutting the ticker cap from 40% to 30% would cut return about 1.1% or leave fewer passing themes. The number of passing themes fell from three to one, but the constrained search stayed at 7.55%. My 40% VOO mix failed, another mix passed, and holdout and turnover also failed.
+
+[02:40] Luke Meyer: Going to the decision memo and looking at this highlighted section, at the working 9% target, I have no passing allocation. The separate timing rule also fails turnover and the holdout. I recommend that you reject adoption and let me redesign the proposal. I can show what passes on paper. However, I cannot yet defend an investment decision such as what we see.

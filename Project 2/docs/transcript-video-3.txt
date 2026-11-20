@@ -1,0 +1,44 @@
+PROJECT: FIN 43900 Project 2 - Portfolio Review
+STUDENT: Luke Meyer
+VIDEO: 3 Investment Committee Presentation
+TITLE: Portfolio Review | Investment Committee Decision: Reject and Redesign
+URL: pending upload
+DURATION: 4:58
+SPEAKER: Luke Meyer
+REPOSITORY COMMIT/FROZEN VERSION: pending final freeze
+STATUS: Corrected transcript of final recording
+
+CAPTION CORRECTIONS TO SPOKEN SLIPS
+
+- At 01:07 I said -5.25% gross; the frozen holdout table shows -5.52% gross. The caption uses -5.52%.
+- At 02:57 I said 7.5% for the Auto-Pass scenario return; the app shows 7.75% and a usable 7.7% target. The caption uses 7.75%.
+- At 03:45 I referred to "only a five-year record." The bundled panel has 33 month-end closes from 2024 to 2026, so the caption says "this short record."
+
+EVIDENCE INDEX
+
+00:10 - AI-use ownership and education disclosures
+00:30 - Live 9% to 7.5% objective change and allocation verdict flip
+01:07 - Frozen holdout gross/net and buy-and-hold comparison
+01:17 - Return to 9% base
+01:32 - Ten-fund choice, overlap, bitcoin cap, and SGOV reserve
+02:20 - Mandate finder and equal-weight boundary
+02:49 - Numerical Auto-Pass sensitivity and restore
+03:16 - Price-data limitation and FBTC return assumption
+04:03 - Timing-rule turnover and failed holdout
+04:37 - Reject-and-redesign committee ask and reversal conditions
+
+CORRECTED TRANSCRIPT
+
+[00:00] Luke Meyer: Now that we have been through my codebase and some of the ways I used AI to help build this project, I want to take you through the bread and butter of the project, the app. I used OpenAI Codex to help write and organize the application, calculations, tests, and documentation. I reviewed the evidence, checks, and overall recommendation. The analysis and decision remain mine. This is for a project, for educational purposes, not investment advice.
+
+[00:30] Luke Meyer: At the default 9% objective return, there is no feasible mix and the full-process gate is REJECT / REDESIGN. If I decrease it to 7.5%, the allocation changes to PASS. The full process still remains REJECT / REDESIGN. Here is the frozen holdout: minus 5.52% gross, minus 6.09% net, versus minus 2.09% buy-and-hold. When I restore 9%, I can clear the numerical gate by lowering the hurdle, but I cannot clear the evidence gate that way.
+
+[01:27] Luke Meyer: Going to the fund section, I recommend you reject adoption and let me redesign the proposal. I chose VOO, VTI, VNQ, VWO, FBTC, FBND, FIVA, SGOV, TLT, and TIP. All ten start selected, though some can receive zero weight. VOO and VTI overlap, so I screen their broad exposure together. I cap FBTC at 10% because of its concentrated bitcoin risk. SGOV is my working reserve; TLT is long-duration exposure, not cash. This collapsible list walks through the committee review, and the two verdicts stay visible as I scroll. Those are quality-of-life features I wanted to add.
+
+[02:20] Luke Meyer: If you want to know what mandate would accept this mix at the chosen weights, this finder gives the boundary. At equal weights, the highest return target is 6.45% and FBTC is exactly 10%. That explains the gap to my 9% target; it is not a case for weakening the mandate. Numerical Auto-Pass is a sensitivity under the same risk caps. It finds a 7.75% scenario return and a usable 7.7% target. I still need to defend the assumptions before using that mix. I can restore my inputs from before Auto-Pass.
+
+[03:16] Luke Meyer: The data issue is that these 33 month-end closes from January 2024 to September 2026 exclude distributions. I use them for price-risk screens, not return forecasts. I would challenge FBTC's 12% annual scenario return first. It is the highest assumption here, and I cannot justify it with this short record. The 24-return risk window still uses price-only data. Data quality stays at REVIEW, and I still need holdings-level overlap checks.
+
+[04:03] Luke Meyer: Why am I still saying no after showing you an allocation PASS? The separate equity-versus-bills rule looked good in development, but four full-position switches mean 400% one-way turnover, well above my 25% limit. Its untouched holdout did worse than buy-and-hold after costs. My locked cap test changed which mixes passed; it did not repair the holdout. The full-process check lists those blockers. I need to redesign and freeze the rule before a new test.
+
+[04:37] Luke Meyer: My request is to reject adoption now. I would bring back a revised proposal with verified total-return data, defensible return assumptions, an improved reserve and liquidity policy, issuer look-through, and a timing process that clears turnover in a new after-cost holdout. Those are the conditions that would change my recommendation. Thank you.

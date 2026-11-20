@@ -1,11 +1,13 @@
-# Ten-fund price panel and scenario inputs
+# My Ten-Fund Price Panel and Scenario Inputs
 
-The frozen `prices.csv` has ten funds and 33 month-end trading closes from January 31, 2024,
-through September 30, 2026 (32 monthly price changes). It was built on November 19, 2026,
-from Nasdaq's public historical `Close/Last` responses. For each ticker below, the source URL
-is `https://api.nasdaq.com/api/quote/TICKER/historical?assetclass=etf&limit=5000&fromdate=2024-01-01&todate=2026-09-30`, replacing `TICKER` with the symbol. The response reports daily closes;
-`prepare_nasdaq_monthly.py` takes the final common trading day of each month, orders the
-months, checks positive prices and the exact common window, and writes `prices.csv`.
+I froze ten funds and 33 common month-end trading closes in `prices.csv`, from January
+31, 2024, through September 30, 2026. That gives me 32 monthly price changes. I used
+Nasdaq's public historical `Close/Last` responses on November 19, 2026. For each fund,
+the source URL is
+`https://api.nasdaq.com/api/quote/TICKER/historical?assetclass=etf&limit=5000&fromdate=2024-01-01&todate=2026-09-30`,
+with `TICKER` replaced by the symbol. My `prepare_nasdaq_monthly.py` script takes the
+last common trading close each month, orders the dates, checks positive prices and a
+common window, and writes `prices.csv`.
 
 | Role | Fund | Raw JSON SHA-256 |
 |---|---|---|
@@ -20,22 +22,22 @@ months, checks positive prices and the exact common window, and writes `prices.c
 | Optional long Treasury | TLT | `d3c312802c599db1c7095d8a7194b23c856e782b46a5e8dbe27ffd4609eb0a1c` |
 | Inflation-protected bonds | TIP | `a457a886d8c20138736da301fcaf286700e65a93889256ff50279c00663ed892` |
 
-The transformed `prices.csv` SHA-256 is
+I recorded the transformed `prices.csv` SHA-256 as
 `9df2314009b913bc2968a1908c3ce52f51dda80b8123c3fa05d16b3534376316`.
-The downloaded raw JSON is not redistributed in the repository. Redownload it by ticker,
-save it as lowercase `ticker.json`, and run the transform to reproduce the monthly panel.
+I do not redistribute the raw JSON in the repository. To reproduce the panel, download
+each ticker's response, save it as lowercase `ticker.json`, and run the transform.
 
-**Material boundary:** `Close/Last` is not dividend-adjusted or a total-return series. It
-understates economic returns for distributing funds, notably FBND, SGOV, TLT, TIP, and VNQ.
-The app uses the panel to screen observed price volatility, correlation, and drawdown. The
-default annual return inputs in `portfolio.py` are **illustrative scenario assumptions**,
-not forecasts backed by this price panel. They are editable, and neither a numerical PASS
-nor an inverse mandate boundary establishes an investable recommendation. Replace the price
-panel with verified adjusted total-return history and independently justify return assumptions
-before adoption. The app can compare full 32-return and recent 24-return price-risk
-estimates. A 36-month return window is unavailable with FBTC in this frozen panel.
+**My data limit:** `Close/Last` excludes dividends and other cash distributions. It is
+not a total-return series and understates economic returns for distributing funds,
+especially FBND, SGOV, TLT, TIP, and VNQ. I use it only for price volatility,
+correlation, and drawdown screens. The editable annual return inputs in `portfolio.py`
+are **illustrative scenario assumptions**, not forecasts supported by this panel. A
+numerical PASS or mandate boundary is not an investable recommendation. Before adoption,
+I need verified total-return history and independent reasons for the return assumptions.
+I can compare all 32 returns with the latest 24 for price-risk estimates. The FBTC
+history does not support a 36-return window.
 
-Fund descriptions were checked against the issuers: [Vanguard VOO](https://investor.vanguard.com/investment-products/etfs/profile/voo),
+I use issuer pages for fund descriptions: [Vanguard VOO](https://investor.vanguard.com/investment-products/etfs/profile/voo),
 [VTI](https://investor.vanguard.com/investment-products/etfs/profile/vti),
 [VNQ](https://investor.vanguard.com/investment-products/etfs/profile/vnq),
 [VWO](https://investor.vanguard.com/investment-products/etfs/profile/vwo),

@@ -1,90 +1,97 @@
-AI announcement: I used OpenAI Codex to help build and document this Project 2 app. I must independently review the inputs, checks, and committee decision; those judgments are mine.
+AI announcement: I used OpenAI Codex to help build, test, and document this app. I take responsibility for the analysis, checks, and committee decision.
 
 Education, not investment advice: This is a FIN 43900 learning demonstration, not investment advice.
 
-# Project 2 Decision Memo - Working Draft
+# Project 2 Decision Memo
 
-## Decision and committee ask
+## My recommendation
 
-**Reject adoption and redesign.** The current 9% return objective and 10% FBTC concentration
-cap produce no feasible allocation under the illustrated return assumptions. More fundamentally,
-the separate frozen timing process fails its 25% annual turnover limit and net holdout benchmark.
-Do not fund a live pilot by relaxing the mandate until it fits the chosen funds.
+I recommend **reject adoption and redesign**. At my working 9% return target and 10% FBTC cap,
+the app finds no feasible allocation under the illustrative assumptions. The separate timing
+rule also fails my 25% turnover limit and the net holdout comparison. I would not fund a pilot
+by relaxing the mandate to fit these funds.
 
-## Portfolio and intended user
+## The portfolio and mandate I chose
 
-The user is a portfolio analyst advising an investment committee. The proposed ten-fund
-universe is VOO and VTI (U.S. equity core), VNQ (listed real estate), VWO (emerging markets),
-FBTC (spot-bitcoin ETP), FBND (core bonds), FIVA (non-U.S. value), SGOV (short Treasury
-reserve), TLT (optional long-duration Treasury), and TIP (inflation-protected bonds).
-VOO and VTI overlap substantially; FBTC is a concentrated single-asset exposure. TLT is
-never treated as cash. The app initially selects all ten funds; TLT and TIP can be removed
-or receive zero weight in a proposed allocation.
+I built this for an analyst presenting a portfolio to an investment committee. I chose
+VOO and VTI for a U.S. equity core, VNQ for real estate, VWO for emerging markets,
+FBTC for bitcoin, FBND for core bonds, FIVA for non-U.S. value, SGOV for a short Treasury
+reserve, and TLT and TIP for optional duration and inflation-protected exposure. All ten
+start selected; a fund can receive zero weight. VOO and VTI overlap, so I show that risk.
+I cap FBTC separately at 10% and never count TLT as cash.
 
-The working proposal has a five-year horizon, quarterly review, annual core rebalance, a 9%
-scenario return target, 1% reserve floor, 30% price-drawdown review trigger, 75% liquidity
-within 10 business days, 25% annual one-way turnover limit, 40% general ticker cap, 10%
-FBTC cap, 60% broad-exposure cap, and a 70% combined cap on highly correlated pairs.
-Bounded shorting is limited to 10% per ticker and 110% gross exposure. Derivative hedges
-require a separate contract-level review. These are analyst-proposed controls, not a
-committee-approved mandate.
+My working horizon is five years, with quarterly committee reviews and annual core
+rebalancing. I set a 9% scenario return target, 1% SGOV reserve floor, 30% price-drawdown
+review trigger, 75% liquidity floor within ten business days, and 25% annual one-way
+turnover limit. I cap any ticker at 40%, FBTC at 10%, broad-exposure overlap at 60%, and
+highly correlated pairs at 70% combined weight. The app permits up to 10% short weight
+per ticker and 110% gross exposure. I would require a separate contract-level review
+for any derivative hedge. These are my proposed limits; the committee has not approved them.
+I framed the proposal for a moderately risky to risky five-year mandate, not a
+capital-preservation reserve. The 30% price drawdown is a stop-and-review trigger,
+not a guaranteed loss limit or permission to keep trading through a breach.
 
-## Evidence and the new mandate question
+## What the evidence tells me
 
-The frozen [price panel](../data/prices-source.md) has 33 common month-end Nasdaq closes from
-January 2024 through September 2026. It excludes cash distributions. The app uses it for
-price volatility, correlation, and drawdown screens. Its annual return inputs are explicitly
-illustrative and editable; the 9% hurdle is **not** verified by historical total returns.
-The short sample, especially for FBTC, cannot establish a five-year forecast. The bundled
-data-quality gate remains REVIEW until total-return history and return assumptions are checked.
+My [price panel](../data/prices-source.md) has 33 common month-end Nasdaq closes from January
+2024 through September 2026. It excludes cash distributions. I use those prices for
+volatility, correlation, and drawdown screens. The annual return inputs are editable
+scenario assumptions, **not** forecasts verified by total-return history. The short
+sample, especially for FBTC, cannot support a five-year forecast. I leave data quality
+at REVIEW until I have adjusted total-return history and defensible return assumptions.
+The input I would challenge first is FBTC's 12% annual scenario return. It is the
+highest return assumption in the app, and I have not justified it with a reliable
+five-year return record. I would not use its upside to make a weak mandate pass.
 
-The mandate finder takes a chosen fund mix and exact weights. It reports the maximum return
-target and reserve floor that mix supports, and the minimum concentration, overlap, leverage,
-shorting, and drawdown allowances it requires. For the initial equal-weight ten-fund mix,
-the return boundary is 6.45%, below the 9% working target, while FBTC is exactly 10%.
-The chosen mix therefore fails the current numerical mandate on the return target. These are **compatibility
-boundaries**, not recommendations to weaken policy. At a 7.5% target, the constrained search
-can produce a numerical allocation PASS in a sensitivity run; the frozen process decision
-still rejects/redesigns. The current 9% target remains the working base.
+I added the mandate finder because I wanted to test a mix I chose, not just accept an
+optimizer's mix. It shows the highest return target and reserve floor that exact set of
+weights can meet, plus the minimum caps or tolerances it needs. My starting equal-weight
+mix supports at most a 6.45% return target, below my 9% hurdle; its 10% FBTC weight meets
+the separate bitcoin cap. I read that as a failed return screen, not a reason to lower
+the committee's target. A 7.5% target can produce a numerical PASS, but the tested process
+still fails. I keep 9% as the working base.
 
-The Auto-Pass control uses the selected funds and the same reserve, concentration, exposure,
-overlap, and drawdown limits. On the current 10% grid it finds a 7.75% scenario-return mix
-(VOO 40%, VTI 20%, FBTC 10%, FIVA 20%, SGOV 10%) and lowers the displayed target to 7.7%.
-That makes the numerical allocation pass without loosening risk controls. It is a
-scenario sensitivity, not a recommendation to replace the 9% working mandate; the full
-process still fails.
-The full-process pass check lists each remaining FAIL or REVIEW with the required evidence.
-It cannot create a new untouched holdout, verified total-return history, or committee
-approval by changing a control in the app.
+Numerical Auto-Pass searches only the selected funds under the same reserve and risk limits.
+On the 10% weight grid it finds 7.75% scenario return with VOO 40%, VTI 20%, FBTC 10%,
+FIVA 20%, and SGOV 10%, then sets a usable 7.7% target. That produces a numerical PASS.
+I use it as a sensitivity check, not a recommendation to replace my 9% mandate. The
+full-process pass button lists the failed and unresolved checks; it cannot turn a failed
+holdout or missing evidence into a PASS.
 
-The classroom equity-versus-bills signal is separate from the selected ETF mix. Its
-development net result is 6.13%, but its untouched holdout is -6.09% net versus -2.09%
-buy-and-hold. Four development switches represent 400% one-way turnover against the
-working 25% limit. The holdout and turnover failures cannot be cured by choosing a
-mandate that admits a particular fund mix.
+For my [locked changed-input test](validation-and-ai-use.md#locked-changed-input-record---november-19-2026),
+I committed an AI-off prediction before lowering only the general ticker cap from 40%
+to 30%. My fixed mix with 40% VOO flipped from PASS to FAIL, and passing starting themes
+fell from three to one. I expected return to fall, but the constrained search still
+passed at 7.55% scenario return. The tighter cap changed which weights qualified;
+it did not change the return assumptions or repair the process.
 
-## Action range and reversal conditions
+My classroom equity-versus-bills timing test is separate from this ETF mix. It earned
+6.13% net in development, then lost 6.09% net in the untouched holdout versus a 2.09%
+loss for buy-and-hold. Four development switches mean 400% one-way turnover against
+my 25% limit. I cannot fix those failures by choosing a mandate that admits the mix.
 
-Current action: reject adoption, preserve the 9% base and frozen signal, and authorize a
-redesign. A revised proposal could be considered only after:
+## What would change my decision
 
-1. the committee approves the mandate and return assumptions using verified total-return
-   history, with SGOV reserve and issuer/liquidity evidence;
-2. a revised portfolio passes the numerical constraints without an undisclosed exception;
-3. any proposed timing rule is frozen before a fresh holdout and meets the after-cost
+I would reject adoption now, keep the 9% working base and frozen signal on record, and
+redesign the proposal. I would reconsider only after:
+
+1. I verify total-return history and justify the return assumptions, and the committee
+   approves the mandate, SGOV reserve, liquidity, and issuer policy;
+2. a revised allocation passes the numerical limits without a hidden exception;
+3. I freeze any revised timing rule before a new holdout, and it clears the after-cost
    benchmark and turnover limit; and
-4. derivative, holdings overlap, and issuer risk receive the necessary look-through.
+4. I complete derivative and holdings-level overlap and issuer reviews.
 
-Monitor the return and FBTC caps, reserve coverage, broad and pairwise overlap, price
-drawdown, trading cost, turnover, and gross/net holdout result. A failed hard rule keeps
-the recommendation at reject/redesign. A REVIEW item blocks adoption until its evidence
-is supplied.
+I would monitor the return and FBTC caps, reserve coverage, overlap, price drawdown,
+trading cost, turnover, and gross and net holdout results. A failed hard rule keeps my
+recommendation at reject/redesign. A REVIEW item blocks adoption until I can supply
+the missing evidence.
 
-## Open items before freezing
+## Evidence limits
 
-- Luke must author and precommit a new AI-off changed-input prediction before its run.
-- Peyton's November 17 cold run is retained as historical partner evidence for the earlier
-  six-fund version. Luke will inspect this revised app and mandate finder himself; no new
-  partner cold run is available, so it is not claimed for this version.
-- Re-record the three videos against the final app, correct transcripts, and add actual
-  links and timestamps to the manifest.
+- My prediction is locked in `6055fcc`. The [validation record](validation-and-ai-use.md)
+  preserves the observed result, and I explain the partial match in Video 1.
+- I am keeping Peyton's November 17 cold run as evidence for the earlier six-fund version.
+  I do not have a partner run of this ten-fund version.
+- The [manifest](../recording-package/manifest.md) links the three recordings,
+  corrected transcripts, and timestamped evidence.

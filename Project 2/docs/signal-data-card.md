@@ -1,8 +1,8 @@
-AI announcement: I used OpenAI Codex to help organize this data card and selection ledger. I independently reviewed the timing rule, test boundary, and decision; the analysis remains mine.
+AI announcement: I used OpenAI Codex to help organize this data card and selection ledger. I am responsible for the timing rule, checks, and decision.
 
 Education, not investment advice: This is a FIN 43900 course project and learning demonstration, not investment advice.
 
-# Signal data card and selection ledger
+# My Signal Data Card and Selection Ledger
 
 ## Frozen signal
 
@@ -21,9 +21,9 @@ Education, not investment advice: This is a FIN 43900 course project and learnin
 | Trading cost | 0.10% whenever the position switches |
 | Failure rule | Stop if holdout net return trails buy-and-hold |
 
-The source table and original frozen rule card are archived in `Post Project 1/Lab18/holdout/`. The
-Project 2 implementation mirrors that rule in `backtest.py`; the holdout is not retuned by the
-sidebar sensitivity controls.
+I keep the source table and original frozen rule card in `Post Project 1/Lab18/holdout/`.
+I carried that rule into `backtest.py`. The sidebar sensitivity controls do not retune
+the frozen holdout.
 
 ## Selection ledger
 
@@ -32,20 +32,21 @@ sidebar sensitivity controls.
 | Card-spend change rule | 1 month | `> 0%` for equity; otherwise bills | Equity fund / Treasury bills | Development net 6.13%; holdout net -6.09% versus -2.09% buy-and-hold | Frozen rule; reject after holdout failure |
 | Current-month timing diagnostic | 0 months | Same `> 0%` threshold | Equity fund / Treasury bills | Development net rises to 17.72%, showing look-ahead sensitivity | Rejected as leakage; not used for the holdout |
 
-No other signal, threshold, universe, or lag was selected for Project 2. That limitation is disclosed
-instead of presenting an undisclosed search as evidence of rigor. A different rule would be a new
-hypothesis and would need a new prospective holdout.
+I selected no other signal, threshold, universe, or lag for Project 2. I disclose that
+narrow search instead of implying I tested more than I did. A different rule would be a
+new hypothesis requiring a new, prospective holdout.
 
 ## Data boundaries and limitations
 
-- The classroom signal table runs from December 2024 through June 2026.
-- The December 2024 signal is needed to choose the January 2025 position.
-- The rule uses a one-month lag because a current-month signal cannot be assumed available before the current-month return is realized.
-- The classroom table is a course-authored input, not a live card-spend data feed. The app does not claim a public production-data source for it.
-- The holdout failure is a decision result, not a reason to change the rule after seeing the holdout.
+- I use the classroom table from December 2024 through June 2026. The December 2024
+  signal sets the January 2025 position.
+- I lag the signal one month because I cannot assume a current-month reading was
+  available before that month's return.
+- I use a course-authored table, not a live card-spend feed or a production data source.
+- I keep the holdout failure as evidence; I do not change the tested rule after seeing it.
 
 ## Current decision
 
-The frozen rule is useful as a transparent validation example but is not adoptable as presented.
-Its development result did not survive the untouched holdout after costs, so the current committee
-decision remains `REJECT / REDESIGN`.
+I can explain and reproduce this rule, but I would not adopt it. Its development gain
+did not survive the untouched, after-cost holdout. My committee call remains
+`REJECT / REDESIGN`.

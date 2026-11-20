@@ -1,0 +1,36 @@
+My Project 2 Locked Changed-Input Record - visible local AppTest output
+Run: November 19, 2026, after my 8:00 PM EST AI-off prediction
+Frozen app baseline: a7eae6a5d36dacc141ac45b367c09d0838b30a12
+My pre-run prediction: 6055fcc6f75e4f33c915b5aca7234d65b7dd35e4
+
+Method
+I had Codex run Project 2/app.py in local Streamlit AppTest after my prediction
+was pushed. The run used the bundled ten-fund CSV, all ten funds, and the full
+32-return window. I set a 7.5% annual scenario target, 1% reserve minimum, and
+chosen weights of VOO 40%, VTI 20%, FBTC 10%, FIVA 20%, and SGOV 10%; the other
+five weights were 0%. I kept other controls at their defaults. Codex captured
+the 40% general ticker-cap base, changed only that cap to 30%, and captured the
+new result. It did not use Auto-Pass. AppTest reported no exception or error.
+
+Observed output                                  Base 40% cap      Changed 30% cap
+General ticker cap input                        40.00%            30.00%
+Chosen fixed mix, numerical mandate             PASS              FAIL
+Chosen fixed mix, ticker-cap check              PASS              FAIL
+Chosen fixed mix, scenario return ceiling       7.75%             7.75%
+Constrained-search allocation verdict           PASS              PASS
+Constrained-search scenario annual return       7.55%             7.55%
+Constrained-search annualized price volatility  11.00%            11.04%
+Constrained-search SGOV reserve                  10.00%            10.00%
+Six-fund starting themes passing allocation     3 of 10           1 of 10
+Passing themes                                   Fidelity blend,   Digital sleeve
+                                                 Real assets,
+                                                 Digital sleeve
+Full-process verdict                             REJECT / REDESIGN REJECT / REDESIGN
+Frozen holdout net                               -6.09%            -6.09%
+
+My fixed mix keeps VOO at 40%, so it fails the new 30% ticker cap. The search
+finds another passing allocation at the same displayed 7.55% scenario return;
+estimated volatility rises 0.04 percentage points. Two fewer starting themes
+pass. My separate frozen timing test still fails turnover and holdout. Return
+data quality, liquidity, issuer concentration, and derivative governance remain
+REVIEW. These are scenario and price-risk screens, not realized ETF returns.

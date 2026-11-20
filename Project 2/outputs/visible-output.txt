@@ -1,4 +1,4 @@
-Project 2 Portfolio Decision - visible local output
+My Project 2 Portfolio Decision - visible local output
 Run snapshot: November 19, 2026; bundled ten-fund source, no uploaded file
 
 Funds available (10): VOO, VTI, VNQ, VWO, FBTC, FBND, FIVA, SGOV, TLT, TIP
@@ -9,7 +9,7 @@ Expected returns: illustrative editable scenario assumptions, not historical tot
 Source and transform: data/prices-source.md; prices.csv SHA-256
 9df2314009b913bc2968a1908c3ce52f51dda80b8123c3fa05d16b3534376316
 
-Working mandate
+My working mandate
 Investment horizon: five years; quarterly committee review; annual core rebalance
 Scenario annual return target: 9.00%
 Reserve floor: 1.00% of assets; only SGOV eligible; TLT is optional duration exposure
@@ -68,13 +68,20 @@ VOO 40%, VTI 0%, VNQ 0%, VWO 10%, FBTC 10%, FBND 0%, FIVA 30%, SGOV 10%, TLT 0%,
 Scenario return 7.55%; price-volatility estimate and drawdown are screen outputs only.
 Full process remains REJECT / REDESIGN. Restore 9.00% for the working base.
 
+Locked Changed-Input Record, separate from the working 9.00% base
+AI-off prediction commit: 6055fcc, pushed before the 40% to 30% ticker-cap run.
+At the recorded 7.50% target and fixed 40% VOO chosen mix, the chosen mix flipped
+PASS to FAIL under the tighter cap. The constrained search stayed PASS at a 7.55%
+scenario annual return; starting themes passing fell from 3/10 to 1/10.
+Full process stayed REJECT / REDESIGN. See outputs/locked-changed-input-output.txt
+for the exact inputs, units, method, and before/after output.
+
 Frozen classroom signal (separate equity-versus-bills timing test)
 Development: 6.55% gross, 6.13% net, 5.33% buy-and-hold, 4 switches
 Holdout: -5.52% gross, -6.09% net, -2.09% buy-and-hold, 6 switches
 Failure rule: TRIGGERED - holdout net trails buy-and-hold
 Zero-lag development net 17.72% is a rejected look-ahead diagnostic.
 
-Human-owned before submission: independently review the return assumptions and mandate,
-write and precommit a fresh AI-off prediction before its run, review the revised app on screen,
-and record/reconcile the videos and transcripts. This is a learning demonstration,
-not investment advice.
+The recordings and corrected transcripts are linked in recording-package/manifest.md.
+The FBTC return assumption, price-only data, and failed process remain open for a
+revised proposal. This is a learning demonstration, not investment advice.
