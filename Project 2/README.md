@@ -124,8 +124,8 @@ FBTC at 10%, short weight at 10% per ticker, gross exposure at 110%, broad overl
 60%, and a highly correlated pair at 70% combined weight. The app permits bounded
 shorting and borrowing. Derivative hedges would need separate review because this app
 does not price contracts, margin, Greeks, financing, or counterparty exposure. These
-are my proposed controls, separate from the Lab 13 teaching case. The committee would
-need to approve them. The app screens a candidate allocation; it does not execute
+are my proposed controls, separate from the Lab 13 teaching case. The committee has
+not approved them. The app screens a candidate allocation; it does not execute
 annual rebalancing. My separate monthly timing rule fails turnover and holdout checks.
 I framed this for a moderately risky to risky five-year mandate, not a
 capital-preservation reserve. The 30% price drawdown is a stop-and-review trigger,
@@ -133,12 +133,12 @@ not a guarantee or an approved loss budget.
 
 I count only [SGOV](https://www.ishares.com/us/products/314116/ishares-03-month-treasury-bond-etf)
 as the working reserve. [TLT](https://www.ishares.com/us/products/239454/ishares-20-plus-year-treasury-bond-etf)
-is optional long-duration exposure, not cash. I still need committee approval of the
+is optional long-duration exposure, not cash. The committee has not approved my
 reserve and liquidity policy.
 
 I screen overlap in two ways: broad gross-exposure buckets, and pairs of active funds
 with at least 70% estimated correlation. The default pair cap is 70% combined weight.
-I still need holdings-level look-through before treating either screen as enough.
+Holdings-level look-through is absent, so neither screen is enough for adoption.
 
 ## Current results and limitations
 

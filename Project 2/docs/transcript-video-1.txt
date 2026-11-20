@@ -2,10 +2,10 @@ PROJECT: FIN 43900 Project 2 - Portfolio Review
 STUDENT: Luke Meyer
 VIDEO: 1 System Change and AI-Output Check
 TITLE: Portfolio Review | Ten-Fund Redesign, AI Check, and Locked Test
-URL: pending upload
+URL: https://youtu.be/iGwadsJEG0E
 DURATION: 2:59
 SPEAKER: Luke Meyer
-REPOSITORY COMMIT/FROZEN VERSION: pending final freeze
+APP CODE VERSION SHOWN: 6055fcc6f75e4f33c915b5aca7234d65b7dd35e4
 STATUS: Corrected transcript of final recording
 
 EVIDENCE INDEX

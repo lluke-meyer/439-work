@@ -32,8 +32,9 @@ not a total-return series and understates economic returns for distributing fund
 especially FBND, SGOV, TLT, TIP, and VNQ. I use it only for price volatility,
 correlation, and drawdown screens. The editable annual return inputs in `portfolio.py`
 are **illustrative scenario assumptions**, not forecasts supported by this panel. A
-numerical PASS or mandate boundary is not an investable recommendation. Before adoption,
-I need verified total-return history and independent reasons for the return assumptions.
+numerical PASS or mandate boundary is not an investable recommendation. Verified
+total-return history and independent reasons for the return assumptions are absent,
+so I reject adoption.
 I can compare all 32 returns with the latest 24 for price-risk estimates. The FBTC
 history does not support a 36-return window.
 

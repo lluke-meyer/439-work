@@ -2,10 +2,10 @@ PROJECT: FIN 43900 Project 2 - Portfolio Review
 STUDENT: Luke Meyer
 VIDEO: 2 Codebase Walkthrough
 TITLE: Portfolio Review | Code, Data Flow, and Validation
-URL: pending upload
+URL: https://youtu.be/E8P7vQkYFSc
 DURATION: 4:59
 SPEAKER: Luke Meyer
-REPOSITORY COMMIT/FROZEN VERSION: pending final freeze
+APP CODE VERSION SHOWN: 6055fcc6f75e4f33c915b5aca7234d65b7dd35e4
 STATUS: Corrected transcript of final recording
 
 EVIDENCE INDEX
@@ -18,7 +18,7 @@ EVIDENCE INDEX
 03:00 - Frozen signal, costs, holdout, and turnover
 03:45 - Local checks and changed-input discussion
 04:15 - Separate on-screen Auto-Pass sensitivity and partner-run boundary
-04:47 - Recommendation and evidence still needed
+04:47 - Recommendation and adoption conditions
 
 CORRECTED TRANSCRIPT
 

@@ -21,7 +21,7 @@ Education, not investment advice: This is a FIN 43900 learning demonstration, no
   trigger, 40% general ticker cap, 10% FBTC cap, 60% broad-bucket cap, 70% high-correlation
   pair cap, 10% short cap, 110% gross cap, 25% annual one-way turnover limit, and 75%
   liquidity within 10 business days. Five-year horizon, quarterly review, annual core
-  rebalance. I still need committee approval for these limits.
+  rebalance. These are proposed limits; the committee has not approved them.
 
 ## Current validation status
 
@@ -39,8 +39,8 @@ post-run result in the three recordings linked from the [manifest](../recording-
 | Earlier control sensitivity | At 7.5% target, I observed allocation `PASS` and full-process `REJECT / REDESIGN`; this AI-assisted check was separate from my locked test | Local result |
 | Estimation window | I can select all 32 or the latest 24 price returns; a model check confirms volatility and correlations change | Local pass; price-only data |
 | Data integrity | I recorded the common panel and checksums, but Close/Last excludes cash distributions and I lack verified total returns | REVIEW, adoption blocked |
-| Overlap and concentration | I group VOO/VTI exposure, screen correlated pairs, and cap FBTC at 10% | Proxy screen; holdings look-through pending |
-| Reserve | I count SGOV as the working reserve and never count TLT as cash | Final eligibility/liquidity review pending |
+| Overlap and concentration | I group VOO/VTI exposure, screen correlated pairs, and cap FBTC at 10% | Proxy screen only; no holdings look-through |
+| Reserve | I count SGOV as the working reserve and never count TLT as cash | Proposed policy; committee approval absent |
 | Point-in-time signal | I use a one-month lag, a selection ledger, and the zero-lag check in my [signal card](signal-data-card.md) | Classroom signal only |
 | Holdout and costs | I recorded 6.13% development net, -6.09% holdout net versus -2.09% buy-and-hold, and 400% turnover versus a 25% limit | FAIL, adoption blocked |
 | Partner cold run | I retain Peyton's [November 17 note](evidence/peyton-cold-run-rerun.md) for the earlier six-fund version | No current ten-fund partner run |
@@ -101,8 +101,8 @@ the original Windows README setup failure and AI-assisted continuation. I confir
 that Peyton later completed the remaining partner tasks, but his supplied note does
 not show a separate post-fix README-only rerun. I published the Windows README fix
 in `6782c19`. That cold run covers the earlier six-fund version, **not** this ten-fund
-revision. I retain it with that limit stated. My on-screen check of this revision is
-still pending.
+revision. I retain it with that limit stated. Videos 1 and 3 show my on-screen check
+of the revised app.
 
 My November 15 [Lab 20 record](../../Post%20Project%201/Lab20/lab20_record.md) preserves
 an earlier AI-off prediction for a 9.00% to 10.50% objective change. Theme passes fell,
@@ -151,7 +151,7 @@ it changes both the return target and weights.
 | OpenAI Codex (model ID not recorded) | October-November 2026 | I used it to build the Lab 15 engine and earlier six-fund app and classroom signal | Local known-answer and app checks passed; I rejected the process on holdout and turnover |
 | OpenAI Codex (model ID not recorded) | November 15, 2026 | I used it to challenge whether TLT should count as reserve | I removed TLT reserve eligibility; the test did not prove it was cash |
 | OpenAI Codex (model ID not recorded) | November 17, 2026 | I used it to fix the Windows README and prepare recording drafts after Peyton's note | I preserve the initial failure and do not claim a separate post-fix partner rerun |
-| OpenAI Codex (model ID not recorded) | November 19, 2026 | I used it to build the ten-fund panel, FBTC cap, mandate finder, Auto-Pass controls, and verdict layout | Local checks passed; data quality and human review remain open |
+| OpenAI Codex (model ID not recorded) | November 19, 2026 | I used it to build the ten-fund panel, FBTC cap, mandate finder, Auto-Pass controls, and verdict layout | Local checks passed; price and policy limits still block adoption |
 | OpenAI Codex (model ID not recorded) | November 19, 2026 | I used it to add a 24-return window and prepare a blank locked-input record | Twelve local tests passed before I wrote my prediction |
 | OpenAI Codex (model ID not recorded) | November 19, 2026 | I used it to run the two locked-input cases in local AppTest and draft the post-run comparison | My prediction stayed locked in `6055fcc`; the result partly matched and the process still failed |
 
@@ -162,5 +162,5 @@ it changes both the return target and weights.
 - [x] I committed my AI-off prediction in `6055fcc` before the changed-input run and recorded both local outputs.
 - [x] I retained Peyton's earlier cold run with its six-fund scope stated.
 - [x] I show the app and mandate finder on screen and explain the post-run result in the recordings.
-- [ ] I need verified total-return history and defensible return assumptions for an adoptable proposal.
+- [x] I state that verified total-return history and defensible return assumptions are absent; adoption remains blocked.
 - [x] I recorded three videos, saved corrected transcripts, and linked their titles, durations, and evidence moments in the manifest.

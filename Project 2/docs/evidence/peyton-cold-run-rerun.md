@@ -32,13 +32,13 @@ At line:4 char:1
     + FullyQualifiedErrorId : NativeCommandFailed
 ```
 
-The README labels its instructions as Bash. This Windows machine had PowerShell and working Python 3.13.15 under `python`, but no Bash was found on PATH or at the standard Git Bash location. `python3` resolved to the WindowsApps executable alias. The README did not provide a Windows alternative. Its subsequent `source .venv/bin/activate` command was not attempted.
+At the tested commit, the README labeled its instructions as Bash. This Windows machine had PowerShell and working Python 3.13.15 under `python`, but no Bash was found on PATH or at the standard Git Bash location. `python3` resolved to the WindowsApps executable alias. That README did not provide a Windows alternative. Its subsequent `source .venv/bin/activate` command was not attempted.
 
 **README-only verdict: blocked at setup.** This is a setup/environment compatibility failure, not evidence that the portfolio calculations are wrong. The earlier failure record remains in `C:\Users\Peyto\Downloads\peyton-cold-run.md`.
 
 ## Assisted continuation — actual commands
 
-To inspect the app beyond that failure, Codex used Windows equivalents in `Project 2/`. These substitutions are not in Luke's current README and do not count as a pushed fix by Luke.
+To inspect the app beyond that failure, Codex used Windows equivalents in `Project 2/`. These substitutions were not in the README at the tested commit. Luke later added PowerShell instructions in `6782c19`.
 
 ```powershell
 python --version
@@ -87,11 +87,9 @@ This is the handoff's control-operability check. It is **not** a replacement for
 
 ## Fix and rerun status
 
-- First failure fixed by Luke: **not yet verified**. The tested commit still has the Bash-only setup instructions.
-- Fix commit/link: **pending Luke's update**.
+- Windows README fix: Luke added PowerShell setup and run commands in [`6782c19`](https://github.com/lluke-meyer/439-work/commit/6782c19); the original failure remains part of this cold-run record.
 - Assisted continuation: app launched, both verdicts were read, and one bounded control was changed successfully, as recorded above.
-- Clean README-only rerun after Luke's pushed fix: **not performed**. At Peyton's request, the project is being kept as is, with the Windows setup issue explicitly unresolved. Do not label this run `No fix needed`.
-- Suggested repair for Luke: add tested Windows setup/run commands using `python` and `.venv\Scripts\python.exe`; retain the Bash instructions for platforms where they apply.
+- Clean README-only rerun after the fix: **not documented**. This note supports the tested six-fund run and the later README change, but it does not claim a clean post-fix partner rerun.
 
 ## Final technical validation — code kept as is
 
@@ -110,7 +108,7 @@ The README's validation commands were run using the same Windows virtual-environ
 - The test runner emitted a bare-mode Streamlit `missing ScriptRunContext` warning and explicitly said it could be ignored in that mode; the app smoke test passed.
 - These checks support the recorded execution results. They do not certify the financial model or resolve the app's disclosed failed/review gates.
 
-**Disposition:** the technical cold-run attempt and assisted continuation are documented, including the unresolved setup issue. No fix or push is claimed. The lab permits truthful unresolved items; this record does not claim a clean README-only run or approval of Project 2.
+**Disposition:** the technical cold-run attempt and assisted continuation are documented. The setup failure was fixed later in the README, but this record does not claim a clean README-only rerun or approval of Project 2.
 
 ## Code walkthrough and question
 

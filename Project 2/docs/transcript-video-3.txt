@@ -2,10 +2,10 @@ PROJECT: FIN 43900 Project 2 - Portfolio Review
 STUDENT: Luke Meyer
 VIDEO: 3 Investment Committee Presentation
 TITLE: Portfolio Review | Investment Committee Decision: Reject and Redesign
-URL: pending upload
+URL: https://youtu.be/uPnioBI8WHA
 DURATION: 4:58
 SPEAKER: Luke Meyer
-REPOSITORY COMMIT/FROZEN VERSION: pending final freeze
+APP CODE VERSION SHOWN: 6055fcc6f75e4f33c915b5aca7234d65b7dd35e4
 STATUS: Corrected transcript of final recording
 
 CAPTION CORRECTIONS TO SPOKEN SLIPS
