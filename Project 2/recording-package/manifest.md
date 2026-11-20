@@ -8,7 +8,7 @@ transcripts and caption text and linked the final submission evidence below.
 - Repository URL: `https://github.com/lluke-meyer/439-work`
 - Project path: `Project 2/`
 - My decision: `REJECT / REDESIGN`
-- Frozen content commit: [`b92987f8a2702e26ce1198f5610336c26e72f8ce`](https://github.com/lluke-meyer/439-work/commit/b92987f8a2702e26ce1198f5610336c26e72f8ce)
+- Frozen content commit: [`077683c4e46cf7ae488a4b8bdcb18509cc906371`](https://github.com/lluke-meyer/439-work/commit/077683c4e46cf7ae488a4b8bdcb18509cc906371)
 - Access check: The public repository and all three transcript links returned HTTP 200 without login on November 20, 2026.
 
 ## Submission locations
@@ -66,6 +66,6 @@ Caption text for YouTube auto-sync: [Video 1](https://github.com/lluke-meyer/439
 - [x] I am using the corrected caption text for all three videos and accepting its timing for submission.
 - [x] I checked the README, memo, validation record, output, and transcripts against the recorded decision and key numbers.
 - [x] Video 1 explains the locked prediction, observed result, and partial match; the validation record retains the Codex-assisted post-run explanation.
-- [x] I committed and pushed the final Project 2 content in `b92987f`; this manifest records that frozen content commit.
+- [x] I committed and pushed the current Project 2 documents in `077683c`; this manifest records that frozen content commit.
 
 This is a course project and learning demonstration, not investment advice.
