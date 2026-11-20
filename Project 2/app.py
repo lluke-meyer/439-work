@@ -14,12 +14,16 @@ from backtest import (
     run_backtest,
 )
 from market_data import MarketDataError, fetch_yahoo_monthly_csv
+from mandate_finder import mandate_boundaries, numerical_mandate_pass
+from auto_pass import best_numerical_mix, usable_return_target
+from process_audit import full_process_pass_report
 from portfolio import (
     ASSETS,
     audit_theme_portfolios,
     CORRELATIONS,
     EXPECTED_RETURNS,
     MAX_DRAWDOWN,
+    MAX_BITCOIN_WEIGHT,
     MAX_GROSS_EXPOSURE,
     MAX_OVERLAP_WEIGHT,
     MAX_PAIRWISE_OVERLAP_WEIGHT,
@@ -29,6 +33,7 @@ from portfolio import (
     OBJECTIVE_RETURN,
     RESERVE_ELIGIBLE,
     RESERVE_MINIMUM,
+    SCENARIO_EXPECTED_RETURNS,
     TURNOVER_LIMIT,
     VOLATILITIES,
     THEME_DESCRIPTIONS,
@@ -72,6 +77,7 @@ def cached_theme_audit(
     max_short_weight: float,
     max_gross_exposure: float,
     step: float,
+    max_bitcoin_weight: float,
 ) -> tuple[dict[str, object], ...]:
     return audit_theme_portfolios(
         themes,
@@ -89,6 +95,7 @@ def cached_theme_audit(
         max_short_weight,
         max_gross_exposure,
         step,
+        max_bitcoin_weight,
     )
 
 
@@ -96,7 +103,7 @@ st.set_page_config(page_title="Project 2 | Portfolio Decision", layout="wide")
 st.markdown(
     """
     <style>
-    .block-container { max-width: 1240px; padding-top: 1.6rem; padding-bottom: 4rem; }
+    .block-container { max-width: 1240px; padding-top: 2.5rem; padding-bottom: 7rem; }
     .p2-hero { background: linear-gradient(125deg, #112739, #173c49 65%, #255b59);
         border-radius: 18px; color: #fff; padding: 2.2rem 2.5rem; margin-bottom: 1rem; }
     .p2-eyebrow { color: #9cd9cc; font-size: .76rem; font-weight: 700;
@@ -105,24 +112,69 @@ st.markdown(
         line-height: 1.1; letter-spacing: -.035em; margin: 0 0 .7rem; }
     .p2-hero p { color: #d6e7e6; font-size: 1rem; line-height: 1.55;
         max-width: 780px; margin: 0; }
+    .p2-summary-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: .75rem; margin-bottom: .8rem; }
+    .p2-summary-card { min-width: 0; min-height: 6.5rem; padding: .95rem 1.05rem;
+        border: 1px solid #dce7e5; border-radius: 14px; background: #f8fbfa; }
+    .p2-summary-card span { display: block; color: #41535a; font-size: .84rem;
+        font-weight: 600; margin-bottom: .4rem; }
+    .p2-summary-card strong { display: block; color: #183343; font-size: 1.28rem;
+        line-height: 1.2; overflow-wrap: anywhere; }
+    [data-testid="stLayoutWrapper"]:has(> * > .st-key-committee_verdict),
+    [data-testid="stLayoutWrapper"]:has(> .st-key-committee_verdict) {
+        position: fixed; bottom: 1rem; right: 1.25rem; z-index: 999;
+        width: min(34rem, calc(100vw - 2.5rem)); }
+    .st-key-committee_verdict { background: #fff; border: 1px solid #ccd9d7;
+        border-radius: 12px; box-shadow: 0 6px 20px rgba(17, 39, 57, .13);
+        padding: .7rem .9rem; min-height: 3.4rem; overflow: visible; }
+    .p2-verdict-bar { display: flex; flex-wrap: wrap; align-items: center;
+        gap: .5rem 1.2rem; min-height: 2rem; line-height: 1.2; }
+    .p2-verdict-item { display: inline-flex; align-items: center; gap: .45rem; }
+    .p2-verdict-label { color: #41535a; font-size: .83rem; font-weight: 600; }
+    .p2-verdict-value { border-radius: 999px; padding: .22rem .65rem;
+        font-size: .82rem; font-weight: 750; white-space: nowrap; }
+    .p2-verdict-value.pass { background: #d9f3e8; color: #135d40; }
+    .p2-verdict-value.fail { background: #fbe7e5; color: #93342c; }
+    .p2-verdict-value.review { background: #fff1d7; color: #80570d; }
+    @media (max-width: 900px) { .p2-summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 640px) {
+        .p2-summary-grid { grid-template-columns: 1fr; }
+        [data-testid="stLayoutWrapper"]:has(> * > .st-key-committee_verdict),
+        [data-testid="stLayoutWrapper"]:has(> .st-key-committee_verdict) {
+            bottom: .65rem; right: .65rem; width: calc(100vw - 1.3rem); }
+    }
     .p2-section-label { color: #2d7770; font-size: .76rem; font-weight: 700;
         letter-spacing: .14em; text-transform: uppercase; margin: .2rem 0 .15rem; }
-    div[data-testid="stMetric"] { border: 1px solid #dce7e5; border-radius: 12px;
-        background: #f8fbfa; padding: .85rem 1rem; }
-    div[data-testid="stMetric"] * { color: #183343 !important; }
     </style>
     """,
     unsafe_allow_html=True,
 )
 # The container is placed first and populated after the controls and calculations run.
 hero = st.container(border=True)
+verdict_strip = st.container(key="committee_verdict")
+pending_auto_pass = st.session_state.pop("auto_pass_pending", None)
+if pending_auto_pass is not None:
+    restoring = pending_auto_pass.get("action") == "restore"
+    st.session_state["p2_objective_pct"] = (
+        pending_auto_pass["previous_target_pct"] if restoring else pending_auto_pass["target_pct"]
+    )
+    weights_to_apply = pending_auto_pass["previous_weight_pct"] if restoring else pending_auto_pass["weight_pct"]
+    for asset, weight_pct in weights_to_apply.items():
+        st.session_state[f"mandate_weight_{pending_auto_pass['universe_key']}_{asset}"] = weight_pct
+    if restoring:
+        st.session_state.pop("auto_pass_active", None)
+    else:
+        st.session_state["auto_pass_active"] = pending_auto_pass
+if "p2_objective_pct" not in st.session_state:
+    st.session_state["p2_objective_pct"] = OBJECTIVE_RETURN * 100
 
 with st.sidebar:
     st.header("Controls")
     st.caption("Changes here update the decision above.")
     with st.expander("Portfolio mandate", expanded=True):
         objective = st.number_input(
-            "Objective return (%)", min_value=-25.0, max_value=50.0, value=OBJECTIVE_RETURN * 100, step=0.1
+            "Objective return (%)", min_value=-25.0, max_value=50.0, step=0.1,
+            key="p2_objective_pct",
         ) / 100
         reserve_minimum = st.number_input(
             "Reserve minimum (%)", min_value=0.0, max_value=100.0, value=RESERVE_MINIMUM * 100, step=1.0
@@ -133,6 +185,11 @@ with st.sidebar:
         max_ticker_weight = st.number_input(
             "Maximum ticker weight (%)", min_value=5.0, max_value=100.0,
             value=MAX_TICKER_WEIGHT * 100, step=5.0
+        ) / 100
+        max_bitcoin_weight = st.number_input(
+            "Maximum FBTC weight (%)", min_value=0.0, max_value=40.0,
+            value=MAX_BITCOIN_WEIGHT * 100, step=5.0,
+            help="A separate concentration screen for the single-asset bitcoin ETP."
         ) / 100
         exposure_policy = st.selectbox(
             "Exposure policy",
@@ -191,7 +248,7 @@ with st.sidebar:
             options=("Bundled CSV", "Yahoo Finance (live)"),
             index=0,
             disabled=uploaded is not None,
-            help="Bundled CSV is reproducible. Yahoo Finance pulls public monthly adjusted-close history and is cached for one hour.",
+            help="Bundled Close/Last is reproducible. Yahoo uses adjusted close when available, otherwise close; verify the source before relying on it.",
         )
         yahoo_lookback_years = st.selectbox(
             "Yahoo lookback (years)", options=(3, 5, 10), index=1, disabled=data_source != "Yahoo Finance (live)"
@@ -201,11 +258,18 @@ with st.sidebar:
             value=False,
             disabled=uploaded is not None,
         )
-        last_36 = st.toggle(
-            "Use last 36 monthly returns",
-            value=False,
-            disabled=uploaded is None and classroom_inputs,
+        window_options = (
+            ("Full available history", "Last 24 monthly returns", "Last 36 monthly returns")
+            if uploaded is not None or data_source == "Yahoo Finance (live)"
+            else ("Full available history", "Last 24 monthly returns")
         )
+        window_choice = st.selectbox(
+            "Estimation window",
+            options=window_options,
+            disabled=classroom_inputs and uploaded is None,
+            help="Changes the price-based volatility, correlation, and drawdown screens. Expected returns remain editable scenario assumptions.",
+        )
+        return_window = {"Last 24 monthly returns": 24, "Last 36 monthly returns": 36}.get(window_choice)
     with st.expander("Signal sensitivity", expanded=False):
         st.subheader("Signal controls")
         signal_lag = st.number_input(
@@ -250,44 +314,64 @@ else:
                     f"Live retrieval was unavailable, so the app is using the bundled CSV instead: {error}"
                 )
                 price_source = bundled_path
-                source_label_override = "Bundled six-fund universe (live fallback)"
+                source_label_override = "Bundled ten-fund universe (live fallback)"
         else:
             price_source = bundled_path
-            source_label_override = "Bundled six-fund universe"
-        loaded_estimate = extend_estimate_with_candidates(estimate_from_prices(price_source, last_36=False))
-        current_estimate = extend_estimate_with_candidates(estimate_from_prices(price_source, last_36=last_36))
+            source_label_override = "Bundled ten-fund universe"
+        loaded_estimate = extend_estimate_with_candidates(estimate_from_prices(price_source))
+        if return_window is not None and loaded_estimate["return_observations"] < return_window:
+            st.warning(
+                f"This source has fewer than {return_window} monthly returns. "
+                "Showing the full available window instead."
+            )
+            return_window = None
+        current_estimate = extend_estimate_with_candidates(
+            estimate_from_prices(price_source, return_window=return_window)
+        )
     except (OSError, ValueError) as error:
         st.error(str(error))
         st.stop()
     assets = loaded_estimate["assets"]
-    loaded_expected = loaded_estimate["expected_returns"]
+    loaded_expected = tuple(SCENARIO_EXPECTED_RETURNS.get(asset, 0.0) for asset in assets)
     loaded_volatility = loaded_estimate["volatilities"]
     loaded_correlation = loaded_estimate["correlations"]
-    current_expected_defaults = current_estimate["expected_returns"]
+    current_expected_defaults = tuple(SCENARIO_EXPECTED_RETURNS.get(asset, 0.0) for asset in assets)
     current_volatility = current_estimate["volatilities"]
     current_correlation = current_estimate["correlations"]
     loaded_monthly_returns = loaded_estimate["monthly_returns"]
     current_monthly_returns = current_estimate["monthly_returns"]
-    # Both TLT and SGOV can be selected as reserve candidates. The gate distinguishes
-    # the short Treasury reserve from TLT's long-duration proxy risk.
-    default_reserve = tuple(asset.upper() in {"TLT", "SGOV"} for asset in assets)
+    # Only the short Treasury-bill sleeve counts as the working reserve.
+    default_reserve = tuple(asset.upper() == "SGOV" for asset in assets)
     source_label = source_label_override
-    observation_label = (
-        f"{current_estimate['return_observations']} monthly returns, "
-        f"{current_estimate['start_date']} through {current_estimate['end_date']}; "
-        f"modeled candidates: {', '.join(current_estimate['modeled_assets']) or 'none'}"
+    source_caveat = (
+        "uploaded prices require independent adjustment and provenance review"
+        if uploaded is not None
+        else "Yahoo adjusted-close availability and fallback require review"
+        if source_label_override.startswith("Yahoo Finance live")
+        else "bundled Close/Last excludes cash distributions"
     )
+    observation_label = (
+        f"{current_estimate['return_observations']} monthly price changes, "
+        f"{current_estimate['start_date']} through {current_estimate['end_date']}; "
+        f"{source_caveat}. Expected returns are editable scenario assumptions."
+    )
+    missing_assumptions = [asset for asset in assets if asset not in SCENARIO_EXPECTED_RETURNS]
+    if missing_assumptions:
+        st.warning(
+            f"No default scenario return is defined for {', '.join(missing_assumptions)}. "
+            "Those inputs start at 0% and must be reviewed before using the result."
+        )
 
 with st.container(border=True):
     st.markdown('<div class="p2-section-label">01 / Set the scenario</div>', unsafe_allow_html=True)
     st.header("Build the portfolio")
-    st.caption("Choose a starting theme, then adjust the funds and assumptions. Mandate and signal controls are in the sidebar.")
+    st.caption("Choose up to ten funds, then adjust return assumptions. The mandate finder below tests your own weight mix; policy and signal controls are in the sidebar.")
     st.subheader(source_label)
     st.write(observation_label)
     if not classroom_inputs or uploaded is not None:
         st.warning(
             f"The {objective:.1%} return objective and {reserve_minimum:.0%} reserve threshold are the current displayed controls. "
-            "SGOV is the preferred reserve candidate; TLT remains an allowed long-duration proxy subject to review."
+            "Only SGOV counts as reserve. TLT is optional long-duration risk exposure."
         )
 
     st.subheader("Funds and starting theme")
@@ -313,7 +397,7 @@ with st.container(border=True):
         fund_count_options = (len(assets),)
     else:
         fund_count_options = tuple(range(3, 11))
-    default_fund_count = len(assets) if classroom_inputs else 6
+    default_fund_count = len(assets) if classroom_inputs else 10
     if st.session_state.get("project2_fund_count") not in fund_count_options:
         st.session_state["project2_fund_count"] = default_fund_count
     fund_count = st.selectbox(
@@ -373,7 +457,7 @@ with st.container(border=True):
 
     with st.expander("Edit fund estimates and reserve flags", expanded=False):
         st.write(
-            "Edit an expected-return estimate or reserve flag below. The app rebuilds the portfolio when funds are removed or added. "
+            "Edit an expected-return scenario or SGOV reserve flag below. These are illustrative assumptions, not forecasts derived from Close/Last prices. "
             f"Allocation grid: {allocation_step:.0%} steps for this universe; exposure policy: {exposure_policy}."
         )
 
@@ -397,20 +481,20 @@ with st.container(border=True):
                     value=float(current_expected_defaults[index] * 100),
                     step=0.1,
                     format="%.2f",
-                    key=f"return_{universe_key}_{asset}_{'36' if last_36 else 'all'}",
+                    key=f"return_{universe_key}_{asset}",
                     label_visibility="collapsed",
                 )
                 / 100
             )
             columns[2].write(f"{current_volatility[index]:.2%}")
-            reserve_flags.append(
-                columns[3].checkbox(
+            selected_reserve = columns[3].checkbox(
                     f"{asset} is reserve eligible",
                     value=default_reserve[index],
                     key=f"reserve_{universe_key}_{asset}",
+                    disabled=asset != "SGOV",
                     label_visibility="collapsed",
                 )
-            )
+            reserve_flags.append(asset == "SGOV" and selected_reserve)
 
 
 current_covariance = covariance_matrix(current_volatility, current_correlation)
@@ -430,6 +514,7 @@ current_risk_levels = risk_level_portfolios(
     allow_shorting=allow_shorting,
     max_short_weight=max_short_weight,
     max_gross_exposure=max_gross_exposure,
+    asset_caps=tuple(max_bitcoin_weight if asset == "FBTC" else 1.0 for asset in assets),
 )
 current_result = current_risk_levels[0] if current_risk_levels else None
 loaded_result = search_lowest_risk_mix(
@@ -447,6 +532,7 @@ loaded_result = search_lowest_risk_mix(
     allow_shorting=allow_shorting,
     max_short_weight=max_short_weight,
     max_gross_exposure=max_gross_exposure,
+    asset_caps=tuple(max_bitcoin_weight if asset == "FBTC" else 1.0 for asset in assets),
 )
 
 
@@ -455,6 +541,7 @@ def mandate_verdict(result: dict[str, object]) -> str:
         result["expected_return"] >= objective - 1e-12
         and result["reserve_weight"] >= reserve_minimum - 1e-12
         and max(result["weights"]) <= max_ticker_weight + 1e-12
+        and all(weight <= max_bitcoin_weight + 1e-12 for asset, weight in zip(assets, result["weights"]) if asset == "FBTC")
         and max(overlap_bucket_weights(result["weights"], overlap_groups, gross=True).values())
         <= max_overlap_weight + 1e-12
         and min(result["weights"]) >= (-max_short_weight if allow_shorting else 0.0) - 1e-12
@@ -469,8 +556,8 @@ def mandate_verdict(result: dict[str, object]) -> str:
 
 
 baseline_results = [
-    ("Equal weight", portfolio_result(equal_weight(len(assets)), current_expected_defaults, current_covariance, reserve_flags)),
-    ("Inverse volatility", portfolio_result(inverse_volatility(current_volatility), current_expected_defaults, current_covariance, reserve_flags)),
+    ("Equal weight", portfolio_result(equal_weight(len(assets)), edited_expected, current_covariance, reserve_flags)),
+    ("Inverse volatility", portfolio_result(inverse_volatility(current_volatility), edited_expected, current_covariance, reserve_flags)),
 ]
 if current_result is not None:
     baseline_results.insert(0, ("Constrained search", current_result))
@@ -514,11 +601,10 @@ else:
     )
 
 sgov_is_reserve = any(asset == "SGOV" and eligible for asset, eligible in zip(assets, reserve_flags))
-tlt_is_reserve = any(asset == "TLT" and eligible for asset, eligible in zip(assets, reserve_flags))
 sgov_history_observed = current_monthly_returns is not None and "SGOV" in current_monthly_returns
 reserve_evidence_status = (
     "PASS" if sgov_is_reserve and sgov_history_observed
-    else "REVIEW" if sgov_is_reserve or tlt_is_reserve
+    else "REVIEW" if sgov_is_reserve
     else gate_status(any(reserve_flags))
 )
 reserve_evidence_text = (
@@ -526,15 +612,15 @@ reserve_evidence_text = (
     if sgov_is_reserve and sgov_history_observed
     else "SGOV candidate selected; upload observed history before relying on it"
     if sgov_is_reserve
-    else "TLT is a long-duration proxy only; short Treasury evidence is preferred"
-    if tlt_is_reserve
     else "Select a reserve-eligible fund"
 )
 gate_rows = [
+    {"Gate": "Return data quality", "Result": "REVIEW", "Evidence": source_caveat + "; return inputs are illustrative scenarios" if not classroom_inputs else "Course-authored training inputs"},
     {"Gate": "Return target", "Result": gate_status(current_result is not None and current_result["expected_return"] >= objective), "Evidence": f"{objective:.1%} minimum"},
     {"Gate": "Reserve floor", "Result": gate_status(current_result is not None and current_result["reserve_weight"] >= reserve_minimum), "Evidence": f"{reserve_minimum:.1%} minimum = ${portfolio_value_millions * reserve_minimum:.2f}m"},
     {"Gate": "Reserve eligibility", "Result": reserve_evidence_status, "Evidence": reserve_evidence_text},
     {"Gate": "Maximum ticker weight", "Result": gate_status(current_result is not None and max(current_result["weights"]) <= max_ticker_weight), "Evidence": f"{max_ticker_weight:.0%} cap"},
+    {"Gate": "Bitcoin concentration", "Result": gate_status(current_result is not None and all(weight <= max_bitcoin_weight for asset, weight in zip(assets, current_result["weights"]) if asset == "FBTC")), "Evidence": f"FBTC <= {max_bitcoin_weight:.0%}"},
     {"Gate": "Short and gross exposure", "Result": gate_status(current_result is not None and min(current_result["weights"]) >= (-max_short_weight if allow_shorting else 0.0) - 1e-12 and sum(abs(weight) for weight in current_result["weights"]) <= max_gross_exposure + 1e-12), "Evidence": f"short floor {-max_short_weight:.0%}; gross <= {max_gross_exposure:.0%}" if allow_shorting else "No shorting; gross = 100%"},
     {"Gate": "Overlap proxy", "Result": gate_status(current_overlap is not None and current_overlap <= max_overlap_weight), "Evidence": f"{current_overlap:.1%} / {max_overlap_weight:.0%}" if current_overlap is not None else "No feasible portfolio"},
     {"Gate": "High-correlation pair", "Result": gate_status(current_pairwise_overlap is not None and current_pairwise_overlap <= max_pairwise_overlap_weight), "Evidence": f"{current_pairwise_overlap:.1%} / {max_pairwise_overlap_weight:.0%} at {overlap_correlation_threshold:.0%}+ correlation" if current_pairwise_overlap is not None else "No feasible portfolio"},
@@ -567,31 +653,58 @@ allocation_decision = "PASS" if allocation_passes else "NO FEASIBLE MIX"
 
 
 if allocation_decision == "NO FEASIBLE MIX":
-    hero_summary = "The current inputs do not produce a feasible allocation. Adjust the scenario below to see which mandate controls drive the result."
+    hero_summary = "No allocation meets the current mandate. Review the assumptions and limits below."
 elif gate_decision == "REJECT / REDESIGN":
-    hero_summary = "The allocation clears its displayed controls, but process evidence still blocks adoption. Review the failed gates and frozen holdout below."
+    hero_summary = "The allocation meets its numerical limits. The tested process still fails the committee checks."
 elif gate_decision == "PILOT ONLY":
-    hero_summary = "The allocation clears its displayed controls. Open review items still need evidence before an adoption decision."
+    hero_summary = "The allocation meets its numerical limits. Review items remain before an adoption decision."
 else:
-    hero_summary = "The allocation and process gates clear the displayed checks. Review the supporting evidence before a committee decision."
+    hero_summary = "The displayed allocation and process checks pass. Review the supporting evidence before voting."
+estimated_return_label = f"{current_result['expected_return']:.2%}" if current_result else "—"
 with hero:
     st.markdown(
         f"""<div class="p2-hero">
         <div class="p2-eyebrow">FIN 439 / Project 2 / Investment committee</div>
-        <h1>Make the portfolio call.</h1>
+        <h1>Portfolio review</h1>
         <p>{hero_summary}</p>
         </div>""",
         unsafe_allow_html=True,
     )
-    # Give the full-process verdict enough room to remain readable during screen sharing.
-    hero_metrics = st.columns([1.1, 1.8, 1, 1])
-    hero_metrics[0].metric("Allocation mandate", allocation_decision)
-    hero_metrics[1].metric("Full process gate", gate_decision)
-    hero_metrics[2].metric("Estimated return", f"{current_result['expected_return']:.2%}" if current_result else "—")
-    hero_metrics[3].metric("Frozen holdout net", f"{locked_backtest['holdout']['net']:.2%}")
+    st.markdown(
+        '<div class="p2-summary-grid">'
+        f'<div class="p2-summary-card"><span>Allocation mandate</span><strong>{allocation_decision}</strong></div>'
+        f'<div class="p2-summary-card"><span>Full process gate</span><strong>{gate_decision}</strong></div>'
+        f'<div class="p2-summary-card"><span>Estimated return</span><strong>{estimated_return_label}</strong></div>'
+        f'<div class="p2-summary-card"><span>Frozen holdout net</span><strong>{locked_backtest["holdout"]["net"]:.2%}</strong></div>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
     st.caption(
         f"{len(assets)} selected funds · {source_label} · Holdout buy-and-hold "
         f"{locked_backtest['holdout']['buy_and_hold']:.2%} · Built with AI help; a learning demonstration, not investment advice."
+    )
+    with st.expander("Committee walkthrough: how to assess this portfolio"):
+        st.markdown(
+            """1. **Set the mandate.** Confirm the return target, SGOV reserve floor, risk limits, and investment horizon in the sidebar.
+2. **Check the funds and inputs.** Review the ten selected funds, editable return assumptions, and price-source limitations in **Set the scenario**.
+3. **Compare allocations.** Read the constrained mix and the equal-weight and inverse-volatility baselines in **Allocation**.
+4. **Test your own mix.** Enter weights totaling 100% in **Your mandate question**, or use Auto-Pass to find the strongest scenario return under the existing risk limits. Inspect each mandate boundary.
+5. **Check the decision gates.** Review reserve, overlap, drawdown, liquidity, and governance in **Decision evidence**. A numerical PASS alone does not approve the process.
+6. **Challenge the process.** Compare gross and net results, turnover, and the frozen holdout in **Out-of-sample check**.
+7. **Record the call.** Use the visible allocation and full-process verdicts with the memo's reversal conditions before any committee decision."""
+        )
+
+with verdict_strip:
+    allocation_style = "pass" if allocation_decision == "PASS" else "fail"
+    process_style = "fail" if gate_decision == "REJECT / REDESIGN" else "review" if gate_decision == "PILOT ONLY" else "pass"
+    st.markdown(
+        f'<div class="p2-verdict-bar" role="status" aria-live="polite">'
+        f'<span class="p2-verdict-item"><span class="p2-verdict-label">Allocation</span>'
+        f'<span class="p2-verdict-value {allocation_style}">{allocation_decision}</span></span>'
+        f'<span class="p2-verdict-item"><span class="p2-verdict-label">Full process</span>'
+        f'<span class="p2-verdict-value {process_style}">{gate_decision}</span></span>'
+        f'</div>',
+        unsafe_allow_html=True,
     )
 
 
@@ -637,13 +750,13 @@ def show_result(container: st.delta_generator.DeltaGenerator, title: str, result
 with st.container(border=True):
     st.markdown('<div class="p2-section-label">02 / Allocation</div>', unsafe_allow_html=True)
     st.header("The proposed mix")
-    st.caption("The current column uses the editable assumptions. The loaded column uses the source estimates before your edits.")
+    st.caption("The current column uses editable return assumptions. The loaded column keeps the initial scenario assumptions before your edits; risk estimates use the frozen price-only panel.")
     current_column, loaded_column = st.columns(2)
     show_result(current_column, "Current estimates", current_result)
     show_result(loaded_column, "Inputs as loaded", loaded_result)
 
     st.subheader("Baseline and mandate verdicts")
-    st.caption("PASS means the displayed portfolio meets the return, reserve, ticker, and overlap controls.")
+    st.caption("PASS means the numerical scenario clears the displayed return, reserve, bitcoin, ticker, and overlap controls. It does not certify the data or process.")
     st.dataframe(
         [
             {
@@ -662,6 +775,224 @@ with st.container(border=True):
 
 
 with st.container(border=True):
+    st.markdown('<div class="p2-section-label">02a / Your mandate question</div>', unsafe_allow_html=True)
+    st.header("What mandate would accept this mix?")
+    st.caption(
+        "Choose weights across the selected funds to see the limits those exact weights require. "
+        "Numerical Auto-Pass searches these funds and, if needed, lowers only the return target. "
+        "The full-process button audits every gate without changing evidence or policy."
+    )
+    auto_pass_context = (
+        assets, tuple(edited_expected), current_covariance, tuple(reserve_flags),
+        overlap_groups, current_correlation, current_monthly_returns, observation_label,
+        reserve_minimum, max_ticker_weight, max_bitcoin_weight, max_overlap_weight,
+        max_pairwise_overlap_weight, overlap_correlation_threshold, max_drawdown,
+        allow_shorting, max_short_weight, max_gross_exposure, allocation_step,
+    )
+    numerical_button_col, process_button_col = st.columns(2)
+    numerical_clicked = numerical_button_col.button(
+        'Auto-Pass numerical mandate',
+        help="Find the highest scenario return on this allocation grid while preserving the current reserve and risk controls. If necessary, lower only the return target. The process gate cannot be auto-passed.",
+        type="primary",
+    )
+    process_clicked = process_button_col.button(
+        "Auto full-process pass check",
+        help="Recheck all displayed gates and show exactly what blocks a real full-process PASS. This cannot waive failed holdout, turnover, or missing evidence.",
+    )
+    gate_signature = tuple((row["Gate"], row["Result"], row["Evidence"]) for row in gate_rows)
+    if process_clicked:
+        st.session_state["full_process_audit"] = {
+            "signature": gate_signature,
+            "report": full_process_pass_report(gate_rows),
+        }
+    saved_audit = st.session_state.get("full_process_audit")
+    if saved_audit is not None:
+        if saved_audit["signature"] == gate_signature:
+            process_report = saved_audit["report"]
+            if process_report["ready"]:
+                st.success("All displayed allocation and process gates pass. Committee review of the evidence is still required.")
+            else:
+                st.warning(
+                    f"Full-process Auto-Pass unavailable: {process_report['fail_count']} FAIL and "
+                    f"{process_report['review_count']} REVIEW gates. No threshold, test result, or "
+                    "evidence status was changed."
+                )
+                with st.expander("See blockers and actions", expanded=process_clicked):
+                    st.dataframe(process_report["blockers"], hide_index=True, width="stretch")
+                    st.caption(
+                        "A redesigned timing rule needs a new, genuinely out-of-sample test. "
+                        "Changing the mandate or retuning the existing holdout cannot create that evidence."
+                    )
+        else:
+            st.info("The gate inputs changed since the full-process check. Click it again for a current audit.")
+    if numerical_clicked:
+        try:
+            auto_result = best_numerical_mix(
+                assets=assets, expected_returns=edited_expected, covariance=current_covariance,
+                reserve_eligible=reserve_flags, overlap_groups=overlap_groups,
+                correlation=current_correlation, monthly_returns=current_monthly_returns,
+                reserve_floor=reserve_minimum, ticker_cap=max_ticker_weight,
+                bitcoin_cap=max_bitcoin_weight, bucket_cap=max_overlap_weight,
+                pair_cap=max_pairwise_overlap_weight,
+                correlation_threshold=overlap_correlation_threshold,
+                drawdown_tolerance=max_drawdown, allow_shorting=allow_shorting,
+                short_allowance=max_short_weight if allow_shorting else 0.0,
+                gross_cap=max_gross_exposure if allow_shorting else 1.0,
+                step=allocation_step,
+            )
+        except ValueError as error:
+            st.warning(f"Auto-Pass cannot run: {error}")
+        else:
+            if auto_result is None:
+                st.warning(
+                    "No allocation passes the reserve and risk controls for these selected funds. "
+                    "Auto-Pass will not silently remove the reserve or raise a risk cap."
+                )
+            else:
+                target = usable_return_target(objective, float(auto_result["expected_return"]))
+                if target < -0.25:
+                    st.warning("The compatible return target is below the control's -25% lower bound.")
+                else:
+                    st.session_state["auto_pass_pending"] = {
+                        "universe_key": universe_key,
+                        "target_pct": round(target * 100, 1),
+                        "weight_pct": {
+                            asset: round(weight * 100, 1)
+                            for asset, weight in zip(assets, auto_result["weights"])
+                        },
+                        "previous_target_pct": round(objective * 100, 1),
+                        "previous_weight_pct": {
+                            asset: float(st.session_state[f"mandate_weight_{universe_key}_{asset}"])
+                            for asset in assets
+                        },
+                        "old_target": objective,
+                        "expected_return": float(auto_result["expected_return"]),
+                        "volatility": float(auto_result["volatility"]),
+                        "drawdown": float(auto_result["drawdown"]),
+                        "context": auto_pass_context,
+                    }
+                    st.rerun()
+    weight_units, weight_remainder = divmod(1000, len(assets))
+    chosen_weight_points: list[float] = []
+    weight_columns = st.columns(2)
+    for index, asset in enumerate(assets):
+        default_points = (weight_units + (1 if index < weight_remainder else 0)) / 10
+        weight_key = f"mandate_weight_{universe_key}_{asset}"
+        if weight_key not in st.session_state:
+            st.session_state[weight_key] = default_points
+        chosen_weight_points.append(weight_columns[index % 2].number_input(
+            f"{asset} chosen weight (%)",
+            min_value=-10.0 if allow_shorting else 0.0,
+            max_value=100.0,
+            step=0.1,
+            format="%.1f",
+            key=weight_key,
+        ))
+    weight_total = sum(chosen_weight_points)
+    st.caption(f"Chosen weights total: {weight_total:.1f}%. Equal weights are an illustrative starting point, not a recommendation.")
+    if abs(weight_total - 100.0) > 0.01:
+        st.warning("Enter weights totaling exactly 100% to calculate mandate boundaries.")
+    else:
+        chosen_weights = tuple(point / 100 for point in chosen_weight_points)
+        boundaries = mandate_boundaries(
+            chosen_weights, assets, edited_expected, current_covariance, reserve_flags,
+            overlap_groups, current_correlation, current_monthly_returns,
+            overlap_correlation_threshold,
+        )
+        current_limits = {
+            "return_target": objective,
+            "reserve_floor": reserve_minimum,
+            "ticker_cap": max_ticker_weight,
+            "bitcoin_cap": max_bitcoin_weight,
+            "short_allowance": max_short_weight if allow_shorting else 0.0,
+            "gross_cap": max_gross_exposure if allow_shorting else 1.0,
+            "bucket_cap": max_overlap_weight,
+            "pair_cap": max_pairwise_overlap_weight,
+            "drawdown_tolerance": max_drawdown,
+        }
+        bound_specs = (
+            ("Return target", "At most", "maximum_return_target", objective),
+            ("Reserve floor", "At most", "maximum_reserve_floor", reserve_minimum),
+            ("Ticker cap", "At least", "minimum_ticker_cap", max_ticker_weight),
+            ("Bitcoin cap", "At least", "minimum_bitcoin_cap", max_bitcoin_weight),
+            ("Short allowance", "At least", "minimum_short_allowance", current_limits["short_allowance"]),
+            ("Gross exposure cap", "At least", "minimum_gross_cap", current_limits["gross_cap"]),
+            ("Broad-bucket cap", "At least", "minimum_bucket_cap", max_overlap_weight),
+            ("High-correlation pair cap", "At least", "minimum_pair_cap", max_pairwise_overlap_weight),
+            ("Drawdown tolerance", "At least", "minimum_drawdown_tolerance", max_drawdown),
+        )
+        bound_rows = []
+        for name, direction, key, current_limit in bound_specs:
+            boundary = boundaries[key]
+            passes = boundary is not None and (
+                current_limit <= boundary + 1e-12 if direction == "At most"
+                else current_limit + 1e-12 >= boundary
+            )
+            bound_rows.append({
+                "Mandate control": name,
+                "Chosen mix requires": f"{direction} {boundary:.2%}" if boundary is not None else "Observed history required",
+                "Current mandate": f"{current_limit:.2%}",
+                "Current check": "PASS" if passes else "FAIL" if boundary is not None else "REVIEW",
+            })
+        st.dataframe(bound_rows, hide_index=True, width="stretch")
+        auto_pass_active = st.session_state.get("auto_pass_active")
+        if auto_pass_active is not None:
+            auto_weights_match = all(
+                abs(point - auto_pass_active["weight_pct"].get(asset, float("nan"))) < 0.01
+                for asset, point in zip(assets, chosen_weight_points)
+            )
+            if (
+                auto_pass_active["context"] == auto_pass_context
+                and abs(objective * 100 - auto_pass_active["target_pct"]) < 0.01
+                and auto_weights_match
+            ):
+                old_target = auto_pass_active["old_target"]
+                st.success(
+                    f"Auto-Pass applied: return target {old_target:.2%} → {objective:.2%}; "
+                    f"selected weights yield {auto_pass_active['expected_return']:.2%} scenario return. "
+                    "Reserve and risk controls were kept."
+                )
+                st.caption(
+                    f"Optimization: highest scenario return on the {allocation_step:.0%} weight grid, "
+                    f"then lowest volatility among ties. Estimated volatility "
+                    f"{auto_pass_active['volatility']:.2%}; historical price drawdown "
+                    f"{auto_pass_active['drawdown']:.2%}. Selected funds may receive zero weight. "
+                    "This is a scenario screen, not an investable forecast."
+                )
+                if st.button("Restore inputs before Auto-Pass"):
+                    st.session_state["auto_pass_pending"] = {
+                        **auto_pass_active, "action": "restore"
+                    }
+                    st.rerun()
+            else:
+                st.info("The current inputs differ from the last Auto-Pass run. Run it again to refresh the proposal.")
+        st.caption(
+            f"Binding broad bucket: {boundaries['binding_bucket']}. "
+            f"Binding correlated pair: {boundaries['binding_pair']}. "
+            "The drawdown screen uses price-only closes; cash distributions are excluded."
+        )
+        fixed_allocation_pass = numerical_mandate_pass(boundaries, current_limits)
+        process_checks = [row for row in gate_rows if row["Gate"] in {
+            "Return data quality",
+            "Reserve eligibility", "Liquidity", "Issuer concentration", "Derivative governance",
+            "Annual turnover", "Frozen holdout",
+        }]
+        process_failures = [row["Gate"] for row in process_checks if row["Result"] == "FAIL"]
+        process_reviews = [row["Gate"] for row in process_checks if row["Result"] == "REVIEW"]
+        st.metric("Chosen mix / numerical mandate", "PASS" if fixed_allocation_pass else "FAIL")
+        if process_failures or process_reviews:
+            st.warning(
+                "Both gates: NO. No change to the numerical mandate can clear the current process "
+                f"evidence. Failed: {', '.join(process_failures) or 'none'}. "
+                f"Review: {', '.join(process_reviews) or 'none'}."
+            )
+        elif fixed_allocation_pass:
+            st.success("Both displayed gates pass for this fixed mix, subject to committee review of assumptions and source quality.")
+        else:
+            st.warning("The process checks pass, but the chosen mix misses at least one current numerical mandate limit.")
+
+
+with st.container(border=True):
     st.markdown('<div class="p2-section-label">03 / Decision evidence</div>', unsafe_allow_html=True)
     st.header("Why the committee call holds")
     st.caption(
@@ -671,16 +1002,17 @@ with st.container(border=True):
     )
     st.caption("A hard failure means reject/redesign; a review item means the evidence is incomplete.")
     st.caption(
-        "Allocation PASS means the selected weights satisfy the displayed return, reserve, ticker, "
+        "Allocation PASS means the selected weights satisfy the displayed return, reserve, bitcoin, ticker, "
         "exposure, overlap, and drawdown controls. The full process gate also requires the frozen "
         "signal, turnover, liquidity, issuer, reserve, derivative, and holdout evidence."
     )
     st.dataframe(gate_rows, hide_index=True, width="stretch")
     st.info(
-        "[TLT](https://www.ishares.com/us/products/239454/ishares-20-plus-year-treasury-bond-etf) holds long-duration U.S. Treasury bonds. It is highly credit quality, but its price can "
-        f"fall when interest rates rise. Treating TLT as the ${portfolio_value_millions * reserve_minimum:.2f} million reserve is a provisional proxy, not a "
-        "cash-equivalent calculation. A short Treasury-bill fund such as [SGOV](https://www.ishares.com/us/products/314116/ishares-03-month-treasury-bond-etf) "
-        "would be a cleaner reserve candidate. SGOV is available as a modeled candidate unless it is included in an uploaded price file."
+        "[SGOV](https://www.ishares.com/us/products/314116/ishares-03-month-treasury-bond-etf) holds "
+        "0–3 month Treasury bills and is the only working reserve candidate. "
+        "[TLT](https://www.ishares.com/us/products/239454/ishares-20-plus-year-treasury-bond-etf) "
+        "is optional long-duration Treasury exposure and never counts toward the reserve floor. "
+        "The committee still needs to approve the final reserve and liquidity policy."
     )
     st.info(
         f"Exposure disclosure: {exposure_policy}. Derivative disclosure: {derivative_policy}. "
@@ -820,7 +1152,7 @@ with st.container(border=True):
     st.markdown('<div class="p2-section-label">06 / Alternatives</div>', unsafe_allow_html=True)
     st.header("Ten starting themes")
     st.caption(
-        "This audit runs the same allocation controls across all ten starting themes using the source estimates, before manual return edits. "
+        "This audit runs the same allocation controls across all ten starting themes using the stated scenario returns, before manual return edits. "
         f"The full process gate remains **{gate_decision}** until its evidence checks pass."
     )
     if classroom_inputs:
@@ -842,6 +1174,7 @@ with st.container(border=True):
             max_short_weight,
             max_gross_exposure,
             allocation_step,
+            max_bitcoin_weight,
         )
         theme_display = []
         for row in theme_audit:
@@ -892,11 +1225,12 @@ with st.container(border=True):
 
 with st.container(border=True):
     st.markdown('<div class="p2-section-label">07 / Risk profiles</div>', unsafe_allow_html=True)
-    st.header("Five efficient risk levels")
+    st.header("Risk levels when feasible")
     universe_notes = {
-        "TLT": "TLT holds long-duration U.S. Treasuries, so it can move sharply when interest-rate expectations change; it is not a cash substitute.",
-        "SOXX": "SOXX concentrates on semiconductor companies, adding sector and technology-cycle risk beyond a broad stock-market fund.",
-        "GBTC": "GBTC provides spot-Bitcoin exposure and can be highly volatile; its presence in the universe does not require the optimizer to hold it.",
+        "TLT": "TLT holds long-duration U.S. Treasuries, so it can move sharply when rates change; it is not a cash substitute.",
+        "VOO": "VOO and VTI substantially overlap. The pairwise screen is a correlation proxy, not holdings-level look-through.",
+        "FBTC": "FBTC is a spot-bitcoin ETP, not a diversified equity ETF. The working mandate caps it at 10%.",
+        "VNQ": "VNQ adds listed real estate but also overlaps broad U.S. equity ownership.",
     }
     relevant_notes = [note for asset, note in universe_notes.items() if asset in assets]
     if relevant_notes:

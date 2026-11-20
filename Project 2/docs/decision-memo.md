@@ -1,111 +1,90 @@
-AI announcement: I used OpenAI Codex to help write and organize the Project 2 application, calculations, tests, and documentation. I independently review the evidence, checks, and recommendation; the analysis and decision remain mine.
+AI announcement: I used OpenAI Codex to help build and document this Project 2 app. I must independently review the inputs, checks, and committee decision; those judgments are mine.
 
-Education, not investment advice: This is a FIN 43900 course project and learning demonstration, not investment advice.
+Education, not investment advice: This is a FIN 43900 learning demonstration, not investment advice.
 
 # Project 2 Decision Memo - Working Draft
 
 ## Decision and committee ask
 
-**Final working recommendation: reject/redesign.** Do not adopt or fund a live pilot until the
-reserve definition, mandate controls, costs, point-in-time signal checks, drawdown, turnover, and
-holdout evidence pass. Do not treat TLT as a cash equivalent or the current classroom signal as a
-verified investment process.
+**Reject adoption and redesign.** The current 9% return objective and 10% FBTC concentration
+cap produce no feasible allocation under the illustrated return assumptions. More fundamentally,
+the separate frozen timing process fails its 25% annual turnover limit and net holdout benchmark.
+Do not fund a live pilot by relaxing the mandate until it fits the chosen funds.
 
-The committee should approve the process only if:
+## Portfolio and intended user
 
-1. the chosen portfolio satisfies every hard mandate constraint;
-2. the reserve asset is genuinely eligible and liquid for the required horizon;
-3. the frozen signal survives the untouched holdout after costs; and
-4. the changed-input stress does not materially reverse the decision without a documented response.
+The user is a portfolio analyst advising an investment committee. The proposed ten-fund
+universe is VOO and VTI (U.S. equity core), VNQ (listed real estate), VWO (emerging markets),
+FBTC (spot-bitcoin ETP), FBND (core bonds), FIVA (non-U.S. value), SGOV (short Treasury
+reserve), TLT (optional long-duration Treasury), and TIP (inflation-protected bonds).
+VOO and VTI overlap substantially; FBTC is a concentrated single-asset exposure. TLT is
+never treated as cash. The app initially selects all ten funds; TLT and TIP can be removed
+or receive zero weight in a proposed allocation.
 
-## Intended user and decision
+The working proposal has a five-year horizon, quarterly review, annual core rebalance, a 9%
+scenario return target, 1% reserve floor, 30% price-drawdown review trigger, 75% liquidity
+within 10 business days, 25% annual one-way turnover limit, 40% general ticker cap, 10%
+FBTC cap, 60% broad-exposure cap, and a 70% combined cap on highly correlated pairs.
+Bounded shorting is limited to 10% per ticker and 110% gross exposure. Derivative hedges
+require a separate contract-level review. These are analyst-proposed controls, not a
+committee-approved mandate.
 
-The intended user is a portfolio or quantitative analyst advising an investment committee. The
-system compares transparent allocation baselines with a constrained portfolio process and reports
-an action range with monitoring triggers. The committee decision is whether to pilot, adopt,
-rebalance, or reject the process under the final mandate.
+## Evidence and the new mandate question
 
-## Evidence and as-of boundary
+The frozen [price panel](../data/prices-source.md) has 33 common month-end Nasdaq closes from
+January 2024 through September 2026. It excludes cash distributions. The app uses it for
+price volatility, correlation, and drawdown screens. Its annual return inputs are explicitly
+illustrative and editable; the 9% hurdle is **not** verified by historical total returns.
+The short sample, especially for FBTC, cannot establish a five-year forecast. The bundled
+data-quality gate remains REVIEW until total-return history and return assumptions are checked.
 
-The current bundled universe contains six funds with monthly adjusted-close observations from
-October 2021 through September 2026. The app keeps those six as the default, offers 3-10 fund
-scenarios, and provides ten six-fund starting themes. SGOV, BND, VOO, and TIP are modeled
-candidates unless the user uploads a price file or selects Yahoo Finance live mode. The working
-mandate uses:
+The mandate finder takes a chosen fund mix and exact weights. It reports the maximum return
+target and reserve floor that mix supports, and the minimum concentration, overlap, leverage,
+shorting, and drawdown allowances it requires. For the initial equal-weight ten-fund mix,
+the return boundary is 6.45%, below the 9% working target, while FBTC is exactly 10%.
+The chosen mix therefore fails the current numerical mandate on the return target. These are **compatibility
+boundaries**, not recommendations to weaken policy. At a 7.5% target, the constrained search
+can produce a numerical allocation PASS in a sensitivity run; the frozen process decision
+still rejects/redesigns. The current 9% target remains the working base.
 
-| Control | Working value |
-|---|---:|
-| Investment horizon / review / core rebalance | Five years / quarterly / annually |
-| Estimated annual return target | 9% before trading costs |
-| Reserve floor | 1% of assets, or $1 million on a $100 million portfolio |
-| Drawdown review trigger | 30%; review or pause, not automatic liquidation |
-| Liquidity floor | 75% within 10 business days |
-| Annual one-way turnover limit | 25% |
-| Maximum ticker weight | 40% |
-| Maximum broad-exposure overlap | 60% |
-| Maximum high-correlation pair weight | 70% when estimated correlation is at least 70% |
+The Auto-Pass control uses the selected funds and the same reserve, concentration, exposure,
+overlap, and drawdown limits. On the current 10% grid it finds a 7.75% scenario-return mix
+(VOO 40%, VTI 20%, FBTC 10%, FIVA 20%, SGOV 10%) and lowers the displayed target to 7.7%.
+That makes the numerical allocation pass without loosening risk controls. It is a
+scenario sensitivity, not a recommendation to replace the 9% working mandate; the full
+process still fails.
+The full-process pass check lists each remaining FAIL or REVIEW with the required evidence.
+It cannot create a new untouched holdout, verified total-return history, or committee
+approval by changing a control in the app.
 
-These are historical model estimates, not forecasts. The process minimizes volatility subject to
-the 9% estimated-return target. TLT is provisionally reserve eligible for this model, but iShares reports that TLT
-holds 20-plus-year Treasury exposure with effective duration around 15 years, which makes it
-liquid but materially sensitive to interest-rate changes. A short Treasury bill fund such as SGOV
-is a cleaner reserve candidate; TLT should not be treated as cash without qualification. SGOV is
-available in the app and receives the preferred reserve classification when selected, but it needs
-an observed price file before its historical risk evidence is complete.
+The classroom equity-versus-bills signal is separate from the selected ETF mix. Its
+development net result is 6.13%, but its untouched holdout is -6.09% net versus -2.09%
+buy-and-hold. Four development switches represent 400% one-way turnover against the
+working 25% limit. The holdout and turnover failures cannot be cured by choosing a
+mandate that admits a particular fund mix.
 
-The table is this Project 2 proposal, separate from the Lab 13 Meridian teaching mandate. The
-committee must approve the working controls before implementation.
+## Action range and reversal conditions
 
-The classroom signal test is a separately evaluated equity-versus-bills timing component, not a realized
-return for the selected ETF allocation. Its development net return was 6.13% versus 5.33% for buy-and-hold; its untouched
-holdout net return was -6.09% versus -2.09% for buy-and-hold. That result triggers the frozen
-failure rule and supports caution rather than adoption.
+Current action: reject adoption, preserve the 9% base and frozen signal, and authorize a
+redesign. A revised proposal could be considered only after:
 
-## Mandate, assumptions, and sensitivity
+1. the committee approves the mandate and return assumptions using verified total-return
+   history, with SGOV reserve and issuer/liquidity evidence;
+2. a revised portfolio passes the numerical constraints without an undisclosed exception;
+3. any proposed timing rule is frozen before a fresh holdout and meets the after-cost
+   benchmark and turnover limit; and
+4. derivative, holdings overlap, and issuer risk receive the necessary look-through.
 
-This is a committee research tool for a moderately risky/risky portfolio discussion, not an
-individual suitability assessment. The working policy proposes a five-year horizon, quarterly
-committee review, and annual core-portfolio rebalance. The current model estimates from monthly
-prices and tests a 30% historical drawdown review trigger; it does not simulate the proposed
-multi-year implementation schedule. The separate monthly equity-versus-bills timing component
-would require an explicit policy exception and fails its turnover and holdout gates as tested.
-
-The working mandate permits bounded shorting up to 10% per ticker and gross exposure up to 110%.
-The portfolio remains ETF-based and long-biased, with no unrestricted leverage. Derivatives are
-permitted for hedging only, but the app does not price derivative contracts or model margin, Greeks,
-financing spreads, or counterparty exposure; any derivative implementation requires a separate
-contract-level risk review. The 8% issuer-concentration rule remains a holdings-level requirement,
-not a ticker-weight shortcut. The app's 60% gross broad-bucket overlap test and 70% high-correlation pair
-test are screening proxies; neither replaces holdings-level look-through.
-
-The most consequential sensitivities are the reserve classification, historical drawdown, signal
-turnover, and holdout result. TLT can satisfy the mathematical reserve floor in the working model,
-but its reserve status remains a review item because its duration creates price risk.
-
-The app also audits ten six-fund starting themes. Under the bundled source estimates, one of ten
-starting themes produces an allocation-feasible mix. That does not change the overall pilot/reject
-call because the process-level holdout, turnover, liquidity, issuer, and point-in-time checks still apply.
-This separation of allocation feasibility from evidence for adopting a process is the workbench's
-main decision feature.
-
-## Risks, failure conditions, and monitoring
-
-| Risk or failure condition | Monitor | Reversal trigger |
-|---|---|---|
-| Reserve asset is not eligible or liquid | Quarterly reserve coverage and liquidity evidence | Pause the pilot if the hard reserve rule fails |
-| Signal uses unavailable or revised information | Publication/availability dates and revision funnel | Reject or redesign if point-in-time evidence fails |
-| Holdout underperforms after costs | Gross and net holdout versus the naive benchmark | Stop if the frozen failure rule triggers |
-| Allocation moves materially under changed inputs | Objective, lag, cost, and constraint stress | Reopen the mandate if the action range reverses |
-| Turnover or concentration exceeds the mandate | Annual turnover and issuer-level weights | Reject implementation until the breach is resolved |
-
-## Committee action requested
-
-The selected allocation passes the displayed mandate controls, but reject adoption and return the process for redesign now. Reverse that decision only after the final
-mandate, integrated app, observed reserve evidence, point-in-time signal, cost and turnover
-checks, changed-input evidence, and derivative-risk disclosure are complete.
+Monitor the return and FBTC caps, reserve coverage, broad and pairwise overlap, price
+drawdown, trading cost, turnover, and gross/net holdout result. A failed hard rule keeps
+the recommendation at reject/redesign. A REVIEW item blocks adoption until its evidence
+is supplied.
 
 ## Open items before freezing
 
-- Luke confirmed Peyton's remaining partner tasks are complete. The supplied note documents the first Windows setup failure and assisted continuation, but no separate post-fix rerun log was supplied.
-- Record the three videos, correct their transcripts, and add the final evidence timestamps.
-- Reconcile this memo to the final visible output, validation record, and frozen repository commit.
+- Luke must author and precommit a new AI-off changed-input prediction before its run.
+- Peyton's November 17 cold run is retained as historical partner evidence for the earlier
+  six-fund version. Luke will inspect this revised app and mandate finder himself; no new
+  partner cold run is available, so it is not claimed for this version.
+- Re-record the three videos against the final app, correct transcripts, and add actual
+  links and timestamps to the manifest.

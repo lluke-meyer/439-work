@@ -1,6 +1,7 @@
 # Project 2 Submission Manifest
 
-Status: ready for recording; complete the external video fields after recording.
+Status: ten-fund revision in progress; complete the new Locked Changed-Input Record and
+Luke's on-screen app review before re-recording. Replace video fields after the revised recordings.
 
 ## Repository
 
@@ -34,8 +35,12 @@ Status: ready for recording; complete the external video fields after recording.
 - [docs/validation-and-ai-use.md](https://github.com/lluke-meyer/439-work/blob/main/Project%202/docs/validation-and-ai-use.md) - validation record, final decision, and changed-input record.
 - [docs/signal-data-card.md](https://github.com/lluke-meyer/439-work/blob/main/Project%202/docs/signal-data-card.md) - point-in-time timing rule and selection ledger.
 - [app.py](https://github.com/lluke-meyer/439-work/blob/main/Project%202/app.py) - committee-use flow, live/bundled data source, themes, bounded exposure controls,
-  overlap audit, baselines, gate, and holdout.
+  overlap audit, baselines, inverse mandate finder, gate, and holdout.
 - [portfolio.py](https://github.com/lluke-meyer/439-work/blob/main/Project%202/portfolio.py) - estimates, bounded net allocations, gross exposure, overlap, and theme audit.
+- [mandate_finder.py](https://github.com/lluke-meyer/439-work/blob/main/Project%202/mandate_finder.py) - fixed-mix mandate boundaries.
+- [auto_pass.py](https://github.com/lluke-meyer/439-work/blob/main/Project%202/auto_pass.py) - selected-fund numerical Auto-Pass search with unchanged risk limits.
+- [process_audit.py](https://github.com/lluke-meyer/439-work/blob/main/Project%202/process_audit.py) - one-click full-process blocker and evidence report.
+- [data/prices-source.md](https://github.com/lluke-meyer/439-work/blob/main/Project%202/data/prices-source.md) - ten-fund price provenance and distribution limitation.
 - [market_data.py](https://github.com/lluke-meyer/439-work/blob/main/Project%202/market_data.py) - cached public Yahoo Finance monthly adapter and fallback boundary.
 - [backtest.py](https://github.com/lluke-meyer/439-work/blob/main/Project%202/backtest.py) - frozen lagged signal, cost, development, holdout, and leakage diagnostic.
 - [outputs/visible-output.txt](https://github.com/lluke-meyer/439-work/blob/main/Project%202/outputs/visible-output.txt) - readable bundled-data result snapshot.
@@ -44,8 +49,10 @@ Status: ready for recording; complete the external video fields after recording.
 
 ## Final freeze checklist
 
-- [x] Partner handoff completed per Luke's November 17 confirmation; the separate post-fix rerun details were not supplied.
-- [ ] The November 15 AI-off prediction and actual result are documented, but no pre-run GitHub commit is evidenced. A new precommitted test would be needed to meet the full Locked Changed-Input Record requirement; the current limitation is disclosed.
+- [x] Prior-version partner handoff completed per Luke's November 17 confirmation; the separate post-fix rerun details were not supplied.
+- [x] Retain Peyton's prior-version partner cold run with its scope disclosed; no new partner run claimed.
+- [ ] Luke checks the revised ten-fund app and mandate finder on screen.
+- [ ] Luke must write and precommit a fresh AI-off prediction before running its changed input; the November 15 historical test lacks a pre-run commit.
 - [ ] Record the three videos within the course time limits.
 - [ ] Correct captions/transcripts and save the final transcript files.
 - [ ] Add video URLs, durations, and timestamped evidence moments above.

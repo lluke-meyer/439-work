@@ -28,6 +28,7 @@ OBJECTIVE_RETURN = 0.09
 RESERVE_ELIGIBLE = (True, True, False, False)
 RESERVE_MINIMUM = 0.01
 MAX_TICKER_WEIGHT = 0.40
+MAX_BITCOIN_WEIGHT = 0.10
 MAX_SHORT_WEIGHT = 0.10
 MAX_GROSS_EXPOSURE = 1.10
 MAX_OVERLAP_WEIGHT = 0.60
@@ -41,64 +42,59 @@ CLASSROOM_OBJECTIVE_RETURN = 0.065
 CLASSROOM_RESERVE_MINIMUM = 0.03
 
 OVERLAP_GROUPS = {
-    "TLT": "Long Treasury",
-    "SOXX": "U.S. equity beta",
-    "VTI": "U.S. equity beta",
-    "VXUS": "International equity beta",
-    "FREL": "U.S. equity beta",
-    "GBTC": "Digital asset beta",
+    "VOO": "U.S. equity beta", "VTI": "U.S. equity beta",
+    "VNQ": "Real estate equity", "VWO": "Emerging-markets equity",
+    "FBTC": "Digital asset beta", "FBND": "Investment-grade bonds",
+    "FIVA": "International value", "SGOV": "Treasury/cash",
+    "TLT": "Long Treasury", "TIP": "Inflation-protected bonds",
     "Treasury bills": "Treasury/cash",
     "Treasury 10-year note": "Long Treasury",
     "Investment-grade bond fund": "Investment-grade bonds",
     "Global equity index fund": "International equity beta",
-    "SGOV": "Treasury/cash",
-    "BND": "Investment-grade bonds",
-    "VOO": "U.S. equity beta",
-    "TIP": "Inflation-protected bonds",
 }
 
-OPTIONAL_ASSETS = ("SGOV", "BND", "VOO", "TIP")
-MODELED_ASSET_EXPECTED_RETURNS = {"SGOV": 0.035, "BND": 0.045, "VOO": 0.085, "TIP": 0.040}
-MODELED_ASSET_VOLATILITIES = {"SGOV": 0.005, "BND": 0.060, "VOO": 0.160, "TIP": 0.070}
-MODELED_ASSET_CORRELATIONS = {
-    "SGOV": {"TLT": 0.10, "SOXX": 0.00, "VTI": 0.00, "VXUS": 0.00, "FREL": 0.00, "GBTC": 0.00, "BND": 0.10, "VOO": 0.00, "TIP": 0.10},
-    "BND": {"TLT": 0.80, "SOXX": 0.15, "VTI": 0.20, "VXUS": 0.15, "FREL": 0.20, "GBTC": 0.00, "VOO": 0.20, "TIP": 0.70},
-    "VOO": {"TLT": -0.10, "SOXX": 0.85, "VTI": 0.95, "VXUS": 0.75, "FREL": 0.80, "GBTC": 0.20, "BND": 0.20, "TIP": 0.30},
-    "TIP": {"TLT": 0.40, "SOXX": 0.10, "VTI": 0.20, "VXUS": 0.25, "FREL": 0.20, "GBTC": 0.05},
+FUND_UNIVERSE = ("VOO", "VTI", "VNQ", "VWO", "FBTC", "FBND", "FIVA", "SGOV", "TLT", "TIP")
+OPTIONAL_ASSETS: tuple[str, ...] = ()
+# Explicit scenario inputs; Nasdaq Close/Last excludes fund distributions.
+SCENARIO_EXPECTED_RETURNS = {
+    "VOO": 0.08, "VTI": 0.08, "VNQ": 0.06, "VWO": 0.07, "FBTC": 0.12,
+    "FBND": 0.045, "FIVA": 0.07, "SGOV": 0.035, "TLT": 0.045, "TIP": 0.04,
 }
 OVERLAP_NOTES = {
-    "Treasury/cash": "Short Treasury or cash-like reserve exposure",
-    "Long Treasury": "Long-duration Treasury exposure; not a cash proxy",
-    "Investment-grade bonds": "Broad investment-grade fixed income",
-    "U.S. equity beta": "U.S. stock-market exposure that can overlap across funds",
-    "International equity beta": "Non-U.S. equity exposure",
-    "Digital asset beta": "Digital-asset price exposure",
-    "Inflation-protected bonds": "Treasury inflation-protected securities exposure",
+    "Treasury/cash": "Short Treasury exposure; the reserve candidate",
+    "Long Treasury": "Long-duration Treasury exposure; not a cash reserve",
+    "Investment-grade bonds": "Core bond exposure",
+    "U.S. equity beta": "VOO and VTI substantially overlap",
+    "International value": "Non-U.S. value tilt; check holdings overlap",
+    "Emerging-markets equity": "Emerging-market equity exposure",
+    "Real estate equity": "Listed real estate; may overlap broad U.S. equity funds",
+    "Digital asset beta": "Single-asset bitcoin price exposure",
+    "Inflation-protected bonds": "Treasury inflation-protected securities",
 }
 
 THEME_PORTFOLIOS = {
-    "Balanced core": ("VTI", "VXUS", "BND", "SGOV", "TLT", "FREL"),
-    "Defense-oriented": ("SGOV", "TLT", "TIP", "BND", "VXUS", "FREL"),
-    "Bull-market growth": ("VTI", "VOO", "SOXX", "VXUS", "FREL", "GBTC"),
-    "Bear-market defense": ("SGOV", "TLT", "TIP", "BND", "VXUS", "VTI"),
-    "Inflation hedge": ("TIP", "FREL", "VTI", "VXUS", "SGOV", "BND"),
-    "Income and reserve": ("SGOV", "BND", "TLT", "VTI", "VXUS", "FREL"),
-    "Technology tilt": ("SOXX", "VTI", "VOO", "VXUS", "FREL", "GBTC"),
-    "Global diversification": ("VTI", "VXUS", "VOO", "BND", "SGOV", "TIP"),
-    "Real-assets tilt": ("FREL", "TIP", "TLT", "VTI", "VXUS", "SGOV"),
-    "Lower-volatility committee": ("SGOV", "BND", "TIP", "VTI", "VXUS", "FREL"),
+    "Core with reserve": ("VOO", "VTI", "VNQ", "VWO", "FBND", "SGOV"),
+    "Fidelity blend": ("VTI", "VNQ", "FBTC", "FBND", "FIVA", "SGOV"),
+    "Global value": ("VOO", "VWO", "FIVA", "FBND", "SGOV", "TIP"),
+    "Real assets": ("VTI", "VNQ", "VWO", "FBTC", "SGOV", "TIP"),
+    "Digital sleeve": ("VOO", "VTI", "FBTC", "FIVA", "FBND", "SGOV"),
+    "Bond defense": ("VTI", "VNQ", "FBND", "SGOV", "TLT", "TIP"),
+    "Treasury barbell": ("VOO", "VWO", "FBND", "SGOV", "TLT", "TIP"),
+    "International tilt": ("VTI", "VWO", "FIVA", "FBND", "SGOV", "TIP"),
+    "Equity conviction": ("VOO", "VTI", "VNQ", "VWO", "FBTC", "FIVA"),
+    "Inflation watch": ("VTI", "VNQ", "VWO", "FBND", "SGOV", "TIP"),
 }
 THEME_DESCRIPTIONS = {
-    "Balanced core": "Broad U.S. and international equities with fixed income and reserve sleeves.",
-    "Defense-oriented": "Emphasizes reserve, Treasury, inflation-protected, and bond exposure.",
-    "Bull-market growth": "Leans into U.S. growth, semiconductors, and digital assets.",
-    "Bear-market defense": "Starts with defensive sleeves while retaining diversified equity exposure.",
-    "Inflation hedge": "Adds TIPS and real-estate exposure alongside diversified equities.",
-    "Income and reserve": "Prioritizes Treasury, bond, and reserve sleeves with diversified equities.",
-    "Technology tilt": "Concentrates more of the starting universe in technology and U.S. equity beta.",
-    "Global diversification": "Spreads the starting set across U.S., international, bonds, reserve, and TIPS.",
-    "Real-assets tilt": "Uses real estate and inflation-protected bonds as the distinctive sleeves.",
-    "Lower-volatility committee": "A more conservative starting set for a committee focused on stability.",
+    "Core with reserve": "U.S. core, real estate, emerging markets, bonds, and bills.",
+    "Fidelity blend": "Both selected Fidelity funds, bitcoin, and a short Treasury reserve.",
+    "Global value": "Non-U.S. value and emerging markets beside bonds and TIPS.",
+    "Real assets": "Real estate, bitcoin, and inflation protection with a bill reserve.",
+    "Digital sleeve": "A bitcoin sleeve inside a broad equity and bond mix.",
+    "Bond defense": "Bonds, bills, long Treasuries, and TIPS beside equities.",
+    "Treasury barbell": "Short and long Treasury exposure with global equities.",
+    "International tilt": "Emerging and non-U.S. value exposures together.",
+    "Equity conviction": "Equity-heavy without an eligible reserve; it should fail that rule.",
+    "Inflation watch": "Real estate and TIPS with bonds and bills.",
 }
 
 
@@ -222,7 +218,7 @@ def overlap_groups_for_assets(assets: Iterable[str]) -> tuple[str, ...]:
 
 
 def available_assets(observed_assets: Iterable[str]) -> tuple[str, ...]:
-    """Return observed assets followed by optional, explicitly modeled candidates."""
+    """Return the observed fund universe without fabricated price candidates."""
     return tuple(dict.fromkeys((*tuple(observed_assets), *OPTIONAL_ASSETS)))
 
 
@@ -270,32 +266,22 @@ def pairwise_overlap_rows(
 
 
 def extend_estimate_with_candidates(estimate: dict[str, object]) -> dict[str, object]:
-    """Add transparent modeled candidates without labeling them as observed price history."""
+    """Preserve the observed universe; no unobserved funds are modeled in Project 2."""
     observed = tuple(str(asset) for asset in estimate["assets"])
     assets = available_assets(observed)
     expected_by_asset = dict(zip(observed, estimate["expected_returns"]))
     volatility_by_asset = dict(zip(observed, estimate["volatilities"]))
     observed_correlation = tuple(tuple(row) for row in estimate["correlations"])
     observed_index = {asset: index for index, asset in enumerate(observed)}
-    expected = tuple(
-        float(expected_by_asset[asset] if asset in expected_by_asset else MODELED_ASSET_EXPECTED_RETURNS[asset])
-        for asset in assets
-    )
-    volatility = tuple(
-        float(volatility_by_asset[asset] if asset in volatility_by_asset else MODELED_ASSET_VOLATILITIES[asset])
-        for asset in assets
-    )
+    expected = tuple(float(expected_by_asset[asset]) for asset in assets)
+    volatility = tuple(float(volatility_by_asset[asset]) for asset in assets)
 
     def correlation_for(left: str, right: str) -> float:
         if left in observed_index and right in observed_index:
             return float(observed_correlation[observed_index[left]][observed_index[right]])
         if left == right:
             return 1.0
-        return float(
-            MODELED_ASSET_CORRELATIONS.get(left, {}).get(
-                right, MODELED_ASSET_CORRELATIONS.get(right, {}).get(left, 0.10)
-            )
-        )
+        raise ValueError(f"No observed correlation for {left} / {right}")
 
     correlation = tuple(
         tuple(correlation_for(left, right) for right in assets)
@@ -413,6 +399,7 @@ def search_lowest_risk_mix(
     allow_shorting: bool = False,
     max_short_weight: float = MAX_SHORT_WEIGHT,
     max_gross_exposure: float = MAX_GROSS_EXPOSURE,
+    asset_caps: Iterable[float] | None = None,
 ) -> dict[str, object] | None:
     """Search bounded net allocations and return the lowest-volatility feasible mix."""
     expected = tuple(float(value) for value in expected_returns)
@@ -443,6 +430,9 @@ def search_lowest_risk_mix(
     if not 1.0 <= max_gross_exposure <= 3.0:
         raise ValueError("Maximum gross exposure must be between 100% and 300%")
     effective_max_asset_weight = max_asset_weight if max_asset_weight is not None else 1.0
+    caps = tuple(float(value) for value in asset_caps) if asset_caps is not None else (1.0,) * len(expected)
+    if len(caps) != len(expected) or any(not 0 <= cap <= 1 for cap in caps):
+        raise ValueError("Per-asset caps must align with the fund universe and be in [0, 1]")
 
     total_units = round(1.0 / step)
     best: dict[str, object] | None = None
@@ -457,6 +447,8 @@ def search_lowest_risk_mix(
         if result["reserve_weight"] + 1e-12 < reserve_minimum:
             continue
         if max_asset_weight is not None and max(weights) > max_asset_weight + 1e-12:
+            continue
+        if any(weight > cap + 1e-12 for weight, cap in zip(weights, caps)):
             continue
         if allow_shorting and min(weights) < -max_short_weight - 1e-12:
             continue
@@ -492,6 +484,7 @@ def risk_level_portfolios(
     allow_shorting: bool = False,
     max_short_weight: float = MAX_SHORT_WEIGHT,
     max_gross_exposure: float = MAX_GROSS_EXPOSURE,
+    asset_caps: Iterable[float] | None = None,
 ) -> tuple[dict[str, object], ...]:
     """Return increasing-risk portfolios sampled from the feasible efficient frontier."""
     expected = tuple(float(value) for value in expected_returns)
@@ -522,6 +515,9 @@ def risk_level_portfolios(
     if not 1.0 <= max_gross_exposure <= 3.0:
         raise ValueError("Maximum gross exposure must be between 100% and 300%")
     effective_max_asset_weight = max_asset_weight if max_asset_weight is not None else 1.0
+    caps = tuple(float(value) for value in asset_caps) if asset_caps is not None else (1.0,) * len(expected)
+    if len(caps) != len(expected) or any(not 0 <= cap <= 1 for cap in caps):
+        raise ValueError("Per-asset caps must align with the fund universe and be in [0, 1]")
     if levels <= 0:
         raise ValueError("Levels must be positive")
 
@@ -538,6 +534,8 @@ def risk_level_portfolios(
         if result["reserve_weight"] + 1e-12 < reserve_minimum:
             continue
         if max_asset_weight is not None and max(weights) > max_asset_weight + 1e-12:
+            continue
+        if any(weight > cap + 1e-12 for weight, cap in zip(weights, caps)):
             continue
         if allow_shorting and min(weights) < -max_short_weight - 1e-12:
             continue
@@ -589,6 +587,7 @@ def audit_theme_portfolios(
     max_short_weight: float = MAX_SHORT_WEIGHT,
     max_gross_exposure: float = MAX_GROSS_EXPOSURE,
     step: float = 0.05,
+    max_bitcoin_weight: float = MAX_BITCOIN_WEIGHT,
 ) -> tuple[dict[str, object], ...]:
     """Run the same constrained search across each named six-fund starting theme."""
     all_assets = tuple(str(asset) for asset in assets)
@@ -608,7 +607,7 @@ def audit_theme_portfolios(
         theme_correlation = tuple(
             tuple(matrix[row][column] for column in indices) for row in indices
         )
-        reserve_flags = tuple(asset in {"TLT", "SGOV"} for asset in theme)
+        reserve_flags = tuple(asset == "SGOV" for asset in theme)
         result = search_lowest_risk_mix(
             theme_expected,
             covariance_matrix(theme_volatility, theme_correlation),
@@ -624,6 +623,7 @@ def audit_theme_portfolios(
             allow_shorting=allow_shorting,
             max_short_weight=max_short_weight,
             max_gross_exposure=max_gross_exposure,
+            asset_caps=tuple(max_bitcoin_weight if asset == "FBTC" else 1.0 for asset in theme),
         )
         rows.append(
             {
@@ -662,9 +662,15 @@ def _sample_correlation(left: list[float], right: list[float]) -> float:
 
 
 def estimate_from_prices(
-    source: str | Path | TextIO | BinaryIO, last_36: bool = False
+    source: str | Path | TextIO | BinaryIO,
+    last_36: bool = False,
+    return_window: int | None = None,
 ) -> dict[str, object]:
-    """Estimate annual return, volatility and correlation from monthly adjusted-close prices."""
+    """Estimate price-change return, volatility and correlation from monthly closes."""
+    if last_36 and return_window is not None:
+        raise ValueError("Choose either last_36 or return_window, not both")
+    if return_window is not None and return_window < 2:
+        raise ValueError("Return window must contain at least two monthly returns")
     reader = csv.DictReader(io.StringIO(_read_csv_text(source)))
     if not reader.fieldnames or len(reader.fieldnames) < 2:
         raise ValueError("CSV must contain a date column followed by one or more ticker columns")
@@ -694,11 +700,12 @@ def estimate_from_prices(
         asset: [current / previous - 1.0 for previous, current in zip(values, values[1:])]
         for asset, values in prices.items()
     }
-    if last_36:
-        if len(dates) < 37:
-            raise ValueError("At least 37 prices are required for 36 monthly returns")
-        returns = {asset: values[-36:] for asset, values in returns.items()}
-        estimate_start = dates[-37]
+    selected_window = 36 if last_36 else return_window
+    if selected_window is not None:
+        if len(dates) <= selected_window:
+            raise ValueError(f"At least {selected_window + 1} prices are required for {selected_window} monthly returns")
+        returns = {asset: values[-selected_window:] for asset, values in returns.items()}
+        estimate_start = dates[-selected_window - 1]
     else:
         estimate_start = dates[0]
 

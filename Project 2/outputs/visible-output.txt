@@ -1,61 +1,80 @@
-Project 2 Portfolio Decision - visible executed output
-Run snapshot: November 15, 2026
+Project 2 Portfolio Decision - visible local output
+Run snapshot: November 19, 2026; bundled ten-fund source, no uploaded file
+
+Funds available (10): VOO, VTI, VNQ, VWO, FBTC, FBND, FIVA, SGOV, TLT, TIP
+Initially selected (10): VOO, VTI, VNQ, VWO, FBTC, FBND, FIVA, SGOV, TLT, TIP
+Price panel: 33 common month-end Nasdaq Close/Last observations, 2024-01-31 through 2026-09-30
+Price changes: 32 monthly observations; cash distributions excluded
+Expected returns: illustrative editable scenario assumptions, not historical total returns
+Source and transform: data/prices-source.md; prices.csv SHA-256
+9df2314009b913bc2968a1908c3ce52f51dda80b8123c3fa05d16b3534376316
 
 Working mandate
-Investment horizon: five years; quarterly committee review; annual core-portfolio rebalance
-Estimated annual return target: 9.00%
-Reserve floor: 1.00% of assets, or $1 million on a $100 million portfolio
-Drawdown review trigger: 30.00% review/pause threshold for the moderately risky/risky posture
+Investment horizon: five years; quarterly committee review; annual core rebalance
+Scenario annual return target: 9.00%
+Reserve floor: 1.00% of assets; only SGOV eligible; TLT is optional duration exposure
+Historical price-drawdown review trigger: 30.00%
 Liquidity floor: 75.00% within 10 business days
 Annual one-way turnover limit: 25.00%
-Maximum ticker weight: 40.00%
+Maximum general ticker weight: 40.00%; separate FBTC cap: 10.00%
 Maximum broad-exposure overlap: 60.00%
-Maximum high-correlation pair weight: 70.00% when correlation is at least 70.00%
-Exposure policy: bounded shorting up to 10% per ticker; gross exposure capped at 110%
-Derivative policy: permitted for hedging; contracts, margin, Greeks, financing, and counterparties not priced here
+Maximum high-correlation pair weight: 70.00% at correlation >= 70.00%
+Short weight <= 10% per ticker; gross exposure <= 110%
 
-Universe
-TLT, SOXX, VTI, VXUS, FREL, GBTC
-Optional modeled candidates: SGOV, BND, VOO, TIP; choose 3-10 fund slots in the app
-Ten six-fund starting themes are available, including defense, bull-market growth, and bear-market defense
-Price source: bundled CSV by default; Yahoo Finance live monthly history is available in the sidebar
-TLT reserve status: provisionally eligible; long-duration Treasury risk asset
-SGOV reserve status: preferred reserve candidate; observed price history still required for full evidence
+Default result
+Allocation mandate: NO FEASIBLE MIX under the 9% target, FBTC cap, and current scenario inputs
+Full process gate: REJECT / REDESIGN
+Return data quality: REVIEW - Close/Last excludes distributions; assumptions are unverified
+Annual turnover: FAIL - classroom timing rule shows 400% one-way development turnover
+Frozen holdout: FAIL - net result trails buy-and-hold
+Liquidity, issuer look-through, and derivative governance: REVIEW
+Ten starting six-fund themes: 0 numerical allocation passes at the 9% target
 
-Mandate-survival gate
-Return target: PASS - 9.19% estimated return
-Reserve floor: PASS - 20% TLT proxy exceeds the 1% floor
-Reserve eligibility: REVIEW - TLT is a proxy, not cash
-Maximum ticker weight: PASS - 40% cap
-Short and gross exposure: PASS - short floor -10%; gross exposure capped at 110%
-Overlap proxy: PASS - 40% maximum broad bucket
-High-correlation pair: PASS - 70% maximum combined weight at or above the 70% correlation screen
-Historical drawdown: PASS - 28.04% is below the 30% review trigger
-Liquidity: REVIEW - holdings-level evidence required
-Issuer concentration: REVIEW - holdings-level look-through required
-Derivative governance: REVIEW - hedging permitted, but contracts are not priced in this app
-Annual turnover: FAIL - frozen development rule shows 400% one-way turnover
-Frozen holdout: FAIL - holdout net trails buy-and-hold
+New mandate finder, initial equal-weight ten-fund mix (10% each)
+Chosen mix estimated scenario return: 6.45%
+Numerical allocation: FAIL at the current mandate
+Return target must be <= 6.45%; current target 9.00% FAIL
+Reserve floor must be <= 10.00%; current floor 1.00% PASS
+General ticker cap must be >= 10.00%; current cap 40.00% PASS
+FBTC cap must be >= 10.00%; current cap 10.00% PASS
+Short allowance must be >= 0.00%; current 10.00% PASS
+Gross cap must be >= 100.00%; current 110.00% PASS
+Broad-bucket cap must be >= 20.00%; current 60.00% PASS
+High-correlation pair cap must be >= 20.00%; current 70.00% PASS
+Price-drawdown tolerance must be >= 4.96%; current 30.00% PASS
+These are mathematical compatibility boundaries, not proposed mandate relaxations.
+Both gates: NO - turnover and frozen holdout FAIL; data quality and governance remain REVIEW.
 
-Allocation mandate: PASS - return, reserve floor, ticker, exposure, overlap, and drawdown controls pass
-Full process gate: REJECT / REDESIGN - turnover and holdout evidence fail; reserve, liquidity, issuer, and derivative evidence remain review items
-Final decision: REJECT / REDESIGN - no adoption or live pilot until the reversal conditions pass
+Auto-Pass numerical sensitivity, selected ten-fund universe
+Method: maximize scenario return on the 10% weight grid; minimize volatility among ties
+Reserve, ticker, FBTC, overlap, short/gross, and drawdown controls remain fixed
+Highest attainable scenario return: 7.75%
+Applied return target: 9.00% -> 7.70%
+Weights: VOO 40%, VTI 20%, VNQ 0%, VWO 0%, FBTC 10%, FBND 0%, FIVA 20%, SGOV 10%, TLT 0%, TIP 0%
+Numerical allocation: PASS; full process: REJECT / REDESIGN
+Restore 9.00% for the working mandate; this is a sensitivity, not approval.
 
-Theme allocation audit using bundled source estimates
-Allocation PASS under the bounded short/gross policy: Global diversification
-No feasible mix under allocation controls: the other nine themes
-Important: allocation PASS does not override the full-process gate.
+Full-process Auto-Pass check
+Result: unavailable under current evidence; displayed gate statuses remain unchanged
+Hard process failures: annual turnover and frozen holdout
+Open process evidence: return data quality, liquidity, issuer look-through, derivative governance
+Required action: freeze a redesigned rule before a genuinely new out-of-sample period;
+verify total-return data and return assumptions; document liquidity, issuer, and governance review
+No threshold or result is relabeled to create a pass.
 
-Frozen classroom signal holdout
-Separate equity-versus-bills timing component; these returns are not the selected ETF mix's realized performance
+Separate local sensitivity, not a Locked Changed-Input Record
+At a 7.50% return target, the constrained ten-fund search shows allocation PASS:
+VOO 40%, VTI 0%, VNQ 0%, VWO 10%, FBTC 10%, FBND 0%, FIVA 30%, SGOV 10%, TLT 0%, TIP 0%.
+Scenario return 7.55%; price-volatility estimate and drawdown are screen outputs only.
+Full process remains REJECT / REDESIGN. Restore 9.00% for the working base.
+
+Frozen classroom signal (separate equity-versus-bills timing test)
 Development: 6.55% gross, 6.13% net, 5.33% buy-and-hold, 4 switches
 Holdout: -5.52% gross, -6.09% net, -2.09% buy-and-hold, 6 switches
-Failure rule: TRIGGERED - holdout net trails buy-and-hold.
+Failure rule: TRIGGERED - holdout net trails buy-and-hold
+Zero-lag development net 17.72% is a rejected look-ahead diagnostic.
 
-Leakage falsification check
-Frozen one-month lag: 6.13% development net - retained
-Zero-lag diagnostic: 17.72% development net - rejected because it uses unavailable current-month information
-
-Next human-owned steps: record the videos, correct the transcripts,
-add the final links and commit, and upload an observed SGOV history if it is selected as the reserve.
-This is a course project and learning demonstration, not investment advice.
+Human-owned before submission: independently review the return assumptions and mandate,
+write and precommit a fresh AI-off prediction before its run, review the revised app on screen,
+and record/reconcile the videos and transcripts. This is a learning demonstration,
+not investment advice.

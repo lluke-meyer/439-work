@@ -73,7 +73,7 @@ def _fetch_monthly_series(ticker: str, lookback_years: int, timeout: int) -> dic
 def fetch_yahoo_monthly_csv(
     tickers: tuple[str, ...] | list[str], lookback_years: int = 5, timeout: int = 15
 ) -> str:
-    """Fetch a common monthly adjusted-close window and return the app's CSV shape."""
+    """Fetch monthly adjusted close when available, otherwise close, in app CSV shape."""
     symbols = tuple(dict.fromkeys(str(ticker).strip().upper() for ticker in tickers if str(ticker).strip()))
     if not symbols:
         raise MarketDataError("Choose at least one ticker before requesting live data")
@@ -83,9 +83,9 @@ def fetch_yahoo_monthly_csv(
     histories = {ticker: _fetch_monthly_series(ticker, int(lookback_years), timeout) for ticker in symbols}
     common_dates = set.intersection(*(set(history) for history in histories.values()))
     dates = sorted(common_dates)
-    if len(dates) < 37:
+    if len(dates) < 25:
         raise MarketDataError(
-            f"Only {len(dates)} common monthly observations were returned. At least 37 are needed for a 36-month view."
+            f"Only {len(dates)} common monthly observations were returned. At least 25 are needed for a 24-month price screen."
         )
 
     output = io.StringIO()

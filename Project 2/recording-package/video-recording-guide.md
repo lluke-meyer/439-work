@@ -20,6 +20,8 @@ for the final URL, duration, timestamps, and frozen repository commit after reco
    - `Project 2/docs/validation-and-ai-use.md`
    - `Project 2/app.py`
    - `Project 2/portfolio.py`
+   - `Project 2/mandate_finder.py`
+   - `Project 2/data/prices-source.md`
    - `Project 2/market_data.py`
    - `Project 2/backtest.py`
    - the running Streamlit application
@@ -37,9 +39,10 @@ and YouTube's [visibility guide](https://support.google.com/youtube/answer/15717
 current controls. Correct the YouTube captions and save a separate plain-text transcript for
 each video after upload.
 
-The November 15 changed-input prediction was written AI-off before the run, and the result is
-documented. The cited SHA does not prove a pre-run GitHub commit. Record using that accurate
-description; do not call this test precommitted or the Locked Changed-Input Record complete.
+Complete the new human-authored, AI-off changed-input prediction and commit it before its run.
+Then record the exact before/after result and update the validation record. The November 15
+test remains historical; its cited SHA does not prove a pre-run lock. Do not read Video 1's
+bracketed placeholder or call the new record complete until this step has happened.
 
 ## Video 1 - System Change and AI-Output Check
 
@@ -48,14 +51,14 @@ Target: 2:30-2:50. Hard stop: 3:00.
 | Time | Screen evidence | Purpose |
 |---|---|---|
 | 0:00-0:15 | Required opening statements | State the AI announcement and education disclaimer in your own words. |
-| 0:15-0:47 | README and decision memo | State the mandate, intended user, and current committee decision. |
-| 0:47-1:27 | Lab evidence map or validation record | Explain how the system changed from the mandate and labs into one product. |
-| 1:27-2:32 | Validation record and app stress | Show one AI-proposed test, the independent run, and whether the claim was accepted, qualified, corrected, or rejected. |
-| 2:32-end | Decision reconciliation | State what remains provisional and what evidence would reverse the call. |
+| 0:15-0:55 | Ten-fund selector and mandate finder | Explain the fund choice and what the new feature answers. |
+| 0:55-1:30 | Validation record and SGOV/TLT source links | Explain the checked AI reserve assumption and changed classification. |
+| 1:30-2:05 | Price source and data-quality gate | Explain the unadjusted-price boundary and scenario returns. |
+| 2:05-2:35 | New Locked Changed-Input Record | Give Luke's own prediction, pre-run commit, result, mechanism, and decision effect. |
+| 2:35-end | Decision hero and memo | State reject/redesign and reversal conditions. |
 
 Use `video-1-script.txt` as the spoken outline. Project 2 has no Edition A or Edition B, so focus on
-system evolution and the checked AI output. If you mention the November 15 changed-input run,
-state that the prediction was AI-off and the cited SHA was not a pre-run GitHub lock.
+system evolution and the checked AI output. Keep the old and new changed-input records distinct.
 
 ## Video 2 - Detailed Codebase Walkthrough
 
@@ -65,11 +68,11 @@ Target: 4:20-4:45. Hard stop: 5:00.
 |---|---|---|
 | 0:00-0:15 | Required opening statements | State the AI announcement and education disclaimer in your own words. |
 | 0:15-0:42 | Repository root and README | State the decision and highest-risk claim. |
-| 0:42-1:32 | Repository map, `portfolio.py`, `market_data.py`, `backtest.py` | Explain the application architecture and source boundaries. |
-| 1:32-2:37 | Portfolio search and backtest functions | Trace data through estimates, constraints, lag, costs, and holdout. |
-| 2:37-3:32 | `app.py` imports and visible panels | Show the decision-first hero, sidebar price source, theme selector and audit, and bounded mandate controls. |
-| 3:32-4:22 | Tests and visible output | Reproduce the known-answer values and show the mandate verdict/holdout panel. |
-| 4:22-end | Limitation and failure rule | Explain the reserve classification, holdout failure, or other highest-risk limitation. |
+| 0:45-1:35 | Repository map, price source and transform | Trace the new ten-fund panel and its distribution limitation. |
+| 1:35-2:25 | `portfolio.py` | Explain the return assumptions, constraints, and separate bitcoin cap. |
+| 2:25-3:20 | `mandate_finder.py`, `auto_pass.py`, and app | Explain fixed-weight boundaries and the numerical Auto-Pass search. |
+| 3:20-4:05 | `backtest.py`, process check, and app | Show the frozen rule, cost, lag, holdout, turnover, and why the full process cannot auto-pass. |
+| 4:05-end | Tests and visible output | Show local checks, the earlier partner-run boundary, and the human work still needed. |
 
 Recommended terminal command:
 
@@ -84,11 +87,11 @@ Target: 4:30-4:50. Hard stop: 5:00. Keep the running product as the main visual.
 
 | Time | Live product evidence | Purpose |
 |---|---|---|
-| 0:00-0:50 | Two required opening statements (0:00-0:15), then live app | Raise Reserve minimum from 1% to 25%, read `Allocation mandate: NO FEASIBLE MIX`, then reset to 1% and read `PASS`. |
-| 0:50-1:35 | Baseline and mandate verdict table | Explain the allocation range and which rules pass or fail. |
-| 1:35-2:25 | Frozen holdout panel | Show development and holdout gross/net results and the failure rule. |
-| 2:25-3:25 | App decision gates and risk controls | Defend the recommendation, assumptions, costs, and monitoring triggers with the app on screen. |
-| 3:25-4:20 | Reserve and exposure details | Explain the condition most likely to reverse the decision and disclose the derivative boundary. |
+| 0:00-1:05 | Two statements, then live app | Show `NO FEASIBLE MIX` at 9%; click Auto-Pass to apply 7.7% and show numerical `PASS`, full-process `REJECT / REDESIGN`, and frozen holdout gross/net. Use the restore button. |
+| 1:05-1:55 | Ten-fund selector and SGOV/FBTC controls | Defend fund roles, reserve choice, bitcoin cap, and VOO/VTI overlap. |
+| 1:55-2:50 | Mandate finder | Explain the restored equal-weight return and bitcoin boundaries without endorsing weaker policy. |
+| 2:50-3:40 | Data source and quality gate | Explain Close/Last versus total return and unverified assumptions. |
+| 3:40-4:20 | Full-process button and holdout gates | Show the blocker list and explain turnover and after-cost holdout failure. |
 | 4:20-end | Committee ask | End with reject/redesign plus the conditions that would reverse the decision. |
 
 Use `video-3-script.txt` as the spoken outline. Lead with the decision, not the build process.

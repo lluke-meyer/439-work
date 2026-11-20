@@ -1,65 +1,69 @@
 PROJECT: FIN 43900 Project 2 - Portfolio Decision Workbench
 STUDENT: Luke Meyer
-VIDEO: 3 Committee Presentation
-STATUS: WORKING RECORDING SCRIPT - replace with corrected transcript after recording
+VIDEO: 3 Investment Committee Presentation
+STATUS: WORKING RECORDING OUTLINE - replace with corrected transcript after recording
 STABLE VIDEO ID/URL: pending
 TITLE: Project 2 Investment Committee Decision | Reject / Redesign
-DURATION: pending
-REPOSITORY COMMIT/FROZEN VERSION: pending
-SCREEN CUES: Production notes only. Do not read aloud or copy into the corrected transcript.
-OPEN BEFORE RECORDING: the running app in one browser window; keep the memo and this script
-in an unshared window or on your phone.
+DURATION: pending; hard stop 5:00
+FROZEN REPOSITORY COMMIT: pending
+SCREEN CUES: Production notes only. Do not read them aloud.
+OPEN BEFORE RECORDING: Running app at bundled inputs, all ten funds selected, 9% objective.
+Keep webcam and app visible. Practice the control changes and restore the 9% base.
 
-SCREEN 00:00 - Running app at default inputs, with the hero and sidebar "Portfolio mandate"
-visible. Keep the app as the main visual throughout this video.
-[00:00] Luke Meyer: AI announcement: I used OpenAI Codex to help write the app, tests, documents,
-and this outline. My voice, checks, and committee decision are mine. This is a FIN 43900 course
-project, not investment advice.
+SCREEN 00:00 - Portfolio review header, pinned verdict strip, and objective control visible.
+[00:00] Luke Meyer: I used OpenAI Codex to help build and document this app. I checked the
+work and the committee decision is mine. This is a FIN 439 course project for learning,
+not investment advice.
 
-SCREEN 00:15 - Running app sidebar > "Portfolio mandate" > Reserve minimum (%): change
-1 to 25, read the hero's NO FEASIBLE MIX verdict, then restore 1 and read PASS.
-[00:15] Luke Meyer: In the live app, I am raising the reserve minimum from one percent to
-twenty-five percent. The allocation mandate flips from PASS to NO FEASIBLE MIX. I am returning
-the control to one percent; the allocation passes again. The full process still says REJECT /
-REDESIGN.
+SCREEN 00:15 - Live demo. Read NO FEASIBLE MIX at 9%. Click Auto-Pass numerical mandate
+and show its 7.7% target, selected weights, numerical PASS, and unchanged full-process
+REJECT / REDESIGN. Open frozen holdout table and show holdout gross -5.52%, net -6.09%, and buy-and-hold -2.09%.
+Use "Restore inputs before Auto-Pass" after showing the result.
+[00:15] Luke Meyer: At the working nine-percent target, this ten-fund selection has no
+feasible mix under the ten-percent bitcoin cap. Auto-Pass keeps the reserve and risk
+limits, finds the highest scenario return on this grid, and lowers the target to seven
+point seven percent. The allocation flips to PASS; the full-process gate stays
+REJECT / REDESIGN. Here is the frozen holdout: minus 5.52 percent gross, minus 6.09
+percent net, against minus 2.09 percent for buy-and-hold. I restore the original inputs.
+The lower target is a test, not my recommended mandate.
 
-SCREEN 00:50 - Running app > "The proposed mix" > current allocation and
-"Baseline and mandate verdicts"; keep the two-layer hero decision in view when possible.
-[00:50] Luke Meyer: My current recommendation is reject/redesign under a five-year horizon,
-quarterly review, and annual core rebalance. The six-fund search currently
-produces 20% TLT, 10% SOXX, 30% VTI, and 40% VXUS, with a 9.19% estimated return, 15.45% estimated
-volatility, and a 20% reserve proxy. The product's key decision feature is that allocation
-feasibility and process approval are separate. The selected allocation passes the displayed mandate controls, but the
-full process gate still rejects adoption because the evidence checks apply to all themes. Under the
-bundled estimates, one of ten starting themes is allocation-feasible. The baselines are visible
-beside it so the committee can see the tradeoff.
+SCREEN 01:05 - Briefly expand the committee walkthrough, then show all ten funds and the SGOV/FBTC controls.
+[01:05] Luke Meyer: My committee ask is reject adoption and redesign. I chose a ten-fund
+universe: VOO, VTI, VNQ, VWO, FBTC, FBND, FIVA, SGOV, TLT, and TIP. All ten
+are selected at startup. TLT and TIP can receive zero weight. VOO and VTI overlap,
+so I make that visible. FBTC gets its own ten-percent cap because it is a single-asset
+bitcoin product. Only SGOV counts toward the reserve; TLT is long-duration exposure.
+The walkthrough keeps the committee steps in order, and the verdict stays visible as I scroll.
 
-SCREEN 01:35 - Running app > "The frozen signal and its holdout" >
-"Frozen classroom rule" gross/net table and failure warning.
-[01:35] Luke Meyer: The frozen signal produced 6.55% development gross and 6.13% net. The holdout
-produced -5.52% gross and -6.09% net versus -2.09% for buy-and-hold. The failure rule triggers. That result is a reason not
-to adopt the signal as presented, not a reason to hide it behind the portfolio allocation.
+SCREEN 01:55 - "What mandate would accept this mix?" Keep the restored equal-weight row and
+return/bitcoin limits legible.
+[01:55] Luke Meyer: This is the feature I wanted to add. Instead of only asking whether
+the portfolio passes a preset mandate, I ask what limits this exact mix would need.
+For the equal-weight ten-fund mix, the return target could be no higher than six point
+four five percent, while bitcoin stays at ten percent. That is a compatibility check,
+not a case for weakening my nine-percent working target. Auto-Pass gave me a separate
+bounded sensitivity, and neither result repairs the failed process.
 
-SCREEN 02:25 - Running app > "Why the committee call holds" > gate table, TLT/SGOV
-reserve note, and derivative-risk disclosure. Use "Overlap review" if time allows.
-[02:25] Luke Meyer: The main condition is reserve eligibility. TLT is a long-duration Treasury fund,
-not automatically cash. SGOV is the cleaner reserve candidate, but its observed price history still
-needs to be supplied for full risk evidence. If the reserve evidence fails, I would pause the pilot
-until the committee approves an eligible liquid reserve and the final mandate controls.
+SCREEN 02:50 - Price source, data-quality gate, and overlap review.
+[02:50] Luke Meyer: The new fund panel has thirty-three common month-end closing prices
+from January 2024 through September 2026. They exclude distributions. That is especially
+important for SGOV and the bond and real-estate funds. I use those prices for risk
+screens, but the return figures are editable scenario assumptions, not verified
+forecasts. Data quality stays at REVIEW. Correlation and broad-bucket overlap are
+screens too; they do not replace holdings-level issuer checks.
 
-SCREEN 03:25 - Running app sidebar > "Portfolio mandate" > Objective return (%): change
-9.0 to 10.5; then "Ten starting themes" shows all ten NO FEASIBLE MIX. This is a live
-replay of the historical sensitivity, not the original AI-off run. Restore 9.0 before closing.
-[03:25] Luke Meyer: I would also reverse the decision toward adoption only if the point-in-time
-signal, leakage diagnostic, costs, and holdout support the same action. In my AI-off objective
-stress, raising the return target to 10.5% made all ten themes infeasible; the process decision
-remained reject/redesign. If the holdout failure remains or a hard mandate constraint fails, I
-would reject or redesign the process.
+SCREEN 03:40 - Full-process gate and frozen holdout.
+[03:40] Luke Meyer: The separate classroom timing rule switches between equity and bills.
+Its development result was positive, but four full-position switches imply four hundred
+percent one-way turnover against a twenty-five-percent limit. The untouched holdout lost
+more after costs than buy-and-hold. Changing fund weights or return targets cannot repair
+that evidence. The full-process button shows the blockers and required work; it cannot
+grant a pass. The rule needs a redesign and a new, frozen test.
 
-SCREEN 04:15 - Running app hero or "Why the committee call holds" with the default
-REJECT / REDESIGN decision visible.
-[04:15] Luke Meyer: My committee ask is to reject adoption and return the process for redesign. I
-would reverse that decision only after the reserve, point-in-time, derivative-risk, cost, turnover,
-and holdout conditions are verified.
+SCREEN 04:20 - Decision hero and memo reversal conditions.
+[04:20] Luke Meyer: I would bring a revised proposal back only with verified total-return
+data and defensible return assumptions, an approved reserve and liquidity policy, issuer
+look-through, and a process that passes turnover and an untouched after-cost holdout.
+Until then, my recommendation is reject adoption and redesign.
 
-END OF WORKING RECORDING SCRIPT
+END OF WORKING RECORDING OUTLINE

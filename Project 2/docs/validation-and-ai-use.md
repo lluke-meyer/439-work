@@ -1,172 +1,170 @@
-AI announcement: I used OpenAI Codex to help organize the Project 2 application, calculations, and documentation. I independently review the evidence, checks, and recommendation; the analysis and decision remain mine.
+AI announcement: I used OpenAI Codex to help build, test, and document the Project 2 app. I must independently review the evidence, checks, and decision; those judgments are mine.
 
-Education, not investment advice: This is a FIN 43900 course project and learning demonstration, not investment advice.
+Education, not investment advice: This is a FIN 43900 learning demonstration, not investment advice.
 
 # Project 2 Validation and AI Use - Working Record
 
-## Run identity
+## Current run identity
 
-- Working repository: `439-work`
-- Working path: `Project 2/`
-- Reproduction command from repository root: `./.venv/bin/python -m streamlit run "Project 2/app.py"`
-- Current evidence boundary: bundled monthly adjusted-close prices through September 1, 2026;
-  classroom signal data through June 2026.
-- Optional live source: Yahoo Finance public chart endpoint, cached for one hour; record the
-  retrieval date, lookback, source status, and fallback status before treating live output as evidence.
-- User flow: decision-first hero, data source, six-fund theme, 3-10 fund count, editable
-  assumptions, mandate gate, overlap audit, allocation results, baselines, and holdout evidence.
-- Working mandate: five-year investment horizon, quarterly committee review, annual core-portfolio
-  rebalance; 9% estimated return target before trading costs, 1% reserve floor, 30% drawdown review trigger,
-  75% liquidity within 10 business days, 25% annual one-way turnover limit, 40% maximum long ticker
-  weight, 10% maximum short ticker weight, 110% gross-exposure ceiling, 60% broad-exposure overlap
-  cap, and 70% high-correlation pair cap. Derivatives are permitted for hedging but not priced in
-  this app.
-- Mandate provenance: these are analyst-proposed Project 2 working controls, separate from the
-  Lab 13 Meridian teaching case. The committee has not approved implementation.
-- The 30% drawdown trigger is the post-Lab-20 mandate revision for the requested moderately risky/risky
-  posture. The historical 10.50% changed-input run remains recorded under its original 25% trigger.
-- Final frozen commit: not created; final mandate, recordings, and publication remain open.
+- Repository: `439-work/Project 2/`; run from the repository root with
+  `./.venv/bin/python -m streamlit run "Project 2/app.py"`.
+- Data boundary: ten Nasdaq month-end `Close/Last` prices from January 31, 2024, through
+  September 30, 2026; 32 monthly price changes. The separate classroom signal ends June 2026.
+- [Price source and transform](../data/prices-source.md): source URL pattern, per-ticker raw
+  checksums, CSV checksum, common-window check, and the unadjusted-price limitation.
+- Ten-fund universe: VOO, VTI, VNQ, VWO, FBTC, FBND, FIVA, SGOV, TLT, TIP. All ten selected
+  at startup; TLT and TIP can be removed or receive zero weight. Only SGOV is reserve eligible by default. The
+  ten six-fund themes use this universe.
+- Annual return inputs are editable **illustrative scenario assumptions** in `portfolio.py`.
+  They are not calculated from the unadjusted price panel and are not verified forecasts.
+- Working base: 9% scenario return target, 1% SGOV reserve floor, 30% price-drawdown review
+  trigger, 40% general ticker cap, 10% FBTC cap, 60% broad-bucket cap, 70% high-correlation
+  pair cap, 10% short cap, 110% gross cap, 25% annual one-way turnover limit, and 75%
+  liquidity within 10 business days. Five-year horizon, quarterly review, annual core
+  rebalance. These controls still require committee approval.
 
-## Validation status
+## Current validation status
 
-| Required check | Current evidence | Status |
+| Required check | Evidence and result | Status |
 |---|---|---|
-| Known-answer/manual baselines | Lab 14 baseline and Lab 15 engine checks, integrated into the current app and covered by the test suite | Complete for classroom inputs |
-| Constraint and unit checks | Portfolio engine validates bounded net weights, gross exposure, covariance dimensions, correlations, bounds, ticker selection, and overlap buckets | Complete for current engine; holdings-level issuer and liquidity evidence pending |
-| Point-in-time and revision audit | Labs 16-17 provenance funnel and the linked Project 2 signal data card | Complete for the frozen classroom signal; the input is course-authored rather than a live production feed |
-| Naive benchmark and true holdout | Lab 18 classroom rule versus buy-and-hold, now visible in the Project 2 app | Complete for the frozen classroom rule |
-| Costs and stress run | Switch cost in the backtest; bounded lag/cost controls and TLT/SGOV reserve-flag stress in the app | Complete for the frozen rule; observed reserve history remains a review item |
-| Placebo/falsification test | Visible zero-lag leakage diagnostic; the one-month lag remains frozen | Complete as a falsification check, not a separate placebo |
-| Cold run and visible output | Peyton's November 17 README-only Windows pass stopped at `python3 -m venv .venv`; an AI-assisted PowerShell continuation reached the decision and changed a control. Luke confirms the remaining partner tasks were completed. See the [verbatim partner note](evidence/peyton-cold-run-rerun.md). | Partner handoff complete by Luke's confirmation; no separate post-fix rerun log supplied |
-| Highest-risk counterexample | Removing both reserve candidates produces no feasible mix under the 1% floor | App gate shows reject/redesign; TLT remains a provisional proxy and SGOV is preferred |
-| Ten-theme allocation audit | One of ten bundled-data themes produces an allocation-feasible mix under the bounded short/gross policy; the full process gate still rejects/redesigns | Complete as an allocation screen; process-level evidence remains unresolved |
-| Locked Changed-Input Record | Luke's November 15 AI-off prediction and subsequent result are recorded in `Post Project 1/Lab20/lab20_record.md` | Human prediction and result documented; the cited SHA does not establish a pre-run GitHub lock |
-| Independent AI-output check | The reserve-eligibility test was run and its limitation identified | Complete for this working record; the result was qualified rather than accepted as proof that TLT is cash |
+| Known-answer mechanics | Lab 14 classroom engine remains; twelve Project 2 unit/AppTest checks pass locally on November 19 | Local pass |
+| Ten-fund app and selected-fund limit | AppTest opens all ten selected funds with no exception/error | Local pass |
+| Mandate finder | Exact fixed-weight boundaries for return, SGOV reserve, ticker, FBTC, short, gross, bucket, pair, and drawdown; a three-fund known-answer case checks the math | Local pass; student review pending |
+| Numerical Auto-Pass | Finds the maximum scenario return under unchanged reserve/risk controls, applies weights and a rounded-down target, and restores prior inputs; a known-answer case checks the cap and reserve | Local pass; not a process PASS |
+| Full-process pass check | Rechecks every displayed gate and lists actions for FAIL/REVIEW; test confirms failed holdout, turnover, and missing data are not relabeled | Local pass; adoption still blocked |
+| Numerical base | At 9% target and 10% FBTC cap, default ten-fund search has `NO FEASIBLE MIX` under illustrative returns | Local result |
+| Changed-control sensitivity | At 7.5% target, the app displays allocation `PASS` while full process stays `REJECT / REDESIGN`; this is an AI-assisted local check, **not** the required AI-off locked run | Local result |
+| Estimation-window control | Bundled full 32-return and recent 24-return price-risk samples are selectable; a model test checks that volatility and correlations change | Local pass; price-only limitation remains |
+| Data integrity | Month-end common panel checks and SHA lineage are recorded; Close/Last excludes cash distributions, and no verified total-return panel is supplied | REVIEW, adoption blocked |
+| Overlap and concentration | VOO/VTI share a broad U.S. bucket; a correlation-pair screen is visible; FBTC has a separate 10% cap | Proxy screen only; holdings look-through pending |
+| Reserve | SGOV is the only working reserve candidate; TLT never counts as cash | Issuer mandate checked; final committee eligibility/liquidity review pending |
+| Point-in-time signal | One-month lag, selection ledger, zero-lag leakage diagnostic in [signal card](signal-data-card.md) | Classroom signal only |
+| Holdout and costs | Frozen development 6.13% net; holdout -6.09% net versus -2.09% buy-and-hold; 400% development one-way turnover versus 25% limit | FAIL, adoption blocked |
+| Partner cold run | Peyton's November 17 Windows run and first failure concern the earlier six-fund version; see [verbatim note](evidence/peyton-cold-run-rerun.md) | Retained as prior-version evidence; current ten-fund revision has no partner run |
+| Locked Changed-Input Record | November 15 AI-off prediction and result exist, but the cited base SHA was not a pre-run commit | Incomplete; fresh human prediction and pre-run commit required |
+| Checked AI output | The old TLT-reserve stress was qualified, then the new design removed TLT reserve eligibility | Human review of new data and mandate logic pending |
 
-## Data and transformation record
+## Data and calculation boundaries
 
-- Price input: `prices.csv`, monthly adjusted close, common window October 2021 through
-  September 2026.
-- Bundled price lineage: same six-ticker CSV as [Lab 15](../../Post%20Project%201/Lab15/prices.csv).
-  The [Lab 15 record](../../Post%20Project%201/Lab15/lab15_record.md) identifies Yahoo Finance
-  monthly chart data, an October 22, 2026 download, and 60 common monthly price observations.
-  The loader rejects missing, nonpositive, or unordered observations; it does not impute prices.
-- Fund universe: six observed default funds, with optional modeled SGOV, BND, VOO, and TIP candidates.
-  A real uploaded history or live Yahoo history takes precedence over a modeled candidate.
-- Return transformation: monthly price changes, annualized expected return as monthly mean times
-  12, annualized volatility as monthly sample standard deviation times square root of 12.
-- Portfolio search: bounded net weights on a ten-percentage-point grid under the default short and
-  gross-exposure policy; feasible portfolios must meet the objective return, reserve minimum, ticker
-  caps, gross-exposure ceiling, and overlap caps.
-- Overlap test: gross broad exposure buckets plus a pairwise high-correlation screen, not holdings-level
-  security overlap. U.S. equity beta currently groups VTI, SOXX, FREL, and VOO; pairs at or above
-  70% estimated correlation have a 70% combined-weight cap by default. Derivatives are disclosed
-  as hedge-permitted but remain outside the price-only allocation engine.
-- Signal timing: the frozen classroom rule uses a one-month lag so the signal must be available
-  before the position is selected.
-- Integration boundary: the equity-versus-bills classroom signal is a separate timing component;
-  its holdout does not measure realized performance of the selected six-ETF allocation. Both
-  components must clear their own evidence gates before committee adoption. Its monthly switches
-  would also require an explicit exception to the proposed annual core-rebalance schedule.
-- Signal data card and selection ledger: [`docs/signal-data-card.md`](signal-data-card.md) records the
-  event/availability boundary, threshold, universe, lag, cost, holdout, and zero-lag diagnostic.
-- Cost treatment: the classroom backtest subtracts a 0.10% switch cost whenever the position
-  changes.
-- Revision treatment: observations published after the decision date are excluded from the
-  point-in-time panel; later revisions are retained as a separate audit question.
+`data/prepare_nasdaq_monthly.py` takes the final common trading close each month and rejects
+missing months, inconsistent dates, or nonpositive closes. The loader rejects unordered,
+missing, and nonpositive prices; it does not impute. Volatility is monthly price-change sample
+standard deviation times square root of 12. Correlations and historical drawdown are also
+price-only. **Cash distributions are not included**, so the bundled series cannot validate
+economic return for SGOV, FBND, TLT, TIP, VNQ, or the full portfolio. The default return
+assumptions are scenario values chosen during app construction, not Luke's independent forecasts.
+The app shows a return-data-quality REVIEW gate and must not describe a numerical PASS as an
+adoptable portfolio.
 
-## Current validation results
+The fixed-weight mandate finder computes mathematical boundaries for a chosen, 100%-total
+weight vector. It does not search for a favorable policy or edit the working mandate. It
+reports the largest return target and reserve floor the mix can meet, plus the smallest
+permitted caps/tolerances. At the initial equal-weight ten-fund mix, the return ceiling is
+6.45% and the FBTC weight is 10%, so the 9% target fails while the 10% FBTC cap passes. The other
+numerical boundaries are shown in the app and in `outputs/visible-output.txt`. Even a
+numerically compatible mix cannot clear the separate frozen holdout, turnover, data-quality,
+issuer, liquidity, or derivative evidence by changing its mandate.
 
-The classroom holdout reproduced the known-answer result:
+The Auto-Pass button searches only the selected funds. It maximizes scenario return on
+the displayed weight grid, uses lower volatility to break return ties, and preserves the
+current reserve, ticker, bitcoin, overlap, short/gross, and drawdown controls. If needed,
+it lowers only the displayed return target to the nearest usable 0.1 percentage point.
+The default ten-fund run finds 7.75% scenario return and applies a 7.7% target with
+VOO 40%, VTI 20%, FBTC 10%, FIVA 20%, and SGOV 10%. The numerical allocation becomes
+PASS, but the frozen process remains REJECT / REDESIGN. This sensitivity does not
+approve changing the working 9% mandate or validate the return assumptions.
+The adjacent full-process pass check reports each current FAIL and REVIEW with the
+missing work. It does not alter gate statuses, thresholds, or the frozen holdout. A new
+untouched test period and verified data cannot be generated by clicking a button.
 
-| Period | Rule gross | Rule net | Buy-and-hold | Decision |
-|---|---:|---:|---:|---|
-| Development | 6.55% | 6.13% | 5.33% | Development success |
-| Holdout | -5.52% | -6.09% | -2.09% | Failure rule triggered |
+The ten-theme audit uses the same scenario returns and constraints. Numerical allocation
+results are scenario screens. Neither its favorable themes nor the short 2024-2026 price
+window establish out-of-sample returns for the new ETF composition.
 
-Under the final controls, the default six-fund run provisionally allows TLT as the reserve proxy.
-The constrained search produces 20% TLT, 10% SOXX, 30% VTI, and 40% VXUS, with a 9.19% estimated
-return and 15.45% estimated volatility. The high-correlation VTI/VXUS pair is capped at a 70%
-combined weight. The bounded short/gross controls are available, but this default result does not
-need a short position. That is a sensitivity scenario, not proof that TLT qualifies as the $1 million
-reserve.
+## Frozen classroom rule and decision
 
-## Partner cold-run evidence - November 17, 2026
+| Period | Gross | Net after 0.10% per switch | Buy-and-hold | Switches |
+|---|---:|---:|---:|---:|
+| Development | 6.55% | 6.13% | 5.33% | 4 |
+| Holdout | -5.52% | -6.09% | -2.09% | 6 |
 
-Peyton's [completed note](evidence/peyton-cold-run-rerun.md) records a fresh ZIP of commit
-`813865ced5ca2e38ec33cebf0086d713ea79ce00`. On Windows PowerShell, the README-only first
-pass stopped after about 40 seconds at `python3 -m venv .venv`: `python3` resolved to the
-WindowsApps alias, and the README supplied only Bash commands. The subsequent run used Windows
-commands with Codex assistance. It reached the decision after approximately 6 minutes 23 seconds
-from README review; that time includes installation, tool delays, and browser assistance.
+The monthly equity-versus-bills rule is separate from the ten-fund ETF composition. It uses
+a one-month availability lag. Its zero-lag development net of 17.72% is a rejected leakage
+diagnostic, not a candidate strategy. The failed holdout and 400% one-way development
+turnover support `REJECT / REDESIGN`. The working mandate does not become suitable merely
+because a lower return hurdle admits a numerical mix.
 
-In the assisted continuation, the default 9% objective showed allocation `PASS`, full process
-`REJECT / REDESIGN`, and 9.19% estimated return. Raising the objective to 10% kept the two
-verdicts, with 10.18% estimated return. Frozen holdout net remained -6.09% against -2.09%
-buy-and-hold. Peyton's Windows test run reported eight passing tests and no app exception. The
-full-process metric text was truncated at the tested window widths, although the full verdict
-remained readable elsewhere on the page.
-Luke confirmed that he explained `expected_portfolio_return` to Peyton without AI; Peyton's
-note records the asset-alignment question and answer.
+## Historical partner and changed-input records
 
-The README now includes the Windows commands that worked in the assisted continuation, published
-in [commit `6782c19`](https://github.com/lluke-meyer/439-work/commit/6782c19c06301cf579d76198e184a55dc1057742). Luke confirmed on
-November 17 that Peyton completed the remaining partner tasks. The supplied note predates that
-confirmation and does not document separate commands, timing, or observations from a post-fix
-README-only rerun. Peyton's code question also identified that `expected_portfolio_return` checks
-vector lengths but relies on the caller to keep asset order aligned; no wrong-order result was
-observed.
+Peyton's November 17 [note](evidence/peyton-cold-run-rerun.md) preserves the original Windows
+README setup failure and AI-assisted continuation. Luke confirmed that Peyton later completed
+the remaining partner tasks, but the supplied note does not document a separate post-fix
+README-only rerun. The Windows README fix was published in commit `6782c19`. This evidence
+applies to the prior six-fund version. It is not a cold run of the current ten-fund app.
+Luke is using that earlier partner run as the available partner evidence. Local automated
+checks and Luke's pending on-screen review cover the revised version, with this scope
+distinction preserved for the grader.
 
-## Final decision
+Luke's November 15 [Lab 20 record](../../Post%20Project%201/Lab20/lab20_record.md) preserves
+an AI-off prediction before changing the old objective from 9.00% to 10.50%, the observed
+theme-pass decrease, and the unchanged reject/redesign decision. Its cited `44ee60e` SHA was
+only the base HEAD while Project 2 was uncommitted. Commit `813865c` came after the run.
+Neither proves a **pre-run committed prediction**. The historical result remains accurate,
+but the Project 2 Locked Changed-Input Record is incomplete. Luke must write a new AI-off
+prediction with units, expected direction, finance mechanism, and expected decision effect;
+commit it before the run; then record exact before/after outputs, actual direction, decision
+effect, and diagnosis. No assistant-authored prediction or retrospective timestamp will
+stand in for that step.
 
-The selected allocation passes the displayed portfolio mandate. The full process remains
-`REJECT / REDESIGN` - do not adopt or fund a live pilot while turnover, frozen holdout, reserve,
-liquidity, issuer, point-in-time, or derivative-governance evidence remains open. Reverse the
-decision only after those checks pass and the final recording and repository commit are frozen.
+## Locked Changed-Input Record - pending human AI-off entry
 
-## Locked Changed-Input Record
+This test is reserved for Luke's independent prediction. The app baseline is frozen before
+this section is filled. Do not use Auto-Pass while recording the test: it changes both the
+return target and weights.
 
-Luke wrote the bundled-data Lab 20 prediction without AI on November 15 before changing the
-objective-return input. The result and decision effect were recorded afterward. This supports
-the AI-off prediction and sensitivity finding. The cited `44ee60e` SHA was the base HEAD while
-Project 2 was uncommitted; it does not establish the rubric's separate pre-run GitHub lock. A
-review of the current branch history found no other commit containing this prediction before
-the run:
+| Test setup | Frozen value |
+|---|---|
+| Price source and window | Bundled ten-fund CSV; full 32 monthly price changes |
+| Fund selection | All ten funds selected |
+| Scenario target and reserve minimum | 7.5% annual return; 1% SGOV reserve |
+| Chosen weights, entered manually before the base observation | VOO 40%, VTI 20%, FBTC 10%, FIVA 20%, SGOV 10%; other five 0% |
+| Single changed control | Maximum ticker weight: 40% to 30% |
+| All other controls | Keep the app defaults, including the separate 10% FBTC cap |
 
-- Input changed: Objective Return
-- Units: Annual percentage
-- Old value: 9.00%
-- New value: 10.50%
-- Prediction timestamp: 11/15/2026 @ 6:45 PM
-- Base commit at the time, not a committed Project 2 prediction: 44ee60ecada51f6751c5d4490a68463f6ebb2431
-- Expected output direction: Down
-- Expected decision effect: Fewer portfolios will achieve "Pass" status
-- Actual output direction: Down
-- Actual decision effect: Fewer portfolios achieved "Pass" status. Zero "themed" portfolios achieved "Pass" status.
-- Matched or diverged: Matched
-- Failure diagnosis or reason for no change: Raising the objective to 10.50% made the allocation screen stricter. The default six-fund result still passed the return gate at 10.68%, but all ten theme portfolios returned `NO FEASIBLE MIX` under the reserve, ticker-weight, overlap, bounded-exposure, and allocation-step constraints. The full process gate remained `REJECT / REDESIGN` because the drawdown, turnover, and frozen holdout checks still failed.
+**Before opening or running the changed case, Luke fills these lines with AI closed,
+then commits and pushes this file:**
 
-The original frozen rule and holdout remain locked evidence. A changed lag, cost, or estimate is a
-sensitivity scenario, not permission to retune the holdout.
+- AI-off prediction written at (date, time, time zone): [Luke fills in]
+- Expected change in a named output (direction, rough size, and units): [Luke fills in]
+- Finance reason for that direction: [Luke fills in]
+- Expected effect on the numerical allocation verdict and full-process decision: [Luke fills in]
+- Pre-run prediction commit SHA and GitHub link: [add after the prediction commit; do not amend it after the run]
+
+**After the prediction commit is visible on GitHub and the base/changed cases are run:**
+
+- Base output, with units and screenshot or visible-output evidence: [pending]
+- Changed output, with units and screenshot or visible-output evidence: [pending]
+- Actual direction and size versus prediction: [pending]
+- Numerical and full-process decision effect: [pending]
+- Mismatch diagnosis, or why the result did not change: [pending]
 
 ## Named AI-use register
 
-| Tool/model | Interaction date | Material use | Independent disposition |
+| Tool/model | Date | Material use | Disposition |
 |---|---|---|---|
-| OpenAI Codex (model identifier not exposed in the repository) | October 22, 2026 | Helped build the Lab 15 portfolio engine and six-fund price application carried into Project 2 | Accepted the known-answer mechanics after the Lab 15 checks; qualified TLT as a long-duration proxy rather than cash |
-| OpenAI Codex (model identifier not exposed in the repository) | November 15-17, 2026 | Helped integrate the ETF allocator, frozen classroom backtest, Streamlit app, tests, and Project 2 documentation | Accepted the runnable calculations after eight tests and app checks; rejected adoption because turnover and holdout fail |
-| OpenAI Codex (model identifier not exposed in the repository) | November 15, 2026 | Proposed the reserve-eligibility stress test | Qualified: removing the reserve flag shows classification is load-bearing, but does not establish that TLT is cash-equivalent |
-| OpenAI Codex (model identifier not exposed in the repository) | November 17, 2026 | Helped correct the Windows README instructions and prepare the recording guide and scripts after Peyton's note | Accepted the Windows commands shown to work in the assisted continuation; preserved the original first failure and the lack of a separate post-fix log |
+| OpenAI Codex (exposed model ID not recorded) | October-November 2026 | Built Lab 15 engine and integrated earlier six-fund Project 2 app and classroom signal | Known-answer and local app checks passed; full process rejected on holdout and turnover |
+| OpenAI Codex (exposed model ID not recorded) | November 15, 2026 | Suggested TLT reserve-eligibility stress | Qualified; the test showed classification mattered but did not prove TLT was cash |
+| OpenAI Codex (exposed model ID not recorded) | November 17, 2026 | Helped repair Windows README and draft recording package after Peyton's note | Accepted supported setup fix; no independent post-fix log inferred |
+| OpenAI Codex (exposed model ID not recorded) | November 19, 2026 | Helped replace the fund universe, prepare Nasdaq price-only panel, add FBTC cap and inverse mandate finder, and update tests/docs | Local nine-test and AppTest checks recorded; data-quality REVIEW and human validation remain open |
+| OpenAI Codex (exposed model ID not recorded) | November 19, 2026 | Helped add numerical Auto-Pass, the full-process pass check, and the floating verdict layout | Local eleven-test and AppTest checks recorded; process and data gates remain open |
+| OpenAI Codex (exposed model ID not recorded) | November 19, 2026 | Added a selectable 24-return estimation window and prepared an empty locked-input record | Twelve local tests passed; Luke's prediction and changed run remain pending |
 
-These entries group material uses by task and date. The exposed model identifier was not recorded;
-the repository does not infer one. Peyton's AI-assisted continuation is attributed to him in his
-[verbatim note](evidence/peyton-cold-run-rerun.md), not presented as Luke's independent run.
+## Freeze checklist
 
-## Reproducibility and access checklist
-
-- [x] README contains a one-command local run for the current prototype.
-- [x] Visible output is available through the Streamlit app and Lab 15 record.
-- [x] Final app shows baselines, mandate verdicts, frozen holdout gross/net, bounded controls, and the leakage diagnostic.
-- [x] Partner handoff completed per Luke's November 17 confirmation; the original setup failure and assisted run are documented, but no separate post-fix rerun log was supplied.
-- [ ] Final visible output, memo, and videos use the same numbers and dates.
-- [x] No passwords, API keys, tokens, credentials, or private data are committed.
+- [x] Ten-fund source panel and calculation boundary disclosed.
+- [x] Current numerical base and full-process decision displayed together.
+- [ ] Human-authored AI-off prediction committed **before** a new changed-input run.
+- [x] Prior-version partner cold run retained with its scope disclosed; no current-version partner run claimed.
+- [ ] Luke reviews the revised app and mandate finder on screen.
+- [ ] Verified total-return history and independently justified return assumptions for an adoptable proposal.
+- [ ] Revised recordings, corrected transcripts, stable links/durations, and final commit/access check.

@@ -1,68 +1,66 @@
 PROJECT: FIN 43900 Project 2 - Portfolio Decision Workbench
 STUDENT: Luke Meyer
 VIDEO: 2 Codebase Walkthrough
-STATUS: WORKING RECORDING SCRIPT - replace with corrected transcript after recording
+STATUS: WORKING RECORDING OUTLINE - replace with corrected transcript after recording
 STABLE VIDEO ID/URL: pending
 TITLE: Project 2 Portfolio Decision | Code, Data Flow, and Validation
-DURATION: pending
-REPOSITORY COMMIT/FROZEN VERSION: pending
-SCREEN CUES: Production notes only. Do not read aloud or copy into the corrected transcript.
-OPEN BEFORE RECORDING: Project 2 GitHub directory, README.md, portfolio.py, market_data.py,
-backtest.py, app.py, tests/, outputs/visible-output.txt, and the running app as browser tabs.
-Keep this script in an unshared window or on your phone.
+DURATION: pending; hard stop 5:00
+FROZEN REPOSITORY COMMIT: pending
+SCREEN CUES: Production notes only. Do not read them aloud.
+OPEN BEFORE RECORDING: README, data/prices-source.md, portfolio.py,
+mandate_finder.py, backtest.py, tests/, visible-output.txt, and running app.
 
-SCREEN 00:00 - Project 2/README.md, opening AI and education statements.
-[00:00] Luke Meyer: AI announcement: I used OpenAI Codex to help write the app, tests, documents,
-and this outline. My voice, checks, and committee decision are mine. This is a FIN 43900 course
-project, not investment advice.
+SCREEN 00:00 - README opening statements, then app hero.
+[00:00] Luke Meyer: I used OpenAI Codex to help build and document this app. I checked the
+work and the committee decision is mine. This is a FIN 439 course project for learning,
+not investment advice.
 
-SCREEN 00:15 - Project 2/README.md > "Decision and intended user" and
-"Current results and limitations".
-[00:15] Luke Meyer: This repository supports a reject-or-redesign decision for an investment
-committee. The highest-risk claim is that the proposed process can satisfy its mandate and produce
-a useful allocation after timing, constraints, costs, bounded shorting, and exposure limits are applied.
+[00:15] Luke Meyer: The app answers two questions. Does a chosen fund mix clear the
+numerical mandate? And does the evidence support adopting the process? At the nine-percent
+working target, the first answer is no. The second is reject and redesign. A different
+return target can flip the allocation result without fixing the process.
 
-SCREEN 00:42 - Project 2/README.md > "Repository map"; then the GitHub Project 2/
-directory with portfolio.py, market_data.py, backtest.py, app.py, tests/, and outputs/.
-[00:42] Luke Meyer: The repository has four main Python files. `portfolio.py` contains the
-portfolio calculations and constrained search. `market_data.py` handles the optional public Yahoo
-Finance monthly pull. `backtest.py` contains the lagged, cost-adjusted development and holdout
-calculation. `app.py` is the Streamlit interface that calls the engines. The tests folder checks the
-known-answer model, live-data adapter shape, and application rendering, while `outputs` contains the
-visible executed result.
+SCREEN 00:45 - README repository map, then prices.csv and data/prices-source.md.
+[00:45] Luke Meyer: The portfolio engine is in portfolio.py, the inverse mandate check
+in mandate_finder.py, the Auto-Pass search in auto_pass.py, the separate timing test in
+backtest.py, and the interface in app.py.
+I replaced the old six-fund default with ten funds I can defend as different roles. The
+frozen price file has thirty-three common month-end Nasdaq closes. The transform checks
+the same dates across funds, positive prices, and source checksums. These are closing
+prices, not dividend-adjusted total returns. I do not turn their raw price changes into
+return forecasts for the bond and reserve funds.
 
-SCREEN 01:22 - Project 2/portfolio.py > estimate_from_prices(), equal_weight(),
-inverse_volatility(), and search_lowest_risk_mix(); then Project 2/app.py >
-"Ten starting themes" if time allows.
-[01:22] Luke Meyer: The bundled or live price history becomes monthly returns, annualized estimates,
-correlations, and covariance. The default bounded-short policy uses ten-point allocation steps so
-the app stays usable. The theme audit runs all ten six-fund starting universes under the same return,
-reserve, ticker, gross-exposure, and overlap controls. Equal-weight and inverse-volatility baselines
-use the same estimates and receive the same visible mandate verdict. Derivative hedging is disclosed,
-but contract-level risk is outside this price-only engine.
+SCREEN 01:35 - portfolio.py constants, correlation/volatility and search functions.
+[01:35] Luke Meyer: These return inputs are labeled scenario assumptions and can be edited.
+The engine estimates price volatility and covariance from the common window, searches
+bounded allocations, and checks the return target, SGOV reserve, general ticker cap,
+separate FBTC cap, gross and short exposure, and two overlap screens. VOO and VTI
+share a broad U.S. equity bucket. TLT cannot be marked as cash. The default nine-percent
+target has no feasible mix; that is a valid output, not a code failure.
 
-SCREEN 02:17 - Project 2/backtest.py > _period_result() and run_backtest(); then
-Project 2/app.py > the locked_backtest and adjusted_backtest calls.
-[02:17] Luke Meyer: The backtest applies the signal lag before selecting a position, charges the
-switch cost, and reports development and holdout gross and net results against buy-and-hold. The
-one-month lag and 0.10% switch cost are preserved as the frozen classroom result; the sidebar
-controls run bounded sensitivity scenarios without retuning the holdout.
+SCREEN 02:25 - mandate_finder.py, auto_pass.py, then the app's chosen-weight table.
+[02:25] Luke Meyer: The fixed-weight finder calculates the limits a chosen mix needs.
+The equal-weight ten-fund mix supports only a six point four five percent return hurdle;
+its bitcoin weight does meet the ten-percent cap. Auto-Pass instead searches the selected
+funds on the same weight grid. It keeps the risk limits and finds a seven point seven five
+percent scenario return, so the button applies a seven point seven percent target.
+That numerical PASS does not repair the separate process failures.
 
-SCREEN 03:07 - Project 2/README.md > "Setup and run" and "Reproduce the validation output";
-show the test command and Project 2/outputs/visible-output.txt >
-"Mandate-survival gate" and "Frozen classroom signal holdout".
-[03:07] Luke Meyer: A clean user can run the application with Streamlit or run the test suite with
-`python -m unittest discover -s tests -v`. The visible output shows the current inputs, data source,
-theme audit, baseline verdicts, allocation, and holdout result without requiring the grader to infer
-the decision from source code.
+SCREEN 03:20 - backtest.py, frozen result, leakage diagnostic.
+[03:20] Luke Meyer: Backtest.py is a separate equity-versus-bills classroom rule, not the
+realized return of the ten-fund portfolio. The signal uses a one-month lag and charges
+point-one percent per switch. The zero-lag development figure is a rejected look-ahead
+diagnostic. The frozen holdout is minus 6.09 percent net, worse than minus 2.09 percent
+buy-and-hold. Four development switches imply four hundred percent one-way turnover,
+above the twenty-five-percent working limit. The full-process pass check lists these
+failures and the missing evidence; it does not rewrite the frozen result.
 
-SCREEN 03:57 - Project 2/app.py > gate_rows and gate_decision; then the running app >
-"Build the portfolio" > "Edit fund estimates and reserve flags". Uncheck TLT's Reserve
-eligible box to show NO FEASIBLE MIX; recheck it before ending.
-[03:57] Luke Meyer: The highest-risk limitation is the reserve classification. Removing the TLT
-reserve proxy creates no feasible portfolio under the current 1% working minimum. SGOV is the
-preferred reserve candidate, but it needs observed history or a verified uploaded file. The app
-therefore shows the limitation and keeps the current decision conditional rather than treating a
-proxy as a verified mandate fact.
+SCREEN 04:05 - tests/, outputs/visible-output.txt, then app hero.
+[04:05] Luke Meyer: The tests cover the classroom known answer, data adapter shape,
+ten-fund app rendering, inverse boundaries, and the verdict separation. The visible-output
+file gives a grader the frozen inputs and decision without running Streamlit. Peyton's
+partner run covered the prior version. I still need to check this revision on screen and
+complete my changed-input record before I freeze the submission. The code can calculate
+a compatible mandate; it cannot create trustworthy return data or a passing holdout.
 
-END OF WORKING RECORDING SCRIPT
+END OF WORKING RECORDING OUTLINE
