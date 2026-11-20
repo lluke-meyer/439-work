@@ -134,8 +134,8 @@ return target and weights.
 **Before opening or running the changed case, Luke fills these lines with AI closed,
 then commits and pushes this file:**
 
-- AI-off prediction written at (date, time, time zone): 11/18/2026, 7:38 PM EST
-- Expected change in a named output (direction, rough size, and units): Maximum ticker weight decreases from 40% to 30%
+- AI-off prediction written at (date, time, time zone): 11/19/2026, 8:00 PM EST
+- Expected change in a named output (direction, rough size, and units): Decrease in annual return around 1% and/or fewer portfolios achieve "Pass" status
 - Finance reason for that direction: Allows for more diversification in the portfolio. VOO was regularly weighted 40% in most portfolios and I want to see whether that remains true.
 - Expected effect on the numerical allocation verdict and full-process decision: I believe the return will fall and fewer portfolios will reach "Pass" status.
 - Pre-run prediction commit SHA and GitHub link: [add after the prediction commit; do not amend it after the run]
